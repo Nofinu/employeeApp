@@ -15,9 +15,54 @@ class ButtonHommePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height - 100;
+    Widget textContainer;
+
+    if (text.contains(" ")) {
+      int indexSpace = text.indexOf(" ");
+      String textFirst = text.substring(0, indexSpace);
+      String textSecond = text.substring(indexSpace + 1);
+
+      textContainer = Column(
+        children: [
+          Text(
+            textFirst,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          Text(
+            textSecond,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          )
+        ],
+      );
+    } else {
+      textContainer = Text(
+        text,
+        maxLines: 2,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onSurface,
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+        ),
+      );
+    }
+
     return SizedBox(
       width: 145,
-      height: 150,
+      height: screenHeight * 0.26,
       child: ElevatedButton(
         onPressed: () {
           Navigator.of(context).push(
@@ -35,20 +80,14 @@ class ButtonHommePage extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: 70,
+              size: screenHeight*0.1,
               color: Theme.of(context).colorScheme.onSurface,
             ),
             const SizedBox(
               height: 10,
             ),
-            Text(
-              text,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+            FittedBox(
+              child: textContainer,
             ),
           ],
         ),

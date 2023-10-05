@@ -65,7 +65,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.fromLTRB(0, 10, 0, screenHeight / 20),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, screenHeight *0.04),
             decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
                 borderRadius: const BorderRadiusDirectional.only(
@@ -90,7 +90,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
             ),
           ),
           SizedBox(
-            height: screenHeight / 20,
+            height: screenHeight *0.04,
           ),
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -110,7 +110,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
             ],
           ),
           SizedBox(
-            height: screenHeight / 10,
+            height: screenHeight *0.08,
           ),
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -122,7 +122,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                 route: MessageBoxScreen(),
               ),
               ButtonHommePage(
-                text: "Pointer",
+                text: "Gestion pointage",
                 icon: Icons.description_outlined,
                 color: Color.fromRGBO(203, 113, 30, 0.7),
                 route: ReportProblemeScreen(),

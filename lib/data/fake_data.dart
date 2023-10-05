@@ -12,7 +12,7 @@ const loginData = {
 };
 
 const user = [
-  User("toto", "tata", "https://utopios.solutions/wp-content/uploads/2023/09/Mohamed_AIJJOU.webp")
+  User("Mohamed", "AIJJOU", "https://utopios.solutions/wp-content/uploads/2023/09/Mohamed_AIJJOU.webp")
 ];
 
 const semaine =[

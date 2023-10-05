@@ -57,7 +57,6 @@ class _ExceptionalRequestState extends ConsumerState<ExceptionalRequest> {
 
   void onPressSend() {
     if (_formKey.currentState!.validate() && _selectedDate != null) {
-      print("passe");
       _formKey.currentState!.save();
 
       Request request = Request(
@@ -106,8 +105,7 @@ class _ExceptionalRequestState extends ConsumerState<ExceptionalRequest> {
                       ),
                     ),
                     validator: (value) {
-                      print(value);
-                      if (value == null || value!.length > 60) {
+                      if (value == null || value.length > 60) {
                         return "Saisissez un intitulé valide et inferieur a 60 caractères";
                       }
                       return null;

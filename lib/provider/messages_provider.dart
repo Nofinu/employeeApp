@@ -22,7 +22,6 @@ class MessageNotifier extends StateNotifier<List<Message>> {
   }
 
   void addMessage (Message message){
-    print(message);
     List<Message> copyMessage = state;
     copyMessage.add(message);
     copyMessage.sort((a,b)=> -1*(a.dateWritting.compareTo(b.dateWritting)));
