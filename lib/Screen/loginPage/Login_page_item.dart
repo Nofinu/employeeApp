@@ -12,17 +12,17 @@ class LoginPageItem extends StatelessWidget{
 
     final screenHeight = MediaQuery.of(context).size.height;
     final screenHeightBody = screenHeight - (screenHeight / 3);
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
-    var _email = "";
-    var _password = "";
+    var email = "";
+    var password = "";
 
     void _onLogin() {
-      if (_formKey.currentState!.validate()) {
+      if (formKey.currentState!.validate()) {
         //request connection to api with email and password
-        _formKey.currentState!.save();
-        if (_email == loginData["email"] &&
-            _password == loginData["password"]) {
+        formKey.currentState!.save();
+        if (email == loginData["email"] &&
+            password == loginData["password"]) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (ctx) => const HomePageScreen(),
@@ -39,12 +39,12 @@ class LoginPageItem extends StatelessWidget{
           );
         }
       }
-      _formKey.currentState!.reset();
+      formKey.currentState!.reset();
     }
 
     
     return Form(
-          key: _formKey,
+          key: formKey,
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -58,7 +58,7 @@ class LoginPageItem extends StatelessWidget{
                   horizontal: 30,
                 ),
                 child: TextFormField(
-                  initialValue: _email,
+                  initialValue: email,
                   style: const TextStyle(fontSize: 22),
                   decoration: InputDecoration(
                     label: const Text(
@@ -75,7 +75,7 @@ class LoginPageItem extends StatelessWidget{
                     return null;
                   },
                   onSaved: (value) {
-                    _email = value!;
+                    email = value!;
                   },
                 ),
               ),
@@ -106,7 +106,7 @@ class LoginPageItem extends StatelessWidget{
                     return null;
                   },
                   onSaved: (value) {
-                    _password = value!;
+                    password = value!;
                   },
                 ),
               ),
