@@ -15,7 +15,9 @@ class MessageBoxItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (ctx) => MessageBoxScreen(user: user,),
+            builder: (ctx) => MessageBoxScreen(
+              user: user,
+            ),
           ),
         );
       },
@@ -42,6 +44,10 @@ class MessageBoxItem extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                CircleAvatar(
+                  backgroundImage: NetworkImage(user.imageUrl),
+                  radius: 35,
+                ),
                 FittedBox(
                   child: Text(
                     user.firstname,
