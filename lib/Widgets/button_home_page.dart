@@ -62,7 +62,7 @@ class ButtonHommePage extends StatelessWidget {
 
     return SizedBox(
       width: 145,
-      height: screenHeight * 0.26,
+      height: screenHeight * 0.22,
       child: ElevatedButton(
         onPressed: () {
           Navigator.of(context).push(
