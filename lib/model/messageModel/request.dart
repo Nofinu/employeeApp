@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:tracker_app/Widgets/request_message_item.dart';
+import 'package:tracker_app/widgets/request_message_item.dart';
 import 'package:tracker_app/model/messageModel/message.dart';
 
 final formater = DateFormat.yMMMMd();

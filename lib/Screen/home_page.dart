@@ -5,7 +5,7 @@ import 'package:tracker_app/Screen/messageBox/message_box.dart';
 import 'package:tracker_app/Screen/presence_management.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
 import 'package:tracker_app/Screen/report_problem.dart';
-import 'package:tracker_app/Widgets/button_home_page.dart';
+import 'package:tracker_app/widgets/button_home_page.dart';
 import 'package:tracker_app/data/fake_data.dart';
 
 class HomePageScreen extends ConsumerStatefulWidget {
