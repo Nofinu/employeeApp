@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
 
 class ButtonHommePage extends StatelessWidget {
   const ButtonHommePage(
@@ -6,17 +7,20 @@ class ButtonHommePage extends StatelessWidget {
       required this.text,
       required this.icon,
       required this.color,
-      required this.route});
+      required this.route,
+      this.badgeValue});
 
   final String text;
   final IconData icon;
   final Color color;
   final Widget route;
+  final int? badgeValue;
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height - 100;
     Widget textContainer;
+    Widget iconButton;
 
     if (text.contains(" ")) {
       int indexSpace = text.indexOf(" ");
@@ -60,6 +64,30 @@ class ButtonHommePage extends StatelessWidget {
       );
     }
 
+    if (badgeValue != null) {
+      iconButton = badges.Badge(
+        position: badges.BadgePosition.custom(top: 4, start: 35),
+        badgeContent: Text(
+          badgeValue.toString(),
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontWeight: FontWeight.bold,
+              fontSize: 18),
+        ),
+        child: Icon(
+          icon,
+          size: screenHeight * 0.1,
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
+      );
+    } else {
+      iconButton = Icon(
+        icon,
+        size: screenHeight * 0.1,
+        color: Theme.of(context).colorScheme.onSurface,
+      );
+    }
+
     return SizedBox(
       width: 145,
       height: screenHeight * 0.22,
@@ -78,11 +106,7 @@ class ButtonHommePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              size: screenHeight*0.1,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
+            iconButton,
             const SizedBox(
               height: 10,
             ),

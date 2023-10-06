@@ -12,7 +12,8 @@ const loginData = {
 };
 
 const user = [
-  User("Mohamed", "AIJJOU", "https://utopios.solutions/wp-content/uploads/2023/09/Mohamed_AIJJOU.webp")
+  User("Mohamed", "AIJJOU", "https://utopios.solutions/wp-content/uploads/2023/09/Mohamed_AIJJOU.webp",false,"mohamed","123"),
+  User("Marine ", "ABADI", "https://utopios.solutions/wp-content/uploads/2023/09/Marine_ABADI.webp",true,"marine","123")
 ];
 
 const semaine =[
@@ -25,9 +26,9 @@ const semaine =[
 
 final messages = [
   Probleme(title: "probleme1", detail: "ceci est un premier probleme", dateWritting: DateTime.now(), writter: user[0], priority: Priority.low,),
-  Probleme(title: "probleme2", detail: "ceci est un premier probleme", dateWritting: DateTime(2022,10,2,15,30,0), writter: user[0], priority: Priority.medium,),
+  Probleme(title: "probleme2", detail: "ceci est un premier probleme", dateWritting: DateTime(2022,10,2,15,30,0), writter: user[1], priority: Priority.medium,),
   Request(title: "Request 1", detail: "ceci est une request", dateWritting: DateTime(2023,10,2,11,30,0), writter: user[0],requestDate: DateTime(2024  ,10,2,11,30,0)),
-  Probleme(title: "probleme3", detail: "ceci est un premier probleme", dateWritting: DateTime(2023,10,2,16,30,0), writter: user[0], priority: Priority.high,),
+  Probleme(title: "probleme3", detail: "ceci est un premier probleme", dateWritting: DateTime(2023,10,2,16,30,0), writter: user[1], priority: Priority.high,),
   Request(title: "Request 1", detail: "ceci est une request", dateWritting: DateTime(2023,10,2,11,30,0), writter: user[0],requestDate: DateTime(2024  ,10,2,11,30,0),isCheked: true,isvalidated: true  ),
 ];
 

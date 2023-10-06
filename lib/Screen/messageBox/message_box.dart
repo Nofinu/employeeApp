@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tracker_app/model/User.dart';
 import 'package:tracker_app/model/messageModel/Request.dart';
 import 'package:tracker_app/model/messageModel/message.dart';
 import 'package:tracker_app/provider/messages_provider.dart';
 
 class MessageBoxScreen extends ConsumerStatefulWidget {
-  const MessageBoxScreen({super.key});
+  const MessageBoxScreen({super.key,required this.user});
+
+  final User user;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
@@ -25,7 +28,9 @@ class _MessageBoxScreenState extends ConsumerState<MessageBoxScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Message> messagesTabs = ref.watch(messageProvider) ;
+    List<Message> messagesTabs = ref.watch(messageProvider);
+    messagesTabs = messagesTabs.where((message) => message.writter == widget.user,).toList();
+
 
     return Scaffold(
       appBar: AppBar(

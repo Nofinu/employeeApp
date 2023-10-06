@@ -6,7 +6,7 @@ import 'package:tracker_app/model/messageModel/Request.dart';
 
 final formater = DateFormat.yMMMMd().add_Hm();
 
-class Message {
+ abstract class Message {
   const Message ({required this.title, required this.detail, required this.dateWritting, required this.writter});
   final String title;
   final String detail;

@@ -63,6 +63,7 @@ class _RequestMessageItemState extends State<RequestMessageItem>{
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
+              elevation: 7,
               backgroundColor: const Color.fromRGBO(96, 185, 205, 1),
             ),
             onPressed: () {

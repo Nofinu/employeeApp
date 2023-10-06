@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/Screen/exceptional_request.dart';
+import 'package:tracker_app/Screen/messageBox/admin_message_box.dart';
+import 'package:tracker_app/Screen/messageBox/exceptional_request.dart';
 import 'package:tracker_app/Screen/messageBox/message_box.dart';
 import 'package:tracker_app/Screen/presence_management.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
 import 'package:tracker_app/Screen/report_problem.dart';
+import 'package:tracker_app/model/User.dart';
 import 'package:tracker_app/widgets/button_home_page.dart';
 import 'package:tracker_app/data/fake_data.dart';
 
@@ -21,6 +23,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height - 100;
+    final User userActive = user[1];
 
     return Scaffold(
       appBar: AppBar(
@@ -35,8 +38,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image(
-                      image: NetworkImage(
-                          user[0].imageUrl,scale: 1),
+                      image: NetworkImage(userActive.imageUrl, scale: 1),
                       fit: BoxFit.contain,
                     ))),
             onTap: () {
@@ -55,7 +57,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                 color: Theme.of(context).colorScheme.onBackground,
                 fontSize: 20),
           ),
-          Text("${user[0].firstname} ${user[0].lastname}",
+          Text("${userActive.firstname} ${userActive.lastname}",
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onBackground,
                   fontSize: 22)),
@@ -65,7 +67,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.fromLTRB(0, 10, 0, screenHeight *0.04),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, screenHeight * 0.04),
             decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
                 borderRadius: const BorderRadiusDirectional.only(
@@ -90,7 +92,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
             ),
           ),
           SizedBox(
-            height: screenHeight *0.04,
+            height: screenHeight * 0.04,
           ),
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -110,18 +112,26 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
             ],
           ),
           SizedBox(
-            height: screenHeight *0.08,
+            height: screenHeight * 0.08,
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ButtonHommePage(
-                text: "Messagerie",
-                icon: Icons.add_alert,
-                color: Color.fromRGBO(40, 221, 36, 0.7),
-                route: MessageBoxScreen(),
-              ),
-              ButtonHommePage(
+              userActive.isAdmin
+                  ? const ButtonHommePage(
+                      text: "Messagerie",
+                      icon: Icons.add_alert,
+                      color: Color.fromRGBO(40, 221, 36, 0.7),
+                      route: AdminMessageBoxScreen(),
+                      badgeValue: 10,
+                    )
+                  : ButtonHommePage(
+                      text: "Messagerie",
+                      icon: Icons.add_alert,
+                      color: const Color.fromRGBO(40, 221, 36, 0.7),
+                      route: MessageBoxScreen(user: userActive,),
+                    ),
+              const ButtonHommePage(
                 text: "Gestion pointage",
                 icon: Icons.description_outlined,
                 color: Color.fromRGBO(203, 113, 30, 0.7),
