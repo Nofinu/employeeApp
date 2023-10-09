@@ -29,11 +29,8 @@ class PresenceManagementScreen extends StatelessWidget {
           children: [
             for (var i = 0; i < listeDay.length; i++)
               DayItem(
-                typeOfWork: semaineList[i].type.name,
-                repos: semaineList[i].repos,
                 day: listeDay[i],
-                formation: semaineList[i].formation ?? semaineList[i].formation,
-                users: semaineList[i].users,
+                fakeday: semaineList[i],
               ),
           ],
         ),

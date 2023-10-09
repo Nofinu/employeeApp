@@ -28,11 +28,13 @@ class _AdminMessageBoxScreenState extends State<AdminMessageBoxScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          for(int i =0; i<user.length;i++)
-            MessageBoxItem(user: user[i]),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            for(int i =0; i<user.length;i++)
+              MessageBoxItem(user: user[i]),
+          ],
+        ),
       ),
     );
   }

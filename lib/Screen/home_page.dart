@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/Screen/messageBox/admin_message_box.dart';
 import 'package:tracker_app/Screen/messageBox/exceptional_request.dart';
 import 'package:tracker_app/Screen/messageBox/message_box.dart';
-import 'package:tracker_app/Screen/presence_management.dart';
+import 'package:tracker_app/Screen/presenceManagement/presence_management.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
 import 'package:tracker_app/Screen/report_problem.dart';
 import 'package:tracker_app/model/User.dart';
@@ -25,7 +25,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height - 100;
-    final User userActive = user[0];
+    final User userActive = user[1];
     Future((){
       ref.read(authProvider.notifier).setUser(userActive);
     });
