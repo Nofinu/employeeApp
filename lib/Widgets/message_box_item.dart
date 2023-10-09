@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tracker_app/Screen/messageBox/message_box.dart';
 import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/widgets/avatar.dart';
 
 class MessageBoxItem extends StatelessWidget {
-  const MessageBoxItem({super.key, required this.user});
+  const MessageBoxItem({super.key, this.user});
 
-  final User user;
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +43,13 @@ class MessageBoxItem extends StatelessWidget {
           children: [
             Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: user!=null? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
               children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(user.imageUrl),
-                  radius: 35,
-                ),
+                if(user != null) Avatar(user: user,radius: 35),
                 FittedBox(
                   child: Text(
-                    user.firstname,
+                    user==null? "Tout" : user!.firstname,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,

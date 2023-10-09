@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tracker_app/model/fake_day.dart';
 import 'package:tracker_app/util/generator.dart';
+import 'package:tracker_app/widgets/type_of_work.dart';
 
 class PresenceManagementDetailScreen extends StatelessWidget {
   const PresenceManagementDetailScreen(
@@ -37,7 +38,7 @@ class PresenceManagementDetailScreen extends StatelessWidget {
                 textPanel,
                 style: const TextStyle(fontSize: 32),
               ),
-              Generator().generateTypeOfWork(planing),
+              TypeOfWorkPanel(fakeDay: planing),
             ],
           ),
           const SizedBox(

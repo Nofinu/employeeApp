@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tracker_app/model/User.dart';
-import 'package:tracker_app/model/fake_day.dart';
+import 'package:tracker_app/widgets/avatar.dart';
 
 class Generator {
-
-  CircleAvatar generateIcon(int index, List<User> users, double radius) {
-    CircleAvatar icon = CircleAvatar(
-      backgroundImage: NetworkImage(users[index].imageUrl),
-      radius: radius,
-    );
-    return icon;
-  }
 
   List<Widget> buildIconRow(int nbrPerson, List<User> users, double radius) {
     List<Widget> lines = [];
@@ -19,7 +11,7 @@ class Generator {
     if (nbrPerson == 1) {
       lines.add(
         Row(
-          children: [generateIcon(0, users, radius)],
+          children: [Avatar(index:0,users: users,radius: radius)],
         ),
       );
 
@@ -40,12 +32,12 @@ class Generator {
           );
         }
         iconForLine = [];
-        iconForLine.add(generateIcon(i, users, radius));
+        iconForLine.add(Avatar(index:i,users: users,radius: radius));
         iconForLine.add(const SizedBox(
           width: 8,
         ));
       }
-      iconForLine.add(generateIcon(i, users, radius));
+      iconForLine.add(Avatar(index:i,users: users,radius: radius));
       iconForLine.add(const SizedBox(
         width: 8,
       ));
@@ -56,31 +48,5 @@ class Generator {
       ),
     );
     return lines;
-  }
-
-  
-    String toUpperCase(String value) {
-      var letter = value[0];
-      return value.replaceFirst(value[0], letter.toUpperCase());
-    }
-
-  Container generateTypeOfWork (FakeDay fakeday){
-    return Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: fakeday.repos
-                        ? Colors.grey
-                        : ((fakeday.type == TypeOfWork.dev ||
-                                fakeday.type == TypeOfWork.preparation)
-                            ? Colors.green
-                            : Colors.red),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    fakeday.repos ? "Repos" : toUpperCase(fakeday.type.name),
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                );
   }
 }

@@ -31,6 +31,7 @@ class _AdminMessageBoxScreenState extends State<AdminMessageBoxScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const MessageBoxItem(),
             for(int i =0; i<user.length;i++)
               MessageBoxItem(user: user[i]),
           ],

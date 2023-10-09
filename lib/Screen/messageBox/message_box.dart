@@ -6,9 +6,9 @@ import 'package:tracker_app/model/messageModel/message.dart';
 import 'package:tracker_app/provider/messages_provider.dart';
 
 class MessageBoxScreen extends ConsumerStatefulWidget {
-  const MessageBoxScreen({super.key,required this.user});
+  const MessageBoxScreen({super.key, this.user});
 
-  final User user;
+  final User? user;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
@@ -17,20 +17,23 @@ class MessageBoxScreen extends ConsumerStatefulWidget {
 }
 
 class _MessageBoxScreenState extends ConsumerState<MessageBoxScreen> {
-
-
 //a faire dans un provider pour refresh dinamique
-  void onClickValidationButton (bool validation,Request request){
-    ref.read(messageProvider.notifier).setValidationOnRequest(request, validation);
+  void onClickValidationButton(bool validation, Request request) {
+    ref
+        .read(messageProvider.notifier)
+        .setValidationOnRequest(request, validation);
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     List<Message> messagesTabs = ref.watch(messageProvider);
-    messagesTabs = messagesTabs.where((message) => message.writter == widget.user,).toList();
-
+    if (widget.user != null) {
+      messagesTabs = messagesTabs
+          .where(
+            (message) => message.writter == widget.user,
+          )
+          .toList();
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -50,7 +53,6 @@ class _MessageBoxScreenState extends ConsumerState<MessageBoxScreen> {
           children: <Widget>[
             for (int i = 0; i < messagesTabs.length; i++)
               messagesTabs[i].showWidget(onClickValidationButton)
-            
           ],
         ),
       ),
