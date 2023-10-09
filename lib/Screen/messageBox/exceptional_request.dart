@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:tracker_app/data/fake_data.dart';
-import 'package:tracker_app/model/messageModel/Request.dart';
+import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/provider/messages_provider.dart';
 
 final formater = DateFormat.yMd();
