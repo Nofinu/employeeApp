@@ -32,7 +32,7 @@ class Request extends Message {
     }
 
     @override
-    Widget showWidget (void Function(bool validation,Request request) onClickValidationButton ){
-      return RequestMessageItem(request: this,onClickValidationButton: onClickValidationButton,);
+    Widget showWidget (onClickValidationButton){
+      return RequestMessageItem(request: this,onClickValidationButton: onClickValidationButton);
     }
 }

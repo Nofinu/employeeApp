@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/data/fake_data.dart';
-import 'package:tracker_app/model/messageModel/Request.dart';
+import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/model/messageModel/message.dart';
 
 class MessageNotifier extends StateNotifier<List<Message>> {

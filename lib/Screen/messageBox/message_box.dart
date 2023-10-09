@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/model/User.dart';
-import 'package:tracker_app/model/messageModel/Request.dart';
+import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/model/messageModel/message.dart';
 import 'package:tracker_app/provider/messages_provider.dart';
 

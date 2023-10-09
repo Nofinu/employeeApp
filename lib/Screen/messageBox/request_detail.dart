@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tracker_app/model/messageModel/Request.dart';
+import 'package:tracker_app/model/messageModel/request.dart';
 
 class RequestDetailScreen extends StatelessWidget {
   const RequestDetailScreen(

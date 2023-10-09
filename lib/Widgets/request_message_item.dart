@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tracker_app/Screen/messageBox/request_detail.dart';
-import 'package:tracker_app/model/messageModel/Request.dart';
+import 'package:tracker_app/model/messageModel/request.dart';
 
 class RequestMessageItem extends StatefulWidget {
   const RequestMessageItem({super.key, required this.request,required this.onClickValidationButton});
