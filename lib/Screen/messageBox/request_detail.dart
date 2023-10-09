@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tracker_app/model/User.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
+import 'package:tracker_app/provider/auth_provider.dart';
 
-class RequestDetailScreen extends StatelessWidget {
+class RequestDetailScreen extends ConsumerWidget {
   const RequestDetailScreen(
       {super.key,
       required this.request,
@@ -12,11 +15,12 @@ class RequestDetailScreen extends StatelessWidget {
   final void Function(bool validation, Request request) onClickValidationButton;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final List<Widget> buttonCheck = [];
+    final User user = ref.read(authProvider);
 
-    if (!request.isCheked) {
+    if (!request.isCheked && user.isAdmin) {
       buttonCheck.add(
         ElevatedButton(
           onPressed: () {
@@ -63,12 +67,18 @@ class RequestDetailScreen extends StatelessWidget {
           height: 80,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: request.isvalidated
-                ? const Color.fromRGBO(0, 194, 8, 1)
-                : const Color.fromRGBO(205, 0, 0, 1),
+            color: request.isCheked
+                ? request.isvalidated
+                    ? const Color.fromRGBO(0, 194, 8, 1)
+                    : const Color.fromRGBO(205, 0, 0, 1)
+                : const Color.fromRGBO(126, 126, 126, 1),
           ),
           child: Icon(
-            request.isvalidated ? Icons.check : Icons.cancel_outlined,
+            request.isCheked
+                ? request.isvalidated
+                    ? Icons.check
+                    : Icons.cancel_outlined
+                : Icons.question_mark,
             color: Theme.of(context).colorScheme.onPrimary,
           ),
         ),

@@ -7,6 +7,7 @@ import 'package:tracker_app/Screen/presence_management.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
 import 'package:tracker_app/Screen/report_problem.dart';
 import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/widgets/button_home_page.dart';
 import 'package:tracker_app/data/fake_data.dart';
 
@@ -20,10 +21,15 @@ class HomePageScreen extends ConsumerStatefulWidget {
 }
 
 class _HomePageScreenState extends ConsumerState<HomePageScreen> {
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height - 100;
-    final User userActive = user[1];
+    final User userActive = user[0];
+    Future((){
+      ref.read(authProvider.notifier).setUser(userActive);
+    });
+    
 
     return Scaffold(
       appBar: AppBar(
@@ -31,16 +37,18 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
         actions: [
           InkWell(
             child: Container(
-                margin: const EdgeInsets.fromLTRB(0, 10, 10, 0),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Theme.of(context).colorScheme.onBackground),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image(
-                      image: NetworkImage(userActive.imageUrl, scale: 1),
-                      fit: BoxFit.contain,
-                    ))),
+              margin: const EdgeInsets.fromLTRB(0, 10, 10, 0),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Theme.of(context).colorScheme.onBackground),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image(
+                  image: NetworkImage(userActive.imageUrl, scale: 1),
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -120,16 +128,18 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
               userActive.isAdmin
                   ? const ButtonHommePage(
                       text: "Messagerie",
-                      icon: Icons.add_alert,
+                      icon: Icons.notifications,
                       color: Color.fromRGBO(40, 221, 36, 0.7),
                       route: AdminMessageBoxScreen(),
                       badgeValue: 10,
                     )
                   : ButtonHommePage(
                       text: "Messagerie",
-                      icon: Icons.add_alert,
+                      icon: Icons.notifications,
                       color: const Color.fromRGBO(40, 221, 36, 0.7),
-                      route: MessageBoxScreen(user: userActive,),
+                      route: MessageBoxScreen(
+                        user: userActive,
+                      ),
                     ),
               const ButtonHommePage(
                 text: "Gestion pointage",

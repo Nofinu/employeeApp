@@ -1,4 +1,6 @@
 
+import 'package:tracker_app/model/User.dart';
+
 enum TypeOfWork{
   dev,
   preparation,
@@ -8,9 +10,9 @@ enum TypeOfWork{
 }
 
 class FakeDay {
-  const FakeDay ({required this.type,required this.repos, this.formation,required this.nbrPerson});
+  const FakeDay ({required this.type,required this.repos, this.formation,required this.users});
   final TypeOfWork type;
   final bool repos;
   final String? formation;
-  final int nbrPerson;
+  final List<User> users;
 }

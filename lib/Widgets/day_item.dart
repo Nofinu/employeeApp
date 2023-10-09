@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tracker_app/data/fake_data.dart';
+import 'package:tracker_app/model/User.dart';
 
 class DayItem extends StatelessWidget {
   const DayItem({
@@ -7,26 +9,32 @@ class DayItem extends StatelessWidget {
     required this.repos,
     this.formation,
     required this.day,
-    required this.nbrPerson,
+    required this.users,
   });
+  
   final String typeOfWork;
   final bool repos;
   final String? formation;
   final String day;
-  final int nbrPerson;
+  final List<User> users;
 
-  final icon = const CircleAvatar(
-    backgroundImage: NetworkImage("https://utopios.solutions/wp-content/uploads/2023/09/Mohamed_AIJJOU.webp"),
+CircleAvatar generateIcon (int index){
+     CircleAvatar icon = CircleAvatar(
+    backgroundImage: NetworkImage(user[index].imageUrl),
     radius: 30,
   );
+  return icon;
+}
+ 
 
-  List<Widget> _buildIconRow(int nbrPerson) {
+  List<Widget> buildIconRow(int nbrPerson) {
     List<Widget> lines = [];
     List<Widget> iconForLine = [];
-    if (nbrPerson - 1 == 0) {
+
+    if (nbrPerson == 1) {
       lines.add(
         Row(
-          children: [icon],
+          children: [generateIcon(0)],
         ),
       );
 
@@ -42,9 +50,9 @@ class DayItem extends StatelessWidget {
           );
         }
         iconForLine = [];
-        iconForLine.add(icon);
+        iconForLine.add(generateIcon(i));
       }
-      iconForLine.add(icon);
+      iconForLine.add(generateIcon(i));
     }
     lines.add(
       Row(
@@ -53,6 +61,7 @@ class DayItem extends StatelessWidget {
     );
     return lines;
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +120,7 @@ class DayItem extends StatelessWidget {
               ),
             ],
           ),
-          ..._buildIconRow(nbrPerson),
+          ...buildIconRow(users.length),
         ],
       ),
     );
