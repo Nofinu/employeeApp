@@ -19,17 +19,22 @@ class PointageScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: screenWidth * 0.1, vertical: screenHeight * 0.1),
+            horizontal: screenWidth * 0.1,
+            vertical: screenHeight * 0.1,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               OutlinedButton(
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
-                  fixedSize: Size(screenWidth * 0.8, screenHeight * 0.5),
+                  fixedSize: Size(
+                    screenWidth * 0.8,
+                    screenHeight * 0.5,
+                  ),
                   side: const BorderSide(
                     color: Color.fromRGBO(0, 194, 8, 1),
-                    width: 2,
+                    width: 8,
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -51,7 +56,7 @@ class PointageScreen extends StatelessWidget {
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   elevation: 15,
-                  fixedSize: Size(screenWidth*0.8, 80),
+                  fixedSize: Size(screenWidth * 0.8, 80),
                 ),
                 child: Text(
                   "pressent",
