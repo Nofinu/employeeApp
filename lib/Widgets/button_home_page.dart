@@ -64,15 +64,16 @@ class ButtonHommePage extends StatelessWidget {
       );
     }
 
-    if (badgeValue != null) {
+    if (badgeValue != null && badgeValue!>0) {
       iconButton = badges.Badge(
-        position: badges.BadgePosition.custom(top: 4, start: 35),
+        position: badges.BadgePosition.custom(top: badgeValue!<10? 0 : 4, start: 35),
         badgeContent: Text(
-          badgeValue.toString(),
+          badgeValue!<100 ? badgeValue.toString(): "!!",
+          textAlign: TextAlign.start,
           style: TextStyle(
               color: Theme.of(context).colorScheme.onPrimary,
               fontWeight: FontWeight.bold,
-              fontSize: 18),
+              fontSize: badgeValue!<10? 24 : 18),
         ),
         child: Icon(
           icon,

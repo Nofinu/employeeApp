@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/Screen/messageBox/probleme_detail.dart';
 import 'package:tracker_app/Screen/report_problem.dart';
+import 'package:tracker_app/model/User.dart';
 import 'package:tracker_app/model/messageModel/problem.dart';
+import 'package:tracker_app/provider/auth_provider.dart';
+import 'package:tracker_app/provider/messages_provider.dart';
 
-class ProbelemMessageItem extends StatelessWidget {
+class ProbelemMessageItem extends ConsumerWidget {
   const ProbelemMessageItem({super.key, required this.probleme});
 
   final Probleme probleme;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return InkWell(
       onTap: () {
+        final User user = ref.read(authProvider);
+        if(!probleme.isView && user.isAdmin){
+           ref.read(messageProvider.notifier).setViewMessage(probleme);
+        }
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (ctx) => ProblemeDetailScreen(probleme: probleme),

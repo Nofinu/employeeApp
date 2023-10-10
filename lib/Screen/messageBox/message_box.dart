@@ -26,7 +26,7 @@ class _MessageBoxScreenState extends ConsumerState<MessageBoxScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Message> messagesTabs = ref.watch(messageProvider);
+    List<Message> messagesTabs = ref.watch(messageProvider.notifier).messages;
     if (widget.user != null) {
       messagesTabs = messagesTabs
           .where(

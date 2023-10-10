@@ -7,7 +7,9 @@ import 'package:tracker_app/Screen/presenceManagement/presence_management.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
 import 'package:tracker_app/Screen/report_problem.dart';
 import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/model/messageModel/message.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
+import 'package:tracker_app/provider/messages_provider.dart';
 import 'package:tracker_app/widgets/button_home_page.dart';
 import 'package:tracker_app/data/fake_data.dart';
 
@@ -21,15 +23,28 @@ class HomePageScreen extends ConsumerStatefulWidget {
 }
 
 class _HomePageScreenState extends ConsumerState<HomePageScreen> {
+  int countNotification(List<Message> messages) {
+    print("notification home");
+    int cpt = 0;
+    for (var message in messages) {
+      if (!message.isView) {
+        cpt++;
+      }
+    }
+    print(cpt);
+    return cpt;
+  }
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height - 100;
     final User userActive = user[1];
-    Future((){
+    final messages = ref.watch(messageProvider).messages;
+    final notification = countNotification(messages);
+    
+    Future(() {
       ref.read(authProvider.notifier).setUser(userActive);
     });
-    
 
     return Scaffold(
       appBar: AppBar(
@@ -126,12 +141,12 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               userActive.isAdmin
-                  ? const ButtonHommePage(
+                  ? ButtonHommePage(
                       text: "Messagerie",
                       icon: Icons.notifications,
-                      color: Color.fromRGBO(40, 221, 36, 0.7),
-                      route: AdminMessageBoxScreen(),
-                      badgeValue: 10,
+                      color: const Color.fromRGBO(40, 221, 36, 0.7),
+                      route: const AdminMessageBoxScreen(),
+                      badgeValue: notification,
                     )
                   : ButtonHommePage(
                       text: "Messagerie",

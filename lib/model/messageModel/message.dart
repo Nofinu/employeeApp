@@ -6,14 +6,19 @@ import 'package:tracker_app/model/messageModel/request.dart';
 final formater = DateFormat.yMMMMd().add_Hm();
 
  abstract class Message {
-  const Message ({required this.title, required this.detail, required this.dateWritting, required this.writter});
+  Message ({required this.title, required this.detail, required this.dateWritting, required this.writter});
   final String title;
   final String detail;
   final DateTime dateWritting;
   final User writter;
+  bool isView = false;
   
   void onClickValidationButton (bool validation,Request request){
 
+  }
+
+  void setIsView (){
+    isView = true;
   }
 
   Widget showWidget (void Function(bool validation,Request request) onClickValidationButton,){

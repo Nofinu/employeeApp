@@ -1,34 +1,50 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/data/fake_data.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/model/messageModel/message.dart';
 
-class MessageNotifier extends StateNotifier<List<Message>> {
-  MessageNotifier() : super(getMessages());
 
-    void setMessages (List<Message> messages){
-    state = messages;
-  }
+class MessageNotifier extends ChangeNotifier {
+  List<Message> messages = getMessages();
 
   void setValidationOnRequest(Request message, bool validation) {
-    List<Message> copyMessage = state;
-    if(state.contains(message)){
-      int id = state.indexOf(message);
+    if (messages.contains(message)) {
+      int id = messages.indexOf(message);
       message.setIsChecked();
       message.setIsValidated(validation);
-      copyMessage.replaceRange(id, id+1, [message]);
-      state = copyMessage;
+      messages.replaceRange(id, id + 1, [message]);
+      notifyListeners();
     }
   }
 
-  void addMessage (Message message){
-    List<Message> copyMessage = state;
-    copyMessage.add(message);
-    copyMessage.sort((a,b)=> -1*(a.dateWritting.compareTo(b.dateWritting)));
-    state = copyMessage;
+  void addMessage(Message message) {
+    messages.add(message);
+    messages.sort((a, b) => -1 * (a.dateWritting.compareTo(b.dateWritting)));
+    notifyListeners();
+  }
+
+  int getNotification() {
+    int cpt = 0;
+    for (int i = 0; i < messages.length; i++) {
+      if (!messages[i].isView) {
+        cpt++;
+      }
+    }
+    return cpt;
+  }
+
+  void setViewMessage(Message message) {
+    if (messages.contains(message)) {
+      int index = messages.indexOf(message);
+      messages[index].setIsView();
+      for (var message in messages) {
+        print(message.isView);
+      }
+      notifyListeners();
+    }
   }
 
 }
 
-final messageProvider = StateNotifierProvider<MessageNotifier, List<Message>>(
-    (ref) => MessageNotifier());
+final messageProvider = ChangeNotifierProvider<MessageNotifier>((ref) => MessageNotifier());

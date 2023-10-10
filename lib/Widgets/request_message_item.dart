@@ -1,31 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/Screen/messageBox/request_detail.dart';
+import 'package:tracker_app/model/User.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
+import 'package:tracker_app/provider/auth_provider.dart';
+import 'package:tracker_app/provider/messages_provider.dart';
 
-class RequestMessageItem extends StatefulWidget {
-  const RequestMessageItem({super.key, required this.request,required this.onClickValidationButton});
+class RequestMessageItem extends ConsumerStatefulWidget {
+  const RequestMessageItem(
+      {super.key,
+      required this.request,
+      required this.onClickValidationButton});
 
   final Request request;
-  final void Function(bool validation,Request request) onClickValidationButton;
+  final void Function(bool validation, Request request) onClickValidationButton;
 
   @override
-  State<StatefulWidget> createState() {
+  ConsumerState<ConsumerStatefulWidget> createState() {
     return _RequestMessageItemState();
   }
 }
-class _RequestMessageItemState extends State<RequestMessageItem>{
+
+class _RequestMessageItemState extends ConsumerState<RequestMessageItem> {
   late Request requestShow;
 
-
-  void onclickRefresh (bool validation,Request request){
-    widget.onClickValidationButton(validation,request);
+  void onclickRefresh(bool validation, Request request) {
+    widget.onClickValidationButton(validation, request);
     request.setIsValidated(validation);
     request.setIsChecked();
     setState(() {
       requestShow = request;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -67,9 +74,16 @@ class _RequestMessageItemState extends State<RequestMessageItem>{
               backgroundColor: const Color.fromRGBO(96, 185, 205, 1),
             ),
             onPressed: () {
+              final User user = ref.read(authProvider);
+              if (!widget.request.isView && user.isAdmin) {
+                ref.read(messageProvider.notifier).setViewMessage(widget.request);
+              }
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (ctx) => RequestDetailScreen(request: widget.request,onClickValidationButton: onclickRefresh,),
+                  builder: (ctx) => RequestDetailScreen(
+                    request: widget.request,
+                    onClickValidationButton: onclickRefresh,
+                  ),
                 ),
               );
             },

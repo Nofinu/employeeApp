@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/provider/auth_provider.dart';
+import 'package:tracker_app/widgets/avatar.dart';
 
-class ProfilPageScreen extends StatelessWidget {
+class ProfilPageScreen extends ConsumerWidget {
   const ProfilPageScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final formKey = GlobalKey();
+    final User user = ref.read(authProvider);
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 100,
         centerTitle: true,
         title: Text(
           "Mon Profil",
@@ -20,114 +24,121 @@ class ProfilPageScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20)),
-              color: Theme.of(context).colorScheme.primary,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: (screenWidth / 2) - 50, vertical: 10),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20)),
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              child: Avatar(user: user, radius: 50),
             ),
-            child: const Icon(
-              Icons.person,
-              size: 50,
-            ),
-            // child : Image(image: ,),
-          ),
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(35.0),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.1, vertical: 20),
               child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        style: const TextStyle(fontSize: 21),
-                        decoration: InputDecoration(
-                          labelText: "Nom complet :",
-                          filled: true,
-                          fillColor: Theme.of(context).colorScheme.onBackground,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        validator: (value) {
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 35,
-                      ),
-                      TextFormField(
-                        style: const TextStyle(fontSize: 21),
-                        decoration: InputDecoration(
-                          labelText: "Email :",
-                          filled: true,
-                          fillColor: Theme.of(context).colorScheme.onBackground,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        validator: (value) {
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 35,
-                      ),
-                      TextFormField(
-                        style: const TextStyle(fontSize: 21),
-                        decoration: InputDecoration(
-                          labelText: "Telephone :",
-                          filled: true,
-                          fillColor: Theme.of(context).colorScheme.onBackground,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        validator: (value) {
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 35,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                            maximumSize: Size(screenWidth * 0.8, 80),
-                            minimumSize: Size(screenWidth * 0.8, 80)),
-                        child: Text(
-                          "Modifier",
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onBackground,
-                            fontSize: 32,
-                          ),
+                key: formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      style: const TextStyle(fontSize: 21),
+                      decoration: InputDecoration(
+                        labelText: "Nom complet :",
+                        filled: true,
+                        fillColor: Theme.of(context).colorScheme.onBackground,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
                         ),
                       ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                            maximumSize: Size(screenWidth * 0.8, 80),
-                            minimumSize: Size(screenWidth * 0.8, 80)),
-                        child: Text(
-                          "Deconection",
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onBackground,
-                            fontSize: 32,
-                          ),
+                      validator: (value) {
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 35,
+                    ),
+                    TextFormField(
+                      style: const TextStyle(fontSize: 21),
+                      decoration: InputDecoration(
+                        labelText: "Email :",
+                        filled: true,
+                        fillColor: Theme.of(context).colorScheme.onBackground,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
                         ),
                       ),
-                    ],
-                  )),
+                      validator: (value) {
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 35,
+                    ),
+                    TextFormField(
+                      style: const TextStyle(fontSize: 21),
+                      decoration: InputDecoration(
+                        labelText: "Telephone :",
+                        filled: true,
+                        fillColor: Theme.of(context).colorScheme.onBackground,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                      validator: (value) {
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 35,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          elevation: 8,
+                          backgroundColor: const Color.fromRGBO(0, 194, 8, 1),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          maximumSize: Size(screenWidth * 0.8, 80),
+                          minimumSize: Size(screenWidth * 0.8, 80)),
+                      child: Text(
+                        "Modifier",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onBackground,
+                          fontSize: 32,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          elevation: 8,
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          maximumSize: Size(screenWidth * 0.8, 80),
+                          minimumSize: Size(screenWidth * 0.8, 80)),
+                      child: const Text(
+                        "Deconection",
+                        style: TextStyle(
+                          color: Color.fromRGBO(0, 194, 8, 1),
+                          fontSize: 32,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
