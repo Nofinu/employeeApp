@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/Screen/messageBox/probleme_detail.dart';
-import 'package:tracker_app/Screen/report_problem.dart';
+import 'package:tracker_app/Screen/messageBox/report_problem.dart';
 import 'package:tracker_app/model/User.dart';
 import 'package:tracker_app/model/messageModel/problem.dart';
 import 'package:tracker_app/provider/auth_provider.dart';

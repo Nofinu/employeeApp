@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/data/fake_data.dart';
 import 'package:tracker_app/model/messageModel/problem.dart';
+import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/messages_provider.dart';
 
 enum Priority { low, medium, high }
@@ -29,7 +29,7 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
           title: _enteredTitle!,
           detail: _enteredDetails == null ? "" : _enteredDetails!,
           dateWritting: DateTime.now(),
-          writter: user[0],
+          writter: ref.watch(authProvider),
           priority: _priority!);
 
         ref.read(messageProvider.notifier).addMessage(probleme);

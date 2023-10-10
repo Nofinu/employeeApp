@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/Screen/messageBox/admin_message_box.dart';
 import 'package:tracker_app/Screen/messageBox/exceptional_request.dart';
 import 'package:tracker_app/Screen/messageBox/message_box.dart';
+import 'package:tracker_app/Screen/pointage/pointage.dart';
 import 'package:tracker_app/Screen/presenceManagement/presence_management.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
-import 'package:tracker_app/Screen/report_problem.dart';
+import 'package:tracker_app/Screen/messageBox/report_problem.dart';
 import 'package:tracker_app/model/User.dart';
 import 'package:tracker_app/model/messageModel/message.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
@@ -130,7 +131,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                 text: "Pointer",
                 icon: Icons.punch_clock_rounded,
                 color: Color.fromRGBO(215, 248, 28, 0.8),
-                route: ReportProblemeScreen(),
+                route: PointageScreen(),
               ),
             ],
           ),

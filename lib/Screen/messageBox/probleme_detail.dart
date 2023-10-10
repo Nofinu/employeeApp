@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tracker_app/Screen/report_problem.dart';
+import 'package:tracker_app/Screen/messageBox/report_problem.dart';
 import 'package:tracker_app/model/messageModel/problem.dart';
 
 class ProblemeDetailScreen extends StatelessWidget {
