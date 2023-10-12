@@ -24,5 +24,4 @@ void main() {
 
 
 //todo:
-// afficher les notifs sur les item messagerie admin
 // recherche des messages par persone / afficher le nom  du writter sur le msg

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/model/messageModel/message.dart';
 import 'package:tracker_app/widgets/avatar.dart';
 
 class Generator {
@@ -49,4 +50,16 @@ class Generator {
     );
     return lines;
   }
+
+    int countNotification(List<Message> messages) {
+    int cpt = 0;
+    for (var message in messages) {
+      if (!message.isView) {
+        cpt++;
+      }
+    }
+    return cpt;
+  }
+
+  
 }

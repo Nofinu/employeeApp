@@ -38,9 +38,6 @@ class MessageNotifier extends ChangeNotifier {
     if (messages.contains(message)) {
       int index = messages.indexOf(message);
       messages[index].setIsView();
-      for (var message in messages) {
-        print(message.isView);
-      }
       notifyListeners();
     }
   }
