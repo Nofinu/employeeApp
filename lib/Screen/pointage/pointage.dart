@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tracker_app/provider/pointing_provider.dart';
 
-class PointageScreen extends StatelessWidget {
+class PointageScreen extends ConsumerStatefulWidget {
   const PointageScreen({super.key});
 
   @override
+  ConsumerState<PointageScreen> createState() {
+    return _PointageScreenState();
+  }
+
+}
+
+class _PointageScreenState extends ConsumerState<PointageScreen>{
+
+      bool checked = false;
+
+  @override
   Widget build(BuildContext context) {
+//Color.fromRGBO(0, 194, 8, 1)
+
+
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -26,24 +42,34 @@ class PointageScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if(!checked){
+                    ref.watch(pointingProvider.notifier).addPointing("in");
+                  }
+                  else{
+                    ref.watch(pointingProvider.notifier).addPointing("out");
+                  }
+                  setState(() {
+                    checked = !checked;
+                  });
+                },
                 style: OutlinedButton.styleFrom(
                   fixedSize: Size(
                     screenWidth * 0.8,
                     screenHeight * 0.5,
                   ),
-                  side: const BorderSide(
-                    color: Color.fromRGBO(0, 194, 8, 1),
+                  side: BorderSide(
+                    color: checked? Colors.red : Colors.green ,
                     width: 8,
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child: const Text(
-                  "Enter",
+                child: Text(
+                  checked? "Sortir" : "Enter",
                   style: TextStyle(
-                    color: Color.fromRGBO(0, 194, 8, 1),
+                    color: checked? Colors.red : Colors.green,
                     fontWeight: FontWeight.bold,
                     fontSize: 42,
                   ),
