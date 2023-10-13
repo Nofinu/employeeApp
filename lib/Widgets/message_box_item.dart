@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/Screen/messageBox/message_box.dart';
-import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/message.dart';
 import 'package:tracker_app/provider/messages_provider.dart';
 import 'package:tracker_app/util/generator.dart';
@@ -15,7 +15,7 @@ class MessageBoxItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final double screenWidth = MediaQuery.of(context).size.width;
 
       List<Message> messagesTabs = ref.watch(messageProvider.notifier).messages;
     if (user != null) {
@@ -67,7 +67,7 @@ class MessageBoxItem extends ConsumerWidget {
             EdgeInsets.symmetric(vertical: 10, horizontal: screenWidth * 0.1),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          boxShadow: const [
+          boxShadow: const <BoxShadow>[
             BoxShadow(
                 color: Colors.black54,
                 blurRadius: 10,
@@ -79,13 +79,13 @@ class MessageBoxItem extends ConsumerWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         child: Column(
-          children: [
+          children: <Widget>[
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: user != null
                   ? MainAxisAlignment.spaceBetween
                   : MainAxisAlignment.center,
-              children: [
+              children: <Widget>[
                 avatar,
                 FittedBox(
                   child: Text(

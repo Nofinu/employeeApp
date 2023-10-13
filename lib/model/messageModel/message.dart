@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
 
-final formater = DateFormat.yMMMMd().add_Hm();
+final DateFormat formater = DateFormat.yMMMMd().add_Hm();
 
  abstract class Message {
   Message ({required this.title, required this.detail, required this.dateWritting, required this.writter});

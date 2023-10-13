@@ -19,8 +19,8 @@ class _PointageScreenState extends ConsumerState<PointageScreen> {
   Widget build(BuildContext context) {
 //Color.fromRGBO(0, 194, 8, 1)
 
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -38,7 +38,7 @@ class _PointageScreenState extends ConsumerState<PointageScreen> {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               OutlinedButton(
                 onPressed: () {
                   if (!checked) {

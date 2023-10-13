@@ -1,4 +1,3 @@
-
 class User {
   const User(this.firstname,this.lastname, this.imageUrl,this.isAdmin,this.email,this.password);
     final String firstname ;

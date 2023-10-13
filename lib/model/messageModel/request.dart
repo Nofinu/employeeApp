@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:tracker_app/widgets/request_message_item.dart';
 import 'package:tracker_app/model/messageModel/message.dart';
 
-final formater = DateFormat.yMMMMd();
+final DateFormat formater = DateFormat.yMMMMd();
 
 class Request extends Message {
   Request(
@@ -32,7 +32,7 @@ class Request extends Message {
     }
 
     @override
-    Widget showWidget (onClickValidationButton){
+    Widget showWidget (void Function(bool, Request) onClickValidationButton){
       return RequestMessageItem(request: this,onClickValidationButton: onClickValidationButton);
     }
 }

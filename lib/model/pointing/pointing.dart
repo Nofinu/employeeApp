@@ -1,4 +1,4 @@
-import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/pointing/pointing_hour.dart';
 import 'package:uuid/uuid.dart';
 

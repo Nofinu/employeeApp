@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/Screen/messageBox/request_detail.dart';
-import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/messages_provider.dart';
@@ -51,10 +51,10 @@ class _RequestMessageItemState extends ConsumerState<RequestMessageItem> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               Text(
                 widget.request.title,
                 style:
@@ -74,7 +74,7 @@ class _RequestMessageItemState extends ConsumerState<RequestMessageItem> {
               backgroundColor: const Color.fromRGBO(96, 185, 205, 1),
             ),
             onPressed: () {
-              final User user = ref.read(authProvider);
+              final User user = ref.read<User>(authProvider);
               if (!widget.request.isView && user.isAdmin) {
                 ref.read(messageProvider.notifier).setViewMessage(widget.request);
               }

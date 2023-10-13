@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/model/user.dart';
 
 class AuthNotifier extends StateNotifier<User> {
   AuthNotifier() : super(const User("", "", "", false, "", ""));

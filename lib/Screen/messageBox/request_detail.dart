@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 
@@ -16,7 +16,7 @@ class RequestDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final double screenWidth = MediaQuery.of(context).size.width;
     final List<Widget> buttonCheck = [];
     final User user = ref.read(authProvider);
 
@@ -97,7 +97,7 @@ class RequestDetailScreen extends ConsumerWidget {
         centerTitle: true,
       ),
       body: Column(
-        children: [
+        children: <Widget>[
           Text(
             request.title,
             style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),

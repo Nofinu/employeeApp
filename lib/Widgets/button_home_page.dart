@@ -27,7 +27,7 @@ class ButtonHommePage extends StatelessWidget {
       String textSecond = text.substring(indexSpace + 1);
 
       textContainer = Column(
-        children: [
+        children: <Widget>[
           Text(
             textFirst,
             maxLines: 2,
@@ -105,7 +105,7 @@ class ButtonHommePage extends StatelessWidget {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget> [
             iconButton,
             const SizedBox(
               height: 10,

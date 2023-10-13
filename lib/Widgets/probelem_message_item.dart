@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/Screen/messageBox/probleme_detail.dart';
 import 'package:tracker_app/Screen/messageBox/report_problem.dart';
-import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/problem.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/messages_provider.dart';
@@ -14,11 +14,11 @@ class ProbelemMessageItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final double screenWidth = MediaQuery.of(context).size.width;
 
     return InkWell(
       onTap: () {
-        final User user = ref.read(authProvider);
+        final User user = ref.read<User>(authProvider);
         if(!probleme.isView && user.isAdmin){
            ref.read(messageProvider.notifier).setViewMessage(probleme);
         }
@@ -42,10 +42,10 @@ class ProbelemMessageItem extends ConsumerWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: <Widget>[
                 Text(
                   probleme.title,
                   style: const TextStyle(

@@ -15,10 +15,10 @@ class DayItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final double screenWidth = MediaQuery.of(context).size.width;
 
     String toUpperCase(String value) {
-      var letter = value[0];
+      String letter = value[0];
       return value.replaceFirst(value[0], letter.toUpperCase());
     }
 
@@ -37,7 +37,7 @@ class DayItem extends StatelessWidget {
             EdgeInsets.symmetric(vertical: 10, horizontal: screenWidth * 0.1),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-            boxShadow: const [
+            boxShadow: const <BoxShadow>[
               BoxShadow(
                   color: Colors.black54,
                   blurRadius: 10,
@@ -49,11 +49,11 @@ class DayItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             border: Border.all(width: 1, color: Colors.black)),
         child: Column(
-          children: [
+          children: <Widget>[
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: <Widget>[
                 FittedBox(
                   child: Text(
                     day,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/messages_provider.dart';
@@ -20,13 +21,13 @@ class _ExceptionalRequestState extends ConsumerState<ExceptionalRequest> {
   DateTime? _selectedDate;
   String? _enteredTitle;
   String? _enteredDetail;
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   void _presentDatePicker() async {
-    final now = DateTime.now();
-    final firstDate = DateTime(now.year - 1, now.month, now.day);
-    final finalDate = DateTime(now.year, now.month + 2, now.day);
-    final pickedDate = await showDatePicker(
+    final DateTime now = DateTime.now();
+    final DateTime firstDate = DateTime(now.year - 1, now.month, now.day);
+    final DateTime finalDate = DateTime(now.year, now.month + 2, now.day);
+    final DateTime? pickedDate = await showDatePicker(
         builder: (cxt, child) {
           return Theme(
             data: Theme.of(context).copyWith(
@@ -62,7 +63,7 @@ class _ExceptionalRequestState extends ConsumerState<ExceptionalRequest> {
       Request request = Request(
           title: _enteredTitle!,
           detail: _enteredDetail!,
-          writter: ref.watch(authProvider),
+          writter: ref.watch<User>(authProvider),
           dateWritting: DateTime.now(),
           requestDate: _selectedDate!);
 
@@ -93,7 +94,7 @@ class _ExceptionalRequestState extends ConsumerState<ExceptionalRequest> {
           child: Form(
               key: _formKey,
               child: Column(
-                children: [
+                children: <Widget>[
                   TextFormField(
                     style: const TextStyle(fontSize: 21),
                     decoration: InputDecoration(
@@ -118,7 +119,7 @@ class _ExceptionalRequestState extends ConsumerState<ExceptionalRequest> {
                     height: 35,
                   ),
                   Row(
-                    children: [
+                    children: <Widget>[
                       Text(
                         _selectedDate == null
                             ? "Pas de date selectionée"

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/problem.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/messages_provider.dart';
@@ -19,7 +20,7 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
   Priority? _priority = Priority.low;
   String? _enteredTitle;
   String? _enteredDetails;
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   void onClickSend() {
     if (_formKey.currentState!.validate() && _priority != null) {
@@ -29,7 +30,7 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
           title: _enteredTitle!,
           detail: _enteredDetails == null ? "" : _enteredDetails!,
           dateWritting: DateTime.now(),
-          writter: ref.watch(authProvider),
+          writter: ref.watch<User>(authProvider),
           priority: _priority!);
 
         ref.read(messageProvider.notifier).addMessage(probleme);
@@ -39,7 +40,7 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +60,7 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
           child: Form(
               key: _formKey,
               child: Column(
-                children: [
+                children: <Widget>[
                   TextFormField(
                     style: const TextStyle(fontSize: 21),
                     decoration: InputDecoration(
@@ -85,7 +86,7 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: <Widget>[
                       const Text(
                         "Priorité :",
                         style: TextStyle(

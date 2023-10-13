@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/model/user.dart';
 
 class Avatar extends StatelessWidget {
   const Avatar({super.key, this.index, this.user, this.users,required this.radius});

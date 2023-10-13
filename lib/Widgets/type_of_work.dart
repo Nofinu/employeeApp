@@ -7,7 +7,7 @@ class TypeOfWorkPanel extends StatelessWidget {
   final FakeDay fakeDay;
 
   String _toUpperCase(String value) {
-    var letter = value[0];
+    String letter = value[0];
     return value.replaceFirst(value[0], letter.toUpperCase());
   }
 

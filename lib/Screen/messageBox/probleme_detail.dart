@@ -20,10 +20,10 @@ class ProblemeDetailScreen extends StatelessWidget {
         ),
       ),
       body: Column(
-        children: [
+        children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               Text(
                 probleme.title,
                 style:

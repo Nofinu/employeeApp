@@ -1,5 +1,5 @@
 
-import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/model/user.dart';
 
 enum TypeOfWork{
   dev,

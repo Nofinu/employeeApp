@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/widgets/avatar.dart';
 
@@ -9,9 +9,9 @@ class ProfilPageScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final formKey = GlobalKey();
-    final User user = ref.read(authProvider);
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    final User user = ref.read<User>(authProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -26,7 +26,7 @@ class ProfilPageScreen extends ConsumerWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
+          children: <Widget>[
             Container(
               padding: EdgeInsets.symmetric(
                   horizontal: (screenWidth / 2) - 50, vertical: 10),
@@ -44,7 +44,7 @@ class ProfilPageScreen extends ConsumerWidget {
               child: Form(
                 key: formKey,
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     TextFormField(
                       style: const TextStyle(fontSize: 21),
                       decoration: InputDecoration(

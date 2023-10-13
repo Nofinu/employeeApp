@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/data/fake_data.dart';
-import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/pointing/pointing.dart';
 import 'package:tracker_app/model/pointing/pointing_hour.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
@@ -42,7 +42,7 @@ class PointingNotifier extends StateNotifier<List<Pointing>> {
   }
 
   List<Avatar> getAvatarFromList(double width) {
-    User user = ref.watch(authProvider);
+    User user = ref.watch<User>(authProvider);
     List<Avatar> avatars = [];
     for (Pointing pointing in state) {
       if (user != pointing.user &&

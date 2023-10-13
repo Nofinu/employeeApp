@@ -7,7 +7,8 @@ import 'package:tracker_app/Screen/pointage/pointage.dart';
 import 'package:tracker_app/Screen/presenceManagement/presence_management.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
 import 'package:tracker_app/Screen/messageBox/report_problem.dart';
-import 'package:tracker_app/model/User.dart';
+import 'package:tracker_app/model/user.dart';
+import 'package:tracker_app/model/messageModel/message.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/messages_provider.dart';
 import 'package:tracker_app/util/generator.dart';
@@ -26,10 +27,10 @@ class HomePageScreen extends ConsumerStatefulWidget {
 class _HomePageScreenState extends ConsumerState<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height - 100;
+    final double screenHeight = MediaQuery.of(context).size.height - 100;
     final User userActive = user[1];
-    final messages = ref.watch(messageProvider).messages;
-    final notification = Generator().countNotification(messages);
+    final List<Message> messages = ref.watch(messageProvider).messages;
+    final int notification = Generator().countNotification(messages);
 
     Future(() {
       ref.read(authProvider.notifier).setUser(userActive);
@@ -38,7 +39,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
-        actions: [
+        actions: <Widget>[
           InkWell(
             child: Container(
               margin: const EdgeInsets.fromLTRB(0, 10, 10, 0),
@@ -78,7 +79,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: [
+          children: <Widget>[
             Container(
               padding: EdgeInsets.fromLTRB(0, 10, 0, screenHeight * 0.04),
               decoration: BoxDecoration(
@@ -88,7 +89,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                       bottomStart: Radius.circular(20))),
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
+                children: <ButtonHommePage>[
                   ButtonHommePage(
                     text: "Signaler probleme",
                     icon: Icons.announcement_outlined,
@@ -109,7 +110,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
             ),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+              children: <ButtonHommePage>[
                 ButtonHommePage(
                   text: "Gestion presence",
                   icon: Icons.calendar_month,
@@ -129,7 +130,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+              children: <ButtonHommePage>[
                 userActive.isAdmin
                     ? ButtonHommePage(
                         text: "Messagerie",
