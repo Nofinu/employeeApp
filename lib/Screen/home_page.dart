@@ -24,15 +24,13 @@ class HomePageScreen extends ConsumerStatefulWidget {
 }
 
 class _HomePageScreenState extends ConsumerState<HomePageScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height - 100;
     final User userActive = user[1];
     final messages = ref.watch(messageProvider).messages;
     final notification = Generator().countNotification(messages);
-    
+
     Future(() {
       ref.read(authProvider.notifier).setUser(userActive);
     });
@@ -77,85 +75,87 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                   fontSize: 22)),
         ]),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 10, 0, screenHeight * 0.04),
-            decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-                borderRadius: const BorderRadiusDirectional.only(
-                    bottomEnd: Radius.circular(20),
-                    bottomStart: Radius.circular(20))),
-            child: const Row(
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, screenHeight * 0.04),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: const BorderRadiusDirectional.only(
+                      bottomEnd: Radius.circular(20),
+                      bottomStart: Radius.circular(20))),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ButtonHommePage(
+                    text: "Signaler probleme",
+                    icon: Icons.announcement_outlined,
+                    color: Color.fromRGBO(249, 129, 129, 1),
+                    route: ReportProblemeScreen(),
+                  ),
+                  ButtonHommePage(
+                    text: "Demande Exeptionel",
+                    icon: Icons.chat,
+                    color: Color.fromRGBO(210, 169, 251, 1),
+                    route: ExceptionalRequest(),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: screenHeight * 0.04,
+            ),
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ButtonHommePage(
-                  text: "Signaler probleme",
-                  icon: Icons.announcement_outlined,
-                  color: Color.fromRGBO(249, 129, 129, 1),
-                  route: ReportProblemeScreen(),
+                  text: "Gestion presence",
+                  icon: Icons.calendar_month,
+                  color: Color.fromRGBO(16, 216, 223, 0.6),
+                  route: PresenceManagementScreen(),
                 ),
                 ButtonHommePage(
-                  text: "Demande Exeptionel",
-                  icon: Icons.chat,
-                  color: Color.fromRGBO(210, 169, 251, 1),
-                  route: ExceptionalRequest(),
+                  text: "Pointer",
+                  icon: Icons.punch_clock_rounded,
+                  color: Color.fromRGBO(215, 248, 28, 0.8),
+                  route: PointageScreen(),
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: screenHeight * 0.04,
-          ),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ButtonHommePage(
-                text: "Gestion presence",
-                icon: Icons.calendar_month,
-                color: Color.fromRGBO(16, 216, 223, 0.6),
-                route: PresenceManagementScreen(),
-              ),
-              ButtonHommePage(
-                text: "Pointer",
-                icon: Icons.punch_clock_rounded,
-                color: Color.fromRGBO(215, 248, 28, 0.8),
-                route: PointageScreen(),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: screenHeight * 0.08,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              userActive.isAdmin
-                  ? ButtonHommePage(
-                      text: "Messagerie",
-                      icon: Icons.notifications,
-                      color: const Color.fromRGBO(40, 221, 36, 0.7),
-                      route: const AdminMessageBoxScreen(),
-                      badgeValue: notification,
-                    )
-                  : ButtonHommePage(
-                      text: "Messagerie",
-                      icon: Icons.notifications,
-                      color: const Color.fromRGBO(40, 221, 36, 0.7),
-                      route: MessageBoxScreen(
-                        user: userActive,
+            SizedBox(
+              height: screenHeight * 0.08,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                userActive.isAdmin
+                    ? ButtonHommePage(
+                        text: "Messagerie",
+                        icon: Icons.notifications,
+                        color: const Color.fromRGBO(40, 221, 36, 0.7),
+                        route: const AdminMessageBoxScreen(),
+                        badgeValue: notification,
+                      )
+                    : ButtonHommePage(
+                        text: "Messagerie",
+                        icon: Icons.notifications,
+                        color: const Color.fromRGBO(40, 221, 36, 0.7),
+                        route: MessageBoxScreen(
+                          user: userActive,
+                        ),
                       ),
-                    ),
-              const ButtonHommePage(
-                text: "Gestion pointage",
-                icon: Icons.description_outlined,
-                color: Color.fromRGBO(203, 113, 30, 0.7),
-                route: ReportProblemeScreen(),
-              ),
-            ],
-          ),
-        ],
+                const ButtonHommePage(
+                  text: "Gestion pointage",
+                  icon: Icons.description_outlined,
+                  color: Color.fromRGBO(203, 113, 30, 0.7),
+                  route: ReportProblemeScreen(),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

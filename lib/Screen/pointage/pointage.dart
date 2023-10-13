@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tracker_app/Screen/pointage/pointage_pressence.dart';
 import 'package:tracker_app/provider/pointing_provider.dart';
 
 class PointageScreen extends ConsumerStatefulWidget {
@@ -9,17 +10,14 @@ class PointageScreen extends ConsumerStatefulWidget {
   ConsumerState<PointageScreen> createState() {
     return _PointageScreenState();
   }
-
 }
 
-class _PointageScreenState extends ConsumerState<PointageScreen>{
-
-      bool checked = false;
+class _PointageScreenState extends ConsumerState<PointageScreen> {
+  bool checked = false;
 
   @override
   Widget build(BuildContext context) {
 //Color.fromRGBO(0, 194, 8, 1)
-
 
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
@@ -43,10 +41,9 @@ class _PointageScreenState extends ConsumerState<PointageScreen>{
             children: [
               OutlinedButton(
                 onPressed: () {
-                  if(!checked){
+                  if (!checked) {
                     ref.watch(pointingProvider.notifier).addPointing("in");
-                  }
-                  else{
+                  } else {
                     ref.watch(pointingProvider.notifier).addPointing("out");
                   }
                   setState(() {
@@ -59,7 +56,7 @@ class _PointageScreenState extends ConsumerState<PointageScreen>{
                     screenHeight * 0.5,
                   ),
                   side: BorderSide(
-                    color: checked? Colors.red : Colors.green ,
+                    color: checked ? Colors.red : Colors.green,
                     width: 8,
                   ),
                   shape: RoundedRectangleBorder(
@@ -67,9 +64,9 @@ class _PointageScreenState extends ConsumerState<PointageScreen>{
                   ),
                 ),
                 child: Text(
-                  checked? "Sortir" : "Enter",
+                  checked ? "Sortir" : "Enter",
                   style: TextStyle(
-                    color: checked? Colors.red : Colors.green,
+                    color: checked ? Colors.red : Colors.green,
                     fontWeight: FontWeight.bold,
                     fontSize: 42,
                   ),
@@ -79,7 +76,13 @@ class _PointageScreenState extends ConsumerState<PointageScreen>{
                 height: screenHeight * 0.1,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) => PointagePressence(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 15,
                   fixedSize: Size(screenWidth * 0.8, 80),

@@ -18,7 +18,6 @@ class ButtonHommePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height - 100;
     Widget textContainer;
     Widget iconButton;
 
@@ -77,21 +76,21 @@ class ButtonHommePage extends StatelessWidget {
         ),
         child: Icon(
           icon,
-          size: screenHeight * 0.1,
+          size: 65,
           color: Theme.of(context).colorScheme.onSurface,
         ),
       );
     } else {
       iconButton = Icon(
         icon,
-        size: screenHeight * 0.1,
+        size: 65,
         color: Theme.of(context).colorScheme.onSurface,
       );
     }
 
     return SizedBox(
       width: 145,
-      height: screenHeight * 0.22,
+      height: 155,
       child: ElevatedButton(
         onPressed: () {
           Navigator.of(context).push(
