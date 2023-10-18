@@ -8,16 +8,19 @@ import 'package:tracker_app/util/generator.dart';
 import 'package:tracker_app/widgets/avatar.dart';
 import 'package:badges/badges.dart' as badges;
 
-class MessageBoxItem extends ConsumerWidget {
-  const MessageBoxItem({super.key, this.user});
+enum Component { message, pointing }
+
+class UserListItem extends ConsumerWidget {
+  const UserListItem({super.key, this.user, required this.component});
 
   final User? user;
+  final Component component;
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
-      List<Message> messagesTabs = ref.watch(messageProvider.notifier).messages;
+    List<Message> messagesTabs = ref.watch(messageProvider.notifier).messages;
     if (user != null) {
       messagesTabs = messagesTabs
           .where(
@@ -30,35 +33,38 @@ class MessageBoxItem extends ConsumerWidget {
 
     Widget avatar;
 
-
-    if(user != null && notification != 0){
-      avatar =  badges.Badge(
-                      position:
-                          badges.BadgePosition.custom(top: -10, start: 55),
-                      badgeContent: Text(
-                        notification.toString(),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      child: Avatar(user: user, radius: 35));
-    }else if(user != null){
-        avatar = Avatar(user: user, radius: 35);
-    }
-    else{
+    if (user != null && notification != 0 && component == Component.message) {
+      avatar = badges.Badge(
+          position: badges.BadgePosition.custom(top: -10, start: 55),
+          badgeContent: Text(
+            notification.toString(),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          child: Avatar(user: user, radius: 35));
+    } else if (user != null) {
+      avatar = Avatar(user: user, radius: 35);
+    } else {
       avatar = const SizedBox();
     }
 
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (ctx) => MessageBoxScreen(
-              user: user,
-            ),
-          ),
+          MaterialPageRoute(builder: (ctx) {
+            if (component == Component.message) {
+              return MessageBoxScreen(
+                user: user,
+              );
+            }else{
+              return MessageBoxScreen(
+                user: user,
+              );
+            }
+          }),
         );
       },
       child: Container(

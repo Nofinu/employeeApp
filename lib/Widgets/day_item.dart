@@ -37,17 +37,17 @@ class DayItem extends StatelessWidget {
             EdgeInsets.symmetric(vertical: 10, horizontal: screenWidth * 0.1),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-            boxShadow: const <BoxShadow>[
-              BoxShadow(
-                  color: Colors.black54,
-                  blurRadius: 10,
-                  offset: Offset(5, 10),
-                  spreadRadius: 0.1,
-                  blurStyle: BlurStyle.normal),
-            ],
-            color: const Color.fromARGB(255, 240, 239, 239),
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(width: 1, color: Colors.black)),
+          boxShadow: const <BoxShadow>[
+            BoxShadow(
+                color: Color.fromARGB(66, 0, 0, 0),
+                blurRadius: 5,
+                offset: Offset(5, 10),
+                spreadRadius: 0.1,
+                blurStyle: BlurStyle.normal),
+          ],
+          color: const Color.fromARGB(255, 240, 239, 239),
+          borderRadius: BorderRadius.circular(15),
+        ),
         child: Column(
           children: <Widget>[
             Row(
@@ -80,7 +80,8 @@ class DayItem extends StatelessWidget {
                 ),
               ],
             ),
-            ...Generator().buildIconRow(fakeday.users.length, fakeday.users,30),
+            ...Generator()
+                .buildIconRow(fakeday.users.length, fakeday.users, 30),
           ],
         ),
       ),

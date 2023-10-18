@@ -11,10 +11,14 @@ void main() {
         theme: ThemeData.light().copyWith(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 12, 67, 147),
-            onBackground: const Color.fromARGB(255, 231, 231, 231),
-            surface: const Color.fromARGB(255, 45, 91, 177),
+            seedColor: const Color.fromRGBO(12, 67, 147,1),
+            primary: const Color.fromRGBO(12, 67, 147,1),
+            onPrimary: const Color.fromARGB(255, 243, 243, 243),
           ),
+          scaffoldBackgroundColor:const Color.fromRGBO(206, 224, 251, 1),
+          appBarTheme: const AppBarTheme().copyWith(
+            color: const Color.fromRGBO(12, 67, 147,1)
+          )
         ),
         home: const HomePageScreen(),
       ),
@@ -27,3 +31,6 @@ void main() {
 //changer le pointing creee une liste d'objet contenant la date et le type de pointing et en faire une liste
 //pour la page on work recuperer la liste de tout les utilisateur et recuperer le dernier item de la liste du jour pour s'avoir qui travail actuelement
 // recherche des messages par persone / afficher le nom  du writter sur le msg
+
+
+//center left pour le text des button de la main page :3

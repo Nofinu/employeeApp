@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tracker_app/data/fake_data.dart';
-import 'package:tracker_app/widgets/message_box_item.dart';
+import 'package:tracker_app/widgets/user_list_item.dart';
 
 class AdminMessageBoxScreen extends StatefulWidget {
   const AdminMessageBoxScreen({super.key});
@@ -12,8 +12,6 @@ class AdminMessageBoxScreen extends StatefulWidget {
 }
 
 class _AdminMessageBoxScreenState extends State<AdminMessageBoxScreen> {
-
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,10 +28,15 @@ class _AdminMessageBoxScreenState extends State<AdminMessageBoxScreen> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: <MessageBoxItem>[
-            const MessageBoxItem(),
-            for(int i =0; i<user.length;i++)
-              MessageBoxItem(user: user[i]),
+          children: <UserListItem>[
+            const UserListItem(
+              component: Component.message,
+            ),
+            for (int i = 0; i < user.length; i++)
+              UserListItem(
+                user: user[i],
+                component: Component.message,
+              ),
           ],
         ),
       ),

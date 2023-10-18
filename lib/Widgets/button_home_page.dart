@@ -6,116 +6,142 @@ class ButtonHommePage extends StatelessWidget {
       {super.key,
       required this.text,
       required this.icon,
-      required this.color,
+      required this.colorBg,
+      required this.colorIcon,
       required this.route,
-      this.badgeValue});
+      this.badgeValue,
+      required this.height,
+      required this.width,
+      this.wrap = false,
+      this.textSize,
+      this.biggerSize = false,
+      this.row = false});
 
   final String text;
   final IconData icon;
-  final Color color;
+  final Color colorBg;
+  final Color colorIcon;
   final Widget route;
   final int? badgeValue;
+  final double height;
+  final double width;
+  final bool wrap;
+  final double? textSize;
+  final bool biggerSize;
+  final bool row;
 
   @override
   Widget build(BuildContext context) {
     Widget textContainer;
     Widget iconButton;
 
-    if (text.contains(" ")) {
+    if (text.contains(" ") && wrap) {
       int indexSpace = text.indexOf(" ");
       String textFirst = text.substring(0, indexSpace);
       String textSecond = text.substring(indexSpace + 1);
 
-      textContainer = Column(
-        children: <Widget>[
-          Text(
-            textFirst,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
+      textContainer = Align(
+        alignment: row? Alignment.centerLeft : Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment:
+              row ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              textFirst,
+              textAlign: row ? TextAlign.start : TextAlign.center,
+              style: TextStyle(
+                color: colorIcon,
+                fontWeight: FontWeight.w800,
+                fontSize: textSize ?? textSize,
+                letterSpacing: 1.3,
+              ),
             ),
-          ),
-          Text(
-            textSecond,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-          )
-        ],
+            Text(
+              textSecond,
+              textAlign: row ? TextAlign.start : TextAlign.center,
+              style: TextStyle(
+                color: colorIcon,
+                fontWeight: FontWeight.w800,
+                fontSize: textSize ?? textSize,
+                letterSpacing: 1.3,
+              ),
+            )
+          ],
+        ),
       );
     } else {
-      textContainer = Text(
-        text,
-        maxLines: 2,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onSurface,
-          fontWeight: FontWeight.bold,
-          fontSize: 18,
-        ),
+      textContainer = Align(
+        alignment: row? Alignment.centerLeft : Alignment.center,
+          child: Text(
+            text,
+            textAlign: row ? TextAlign.start : TextAlign.center,
+            style: TextStyle(
+              color: colorIcon,
+              fontWeight: FontWeight.w800,
+              fontSize: textSize ?? textSize,
+              letterSpacing: 1.3,
+            ),
+          ),
       );
     }
 
-    if (badgeValue != null && badgeValue!>0) {
+    if (badgeValue != null && badgeValue! > 0) {
       iconButton = badges.Badge(
-        position: badges.BadgePosition.custom(top: badgeValue!<10? 0 : 4, start: 35),
+        position: badges.BadgePosition.custom(
+            top: badgeValue! < 10 ? 0 : 4, start: 35),
         badgeContent: Text(
-          badgeValue!<100 ? badgeValue.toString(): "!!",
+          badgeValue! < 100 ? badgeValue.toString() : "!!",
           textAlign: TextAlign.start,
           style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimary,
+              color: colorIcon,
               fontWeight: FontWeight.bold,
-              fontSize: badgeValue!<10? 24 : 18),
+              fontSize: badgeValue! < 10 ? 24 : 18),
         ),
         child: Icon(
           icon,
-          size: 65,
-          color: Theme.of(context).colorScheme.onSurface,
+          size: width * 0.28 < height * 0.45 ? width * 0.28 : height * 0.5,
+          color: colorIcon,
         ),
       );
     } else {
       iconButton = Icon(
         icon,
-        size: 65,
-        color: Theme.of(context).colorScheme.onSurface,
+        size: width * 0.28 < height * 0.45 ? width * 0.28 : height * 0.45,
+        color: colorIcon,
       );
     }
 
-    return SizedBox(
-      width: 145,
-      height: 155,
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (ctx) => route),
-          );
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15))),
-          elevation: 10,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget> [
-            iconButton,
-            const SizedBox(
-              height: 10,
-            ),
-            FittedBox(
-              child: textContainer,
-            ),
-          ],
-        ),
+    final List<Widget> content = <Widget>[
+      iconButton,
+      SizedBox(width: row? 30 : 0,), 
+      textContainer,
+    ];
+
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (ctx) => route),
+        );
+      },
+      style: ElevatedButton.styleFrom(
+        fixedSize: Size(width, height),
+        padding: const EdgeInsets.all(8),
+        backgroundColor: colorBg,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15))),
+        elevation: 10,
       ),
+      child: row
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: content,
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: content,
+            ),
     );
   }
 }

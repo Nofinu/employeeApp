@@ -17,7 +17,7 @@ class LoginPageItem extends StatelessWidget{
     var email = "";
     var password = "";
 
-    void _onLogin() {
+    void onLogin() {
       if (formKey.currentState!.validate()) {
         //request connection to api with email and password
         formKey.currentState!.save();
@@ -124,7 +124,7 @@ class LoginPageItem extends StatelessWidget{
                     //     horizontal: 5 + screenWidth / 5, vertical: 25),
                     minimumSize: const Size.fromHeight(50),
                   ),
-                  onPressed: _onLogin,
+                  onPressed: onLogin,
                   child: Text(
                     "Connection",
                     style: TextStyle(
