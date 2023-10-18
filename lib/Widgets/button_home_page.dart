@@ -34,6 +34,7 @@ class ButtonHommePage extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget textContainer;
     Widget iconButton;
+    const double letterSpacing = 1.2;
 
     if (text.contains(" ") && wrap) {
       int indexSpace = text.indexOf(" ");
@@ -54,7 +55,7 @@ class ButtonHommePage extends StatelessWidget {
                 color: colorIcon,
                 fontWeight: FontWeight.w800,
                 fontSize: textSize ?? textSize,
-                letterSpacing: 1.3,
+                letterSpacing: letterSpacing,
               ),
             ),
             Text(
@@ -64,7 +65,7 @@ class ButtonHommePage extends StatelessWidget {
                 color: colorIcon,
                 fontWeight: FontWeight.w800,
                 fontSize: textSize ?? textSize,
-                letterSpacing: 1.3,
+                letterSpacing: letterSpacing,
               ),
             )
           ],
@@ -80,7 +81,7 @@ class ButtonHommePage extends StatelessWidget {
               color: colorIcon,
               fontWeight: FontWeight.w800,
               fontSize: textSize ?? textSize,
-              letterSpacing: 1.3,
+              letterSpacing: letterSpacing,
             ),
           ),
       );
@@ -100,14 +101,14 @@ class ButtonHommePage extends StatelessWidget {
         ),
         child: Icon(
           icon,
-          size: width * 0.28 < height * 0.45 ? width * 0.28 : height * 0.5,
+          size: row? height*0.8: height*0.45,
           color: colorIcon,
         ),
       );
     } else {
       iconButton = Icon(
         icon,
-        size: width * 0.28 < height * 0.45 ? width * 0.28 : height * 0.45,
+        size: row? height*0.8: height*0.45,
         color: colorIcon,
       );
     }

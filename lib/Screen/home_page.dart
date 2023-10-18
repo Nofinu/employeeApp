@@ -96,16 +96,28 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <ButtonHommePage>[
-                    ButtonHommePage(
-                      text: "Pointage",
-                      // icon: Icons.announcement_outlined,
-                      icon: Icons.punch_clock_rounded,
-                      colorBg: Theme.of(context).colorScheme.onPrimary,
-                      route: const PointageScreen(),
-                      colorIcon: const Color.fromRGBO(12, 67, 147, 1),
-                      width: screenWidth * 0.42,
-                      height: 120,
-                    ),
+                    userActive.isAdmin
+                        ? ButtonHommePage(
+                            text: "visualisation Pointage",
+                            // icon: Icons.announcement_outlined,
+                            icon: Icons.punch_clock_rounded,
+                            colorBg: Theme.of(context).colorScheme.onPrimary,
+                            route: const PointageScreen(),
+                            colorIcon: const Color.fromRGBO(12, 67, 147, 1),
+                            width: screenWidth * 0.42,
+                            height: 120,
+                            wrap: true,
+                          )
+                        : ButtonHommePage(
+                            text: "Pointage",
+                            // icon: Icons.announcement_outlined,
+                            icon: Icons.punch_clock_rounded,
+                            colorBg: Theme.of(context).colorScheme.onPrimary,
+                            route: const PointageScreen(),
+                            colorIcon: const Color.fromRGBO(12, 67, 147, 1),
+                            width: screenWidth * 0.42,
+                            height: 120,
+                          ),
                     ButtonHommePage(
                       text: "Team Tracker",
                       icon: Icons.calendar_month_rounded,
@@ -127,8 +139,8 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
               text: "Mon Calendrier",
               icon: Icons.calendar_month,
               colorBg: const Color.fromRGBO(96, 197, 249, 1),
-              route: PresenceManagementScreen(),
-              colorIcon: Color.fromRGBO(242, 246, 246, 1),
+              route: const PresenceManagementScreen(),
+              colorIcon: const Color.fromRGBO(242, 246, 246, 1),
               width: screenWidth * 0.9,
               height: 80,
               row: true,
@@ -136,16 +148,27 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
             const SizedBox(
               height: 20,
             ),
-            ButtonHommePage(
-              text: "Mes Pointages",
-              icon: Icons.punch_clock_rounded,
-              colorBg: const Color.fromRGBO(96, 197, 249, 1),
-              route: PointageScreen(),
-              colorIcon: Color.fromRGBO(242, 246, 246, 1),
-              width: screenWidth * 0.9,
-              height: 80,
-              row: true,
-            ),
+            userActive.isAdmin
+                ? ButtonHommePage(
+                    text: "Détails des pointages",
+                    icon: Icons.punch_clock_rounded,
+                    colorBg: const Color.fromRGBO(96, 197, 249, 1),
+                    route: const PointageScreen(),
+                    colorIcon: const Color.fromRGBO(242, 246, 246, 1),
+                    width: screenWidth * 0.9,
+                    height: 80,
+                    row: true,
+                  )
+                : ButtonHommePage(
+                    text: "Mes Pointages",
+                    icon: Icons.punch_clock_rounded,
+                    colorBg: const Color.fromRGBO(96, 197, 249, 1),
+                    route: const PointageScreen(),
+                    colorIcon: const Color.fromRGBO(242, 246, 246, 1),
+                    width: screenWidth * 0.9,
+                    height: 80,
+                    row: true,
+                  ),
             const SizedBox(
               height: 20,
             ),
@@ -156,23 +179,23 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                 children: <ButtonHommePage>[
                   userActive.isAdmin
                       ? ButtonHommePage(
-                          text: "Signaler un probleme",
-                          icon: Icons.notifications,
-                          colorBg: Theme.of(context).colorScheme.onPrimary,
-                          route: const PointageScreen(),
-                          colorIcon: const Color.fromRGBO(12, 67, 147, 1),
-                          width: screenWidth * 0.42,
-                          height: 95,
-                          wrap: true,
-                        )
-                      : ButtonHommePage(
                           text: "Probleme signalés",
                           icon: Icons.notifications,
                           colorBg: Theme.of(context).colorScheme.onPrimary,
                           route: const PointageScreen(),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
-                          height: 95,
+                          height: 110,
+                          wrap: true,
+                        )
+                      : ButtonHommePage(
+                          text: "Signaler un probleme",
+                          icon: Icons.notifications,
+                          colorBg: Theme.of(context).colorScheme.onPrimary,
+                          route: const PointageScreen(),
+                          colorIcon: const Color.fromRGBO(12, 67, 147, 1),
+                          width: screenWidth * 0.42,
+                          height: 110,
                           wrap: true,
                         ),
                   userActive.isAdmin
@@ -183,7 +206,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                           route: const PointageScreen(),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
-                          height: 95,
+                          height: 110,
                           wrap: true,
                         )
                       : ButtonHommePage(
@@ -193,7 +216,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                           route: const PointageScreen(),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
-                          height: 95,
+                          height: 110,
                           textSize: 28,
                         ),
                 ],
@@ -202,18 +225,31 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
             const SizedBox(
               height: 20,
             ),
-            ButtonHommePage(
-              text: "Signaler des heures supplémentaires",
-              icon: Icons.notifications,
-              colorBg: const Color.fromRGBO(96, 197, 249, 1),
-              route: PointageScreen(),
-              colorIcon: Color.fromRGBO(242, 246, 246, 1),
-              width: screenWidth * 0.9,
-              height: 80,
-              wrap: true,
-              biggerSize: true,
-              row: true,
-            ),
+            userActive.isAdmin
+                ? ButtonHommePage(
+                    text: "Heures supplémentaires demandés",
+                    icon: Icons.notifications,
+                    colorBg: const Color.fromRGBO(96, 197, 249, 1),
+                    route: const PointageScreen(),
+                    colorIcon: const Color.fromRGBO(242, 246, 246, 1),
+                    width: screenWidth * 0.9,
+                    height: 80,
+                    wrap: true,
+                    biggerSize: true,
+                    row: true,
+                  )
+                : ButtonHommePage(
+                    text: "Signaler des heures supplémentaires",
+                    icon: Icons.notifications,
+                    colorBg: const Color.fromRGBO(96, 197, 249, 1),
+                    route: PointageScreen(),
+                    colorIcon: Color.fromRGBO(242, 246, 246, 1),
+                    width: screenWidth * 0.9,
+                    height: 80,
+                    wrap: true,
+                    biggerSize: true,
+                    row: true,
+                  ),
           ],
         ),
       ),
