@@ -25,7 +25,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height - 100;
     final double screenWidth = MediaQuery.of(context).size.width;
-    final User userActive = user[1];
+    final User userActive = user[0];
     final List<Message> messages = ref.watch(messageProvider).messages;
     final int notification = Generator().countNotification(messages);
 
@@ -85,7 +85,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
           children: <Widget>[
             Container(
               width: screenWidth,
-              padding: EdgeInsets.fromLTRB(0, 50, 0, screenHeight * 0.04),
+              padding: EdgeInsets.fromLTRB(0, 40, 0, screenHeight * 0.03),
               decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primary,
                   borderRadius: const BorderRadiusDirectional.only(
@@ -105,7 +105,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                             route: const PointageScreen(),
                             colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                             width: screenWidth * 0.42,
-                            height: 120,
+                            height: 130,
                             wrap: true,
                           )
                         : ButtonHommePage(
@@ -116,7 +116,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                             route: const PointageScreen(),
                             colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                             width: screenWidth * 0.42,
-                            height: 120,
+                            height: 130,
                           ),
                     ButtonHommePage(
                       text: "Team Tracker",
@@ -133,7 +133,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
               ),
             ),
             SizedBox(
-              height: screenHeight * 0.06,
+              height: screenHeight * 0.03,
             ),
             ButtonHommePage(
               text: "Mon Calendrier",
@@ -217,7 +217,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
                           height: 110,
-                          textSize: 28,
+                          wrap: true,
                         ),
                 ],
               ),
