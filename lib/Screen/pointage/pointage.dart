@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/model/pointing/pointing.dart';
 import 'package:tracker_app/model/pointing/pointing_hour.dart';
+import 'package:tracker_app/model/user.dart';
+import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/pointing_provider.dart';
+import 'package:tracker_app/widgets/appbar_perso.dart';
 import 'package:tracker_app/widgets/pointing_hour.dart';
 
 class PointageScreen extends ConsumerStatefulWidget {
@@ -52,21 +55,10 @@ class _PointageScreenState extends ConsumerState<PointageScreen> {
         ref.watch(pointingProvider.notifier).getPointingToday();
 
     final double screenWidth = MediaQuery.of(context).size.width;
-
-      DateTime date1 = DateTime(2023, 10, 18, 9,05);
-        DateTime date2 = DateTime(2023, 10, 18, 12, 35);
-        final difference = date2.difference(date1);
-        print("${difference.inHours}h${difference.inMinutes%60}");
+    final User user = ref.watch(authProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "Pointage",
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
-        ),
-      ),
+      appBar: AppBarPerso(user,"Pointage",context),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -172,7 +164,7 @@ class _PointageScreenState extends ConsumerState<PointageScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 10),
+                            vertical: 20, horizontal: 8),
                         child: Wrap(
                           alignment: WrapAlignment.center,
                           spacing: 15,

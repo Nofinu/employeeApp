@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/model/fake_day.dart';
+import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/util/generator.dart';
+import 'package:tracker_app/widgets/appbar_perso.dart';
 import 'package:tracker_app/widgets/type_of_work.dart';
 
-class PresenceManagementDetailScreen extends StatelessWidget {
+class PresenceManagementDetailScreen extends ConsumerWidget {
   const PresenceManagementDetailScreen(
       {super.key, required this.planing, required this.day});
 
@@ -56,23 +59,12 @@ class PresenceManagementDetailScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          day,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+      appBar: AppBarPerso(ref.watch(authProvider), day, context),
       body: SingleChildScrollView(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

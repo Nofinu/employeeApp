@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/problem.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/messages_provider.dart';
+import 'package:tracker_app/widgets/appbar_perso.dart';
 
 enum Priority { low, medium, high }
 
@@ -33,9 +35,38 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
           writter: ref.watch<User>(authProvider),
           priority: _priority!);
 
-        ref.read(messageProvider.notifier).addMessage(probleme);
-        Navigator.of(context).pop();
+      ref.read(messageProvider.notifier).addMessage(probleme);
+      Navigator.of(context).pop();
     }
+  }
+
+  Widget customRadioButton(
+      String text, Priority priority, Color color, double screenWidth) {
+    return OutlinedButton(
+      onPressed: () {
+        setState(() {
+          _priority = priority;
+        });
+      },
+      style: OutlinedButton.styleFrom(
+        side: BorderSide(color: color, width: 1.5),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        backgroundColor: (_priority == priority)
+            ? color
+            : Theme.of(context).colorScheme.onPrimary,
+        fixedSize: Size(screenWidth * 0.25, 70),
+        padding: const EdgeInsets.all(5),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: (_priority == priority)
+              ? Theme.of(context).colorScheme.onPrimary
+              : color,
+          fontSize: 16,
+        ),
+      ),
+    );
   }
 
   @override
@@ -43,34 +74,33 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "Signaler un probleme",
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onBackground,
-            fontSize: 28,
-          ),
-        ),
+      appBar: AppBarPerso(
+        ref.watch(authProvider),
+        "Signaler un problème",
+        context,
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding:
               EdgeInsets.symmetric(vertical: 35, horizontal: screenWidth * 0.1),
           child: Form(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  TextFormField(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: TextFormField(
                     style: const TextStyle(fontSize: 21),
                     decoration: InputDecoration(
-                      labelText: "intitulé :",
-                      filled: true,
-                      fillColor: Theme.of(context).colorScheme.onBackground,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
+                        labelText: "intitulé :",
+                        labelStyle: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                        filled: true,
+                        fillColor: Theme.of(context).colorScheme.onPrimary,
+                        border: InputBorder.none),
                     validator: (value) {
                       if (value == null || value.length > 60) {
                         return "Saisissez un intitulé valide et inferieur a 60 caractères";
@@ -81,92 +111,82 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
                       _enteredTitle = newValue;
                     },
                   ),
-                  const SizedBox(
-                    height: 35,
+                ),
+                const SizedBox(
+                  height: 35,
+                ),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Priorité",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    textAlign: TextAlign.start,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      const Text(
-                        "Priorité :",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 22),
-                        textAlign: TextAlign.start,
-                      ),
-                      ListTile(
-                        title: const Text('Basse'),
-                        leading: Radio<Priority>(
-                          value: Priority.low,
-                          groupValue: _priority,
-                          onChanged: (Priority? value) {
-                            setState(() {
-                              _priority = value;
-                            });
-                          },
-                        ),
-                      ),
-                      ListTile(
-                        title: const Text('Moyenne'),
-                        leading: Radio<Priority>(
-                          value: Priority.medium,
-                          groupValue: _priority,
-                          onChanged: (Priority? value) {
-                            setState(() {
-                              _priority = value;
-                            });
-                          },
-                        ),
-                      ),
-                      ListTile(
-                        title: const Text('Haute'),
-                        leading: Radio<Priority>(
-                          value: Priority.high,
-                          groupValue: _priority,
-                          onChanged: (Priority? value) {
-                            setState(() {
-                              _priority = value;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  TextFormField(
+                ),
+                const SizedBox(height: 8,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    customRadioButton(
+                        "Basse", Priority.low, Colors.green, screenWidth),
+                    customRadioButton(
+                        "Moyenne", Priority.medium, Colors.orange, screenWidth),
+                    customRadioButton(
+                        "Haute", Priority.high, Colors.red, screenWidth),
+                  ],
+                ),
+                const SizedBox(
+                  height: 35,
+                ),
+                Container(
+                  height: 220,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  clipBehavior: Clip.antiAlias,
+                  child: TextFormField(
+                    textAlignVertical: TextAlignVertical.top,
+                    textAlign: TextAlign.start,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    expands: true,
                     style: const TextStyle(fontSize: 21),
                     decoration: InputDecoration(
-                      labelText: "Detail :",
+                      alignLabelWithHint: true,
+                      labelText: "Détails",
+                      labelStyle: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                       filled: true,
-                      fillColor: Theme.of(context).colorScheme.onBackground,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
+                      fillColor: Theme.of(context).colorScheme.onPrimary,
+                      border: InputBorder.none,
                     ),
                     onSaved: (newValue) {
                       _enteredDetails = newValue;
                     },
                   ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  ElevatedButton(
-                    onPressed: onClickSend,
-                    style: ElevatedButton.styleFrom(
-                      elevation: 3,
-                      minimumSize: Size(screenWidth * 0.8, 60),
+                ),
+                const SizedBox(
+                  height: 35,
+                ),
+                ElevatedButton(
+                  onPressed: onClickSend,
+                  style: ElevatedButton.styleFrom(
+                    elevation: 3,
+                    minimumSize: Size(screenWidth * 0.9, 60),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(
-                      "Envoyer",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onBackground,
-                        fontSize: 32,
-                      ),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                  ),
+                  child: Text(
+                    "Envoyer",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: 32,
                     ),
                   ),
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

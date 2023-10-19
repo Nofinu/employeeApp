@@ -11,14 +11,17 @@ void main() {
         theme: ThemeData.light().copyWith(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromRGBO(12, 67, 147,1),
-            primary: const Color.fromRGBO(12, 67, 147,1),
-            onPrimary: const Color.fromARGB(255, 243, 243, 243),
+            seedColor: const Color.fromRGBO(12, 67, 147, 1),
+            primary: const Color.fromRGBO(12, 67, 147, 1),
+            onPrimary: const Color.fromARGB(255, 244, 244, 244),
           ),
-          scaffoldBackgroundColor:const Color.fromRGBO(206, 224, 251, 1),
+          scaffoldBackgroundColor: const Color.fromRGBO(206, 224, 251, 1),
           appBarTheme: const AppBarTheme().copyWith(
-            color: const Color.fromRGBO(12, 67, 147,1)
-          )
+            color: const Color.fromRGBO(12, 67, 147, 1),
+            iconTheme: const IconThemeData().copyWith(
+              color: const Color.fromARGB(255, 244, 244, 244),
+            ),
+          ),
         ),
         home: const HomePageScreen(),
       ),

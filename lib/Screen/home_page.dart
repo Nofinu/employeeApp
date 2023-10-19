@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tracker_app/Screen/messageBox/report_problem.dart';
 import 'package:tracker_app/Screen/pointage/pointage.dart';
 import 'package:tracker_app/Screen/presenceManagement/presence_management.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
@@ -28,6 +29,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
     final User userActive = user[0];
     final List<Message> messages = ref.watch(messageProvider).messages;
     final int notification = Generator().countNotification(messages);
+    final Color whiteColor = Theme.of(context).colorScheme.onPrimary;
 
     Future(() {
       ref.read(authProvider.notifier).setUser(userActive);
@@ -69,12 +71,12 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                 Text(
                   "Bienvenue",
                   style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      color: whiteColor,
                       fontSize: 18),
                 ),
-                Text("${userActive.firstname}${userActive.lastname}",
+                Text("${userActive.firstname} ${userActive.lastname}",
                     style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimary,
+                        color: whiteColor,
                         fontSize: 22)),
               ]),
         ),
@@ -101,7 +103,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                             text: "visualisation Pointage",
                             // icon: Icons.announcement_outlined,
                             icon: Icons.punch_clock_rounded,
-                            colorBg: Theme.of(context).colorScheme.onPrimary,
+                            colorBg: whiteColor,
                             route: const PointageScreen(),
                             colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                             width: screenWidth * 0.42,
@@ -112,7 +114,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                             text: "Pointage",
                             // icon: Icons.announcement_outlined,
                             icon: Icons.punch_clock_rounded,
-                            colorBg: Theme.of(context).colorScheme.onPrimary,
+                            colorBg: whiteColor,
                             route: const PointageScreen(),
                             colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                             width: screenWidth * 0.42,
@@ -126,7 +128,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                       colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                       wrap: true,
                       width: screenWidth * 0.42,
-                      height: 120,
+                      height: 130,
                     ),
                   ],
                 ),
@@ -140,7 +142,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
               icon: Icons.calendar_month,
               colorBg: const Color.fromRGBO(96, 197, 249, 1),
               route: const PresenceManagementScreen(),
-              colorIcon: const Color.fromRGBO(242, 246, 246, 1),
+              colorIcon: whiteColor,
               width: screenWidth * 0.9,
               height: 80,
               row: true,
@@ -154,7 +156,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                     icon: Icons.punch_clock_rounded,
                     colorBg: const Color.fromRGBO(96, 197, 249, 1),
                     route: const PointageScreen(),
-                    colorIcon: const Color.fromRGBO(242, 246, 246, 1),
+                    colorIcon: whiteColor,
                     width: screenWidth * 0.9,
                     height: 80,
                     row: true,
@@ -164,7 +166,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                     icon: Icons.punch_clock_rounded,
                     colorBg: const Color.fromRGBO(96, 197, 249, 1),
                     route: const PointageScreen(),
-                    colorIcon: const Color.fromRGBO(242, 246, 246, 1),
+                    colorIcon: whiteColor,
                     width: screenWidth * 0.9,
                     height: 80,
                     row: true,
@@ -181,7 +183,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                       ? ButtonHommePage(
                           text: "Probleme signalés",
                           icon: Icons.notifications,
-                          colorBg: Theme.of(context).colorScheme.onPrimary,
+                          colorBg: whiteColor,
                           route: const PointageScreen(),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
@@ -191,8 +193,8 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                       : ButtonHommePage(
                           text: "Signaler un probleme",
                           icon: Icons.notifications,
-                          colorBg: Theme.of(context).colorScheme.onPrimary,
-                          route: const PointageScreen(),
+                          colorBg: whiteColor,
+                          route: const ReportProblemeScreen(),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
                           height: 110,
@@ -202,7 +204,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                       ? ButtonHommePage(
                           text: "Aménagement horaires",
                           icon: Icons.description_outlined,
-                          colorBg: Theme.of(context).colorScheme.onPrimary,
+                          colorBg: whiteColor,
                           route: const PointageScreen(),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
@@ -212,7 +214,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                       : ButtonHommePage(
                           text: "Aménagement horaires",
                           icon: Icons.notifications,
-                          colorBg: Theme.of(context).colorScheme.onPrimary,
+                          colorBg: whiteColor,
                           route: const PointageScreen(),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
@@ -231,7 +233,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                     icon: Icons.notifications,
                     colorBg: const Color.fromRGBO(96, 197, 249, 1),
                     route: const PointageScreen(),
-                    colorIcon: const Color.fromRGBO(242, 246, 246, 1),
+                    colorIcon: whiteColor,
                     width: screenWidth * 0.9,
                     height: 80,
                     wrap: true,
@@ -242,8 +244,8 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                     text: "Signaler des heures supplémentaires",
                     icon: Icons.notifications,
                     colorBg: const Color.fromRGBO(96, 197, 249, 1),
-                    route: PointageScreen(),
-                    colorIcon: Color.fromRGBO(242, 246, 246, 1),
+                    route: const PointageScreen(),
+                    colorIcon: whiteColor,
                     width: screenWidth * 0.9,
                     height: 80,
                     wrap: true,
