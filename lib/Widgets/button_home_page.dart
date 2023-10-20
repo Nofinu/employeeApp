@@ -115,7 +115,7 @@ class ButtonHommePage extends StatelessWidget {
 
     final List<Widget> content = <Widget>[
       iconButton,
-      SizedBox(width: row? 30 : 0,), 
+      SizedBox(width: row? 15 : 0,), 
       textContainer,
     ];
 

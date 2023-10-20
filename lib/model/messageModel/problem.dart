@@ -1,7 +1,6 @@
 import 'package:tracker_app/Screen/messageBox/report_problem.dart';
-import 'package:tracker_app/model/messageModel/request.dart';
-import 'package:tracker_app/widgets/probelem_message_item.dart';
 import 'package:tracker_app/model/messageModel/message.dart';
+
 
 class Probleme extends Message {
   Probleme(
@@ -13,8 +12,4 @@ class Probleme extends Message {
 
   final Priority priority;
 
-  @override
-  ProbelemMessageItem showWidget (void Function(bool, Request) onClickValidationButton,){
-    return ProbelemMessageItem(probleme: this);
-  }
 }

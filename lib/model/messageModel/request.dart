@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:tracker_app/widgets/request_message_item.dart';
 import 'package:tracker_app/model/messageModel/message.dart';
+
 
 final DateFormat formater = DateFormat.yMMMMd();
 
@@ -31,8 +30,4 @@ class Request extends Message {
       isCheked = true;
     }
 
-    @override
-    Widget showWidget (void Function(bool, Request) onClickValidationButton){
-      return RequestMessageItem(request: this,onClickValidationButton: onClickValidationButton);
-    }
 }

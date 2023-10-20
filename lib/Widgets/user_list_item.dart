@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/Screen/messageBox/message_box.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/message.dart';
-import 'package:tracker_app/provider/messages_provider.dart';
+import 'package:tracker_app/provider/probleme_provider.dart';
 import 'package:tracker_app/util/generator.dart';
 import 'package:tracker_app/widgets/avatar.dart';
 import 'package:badges/badges.dart' as badges;
@@ -20,7 +19,7 @@ class UserListItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    List<Message> messagesTabs = ref.watch(messageProvider.notifier).messages;
+    List<Message> messagesTabs = ref.watch(problemeProvider.notifier).problemesList;
     if (user != null) {
       messagesTabs = messagesTabs
           .where(
@@ -53,19 +52,19 @@ class UserListItem extends ConsumerWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (ctx) {
-            if (component == Component.message) {
-              return MessageBoxScreen(
-                user: user,
-              );
-            }else{
-              return MessageBoxScreen(
-                user: user,
-              );
-            }
-          }),
-        );
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(builder: (ctx) {
+        //     if (component == Component.message) {
+        //       return MessageBoxScreen(
+        //         user: user,
+        //       );
+        //     }else{
+        //       return MessageBoxScreen(
+        //         user: user,
+        //       );
+        //     }
+        //   }),
+        // );
       },
       child: Container(
         width: screenWidth * 0.8,

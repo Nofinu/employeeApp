@@ -4,7 +4,6 @@ import 'package:tracker_app/Screen/messageBox/report_problem.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/fake_day.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
-import 'package:tracker_app/model/messageModel/message.dart';
 import 'package:tracker_app/model/messageModel/problem.dart';
 import 'package:tracker_app/model/pointing/pointing.dart';
 import 'package:tracker_app/model/pointing/pointing_hour.dart';
@@ -104,7 +103,7 @@ List<FakeDay> semaine = [
   FakeDay(type: TypeOfWork.preparation, repos: false, users: getListUsers(6)),
 ];
 
-final messages = [
+final List<Probleme> problemeList= [
   Probleme(
     title: "probleme1",
     detail: "ceci est un premier probleme",
@@ -119,12 +118,6 @@ final messages = [
     writter: user[3],
     priority: Priority.medium,
   ),
-  Request(
-      title: "Request 1",
-      detail: "ceci est une request",
-      dateWritting: DateTime(2023, 10, 2, 11, 30, 0),
-      writter: user[0],
-      requestDate: DateTime(2024, 10, 2, 11, 30, 0)),
   Probleme(
     title: "probleme3",
     detail: "ceci est un premier probleme",
@@ -132,21 +125,37 @@ final messages = [
     writter: user[2],
     priority: Priority.high,
   ),
-  Request(
+];
+
+List<Probleme> getProblemes (){
+  List<Probleme> problemeListcopy = problemeList;
+  problemeListcopy.sort((a, b) => -1 * (a.dateWritting.compareTo(b.dateWritting)));
+  return problemeListcopy;
+}
+
+List<Request> requestList = [
+    Request(
       title: "Request 1",
       detail: "ceci est une request",
       dateWritting: DateTime(2023, 10, 2, 11, 30, 0),
+      writter: user[0],
+      requestDate: DateTime(2024, 10, 2, 11, 30, 0)),
+    Request(
+      title: "Request 2",
+      detail: "ceci est une request",
+      dateWritting: DateTime(2023, 11, 2, 11, 30, 0),
       writter: user[5],
       requestDate: DateTime(2024, 10, 2, 11, 30, 0),
       isCheked: true,
       isvalidated: true),
 ];
 
-List<Message> getMessages() {
-  final messageSort = messages;
-  messageSort.sort((a, b) => -1 * (a.dateWritting.compareTo(b.dateWritting)));
-  return messageSort;
+List<Request> getRequest (){
+  List<Request> requestListcopy = requestList;
+  requestListcopy.sort((a, b) => -1 * (a.dateWritting.compareTo(b.dateWritting)));
+  return requestListcopy;
 }
+
 
 final pointingList = [
   Pointing(user: user[6], date: DateTime.now()),

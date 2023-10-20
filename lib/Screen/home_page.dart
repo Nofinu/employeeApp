@@ -4,10 +4,10 @@ import 'package:tracker_app/Screen/messageBox/report_problem.dart';
 import 'package:tracker_app/Screen/pointage/pointage.dart';
 import 'package:tracker_app/Screen/presenceManagement/presence_management.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
+import 'package:tracker_app/model/messageModel/problem.dart';
 import 'package:tracker_app/model/user.dart';
-import 'package:tracker_app/model/messageModel/message.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
-import 'package:tracker_app/provider/messages_provider.dart';
+import 'package:tracker_app/provider/probleme_provider.dart';
 import 'package:tracker_app/util/generator.dart';
 import 'package:tracker_app/widgets/button_home_page.dart';
 import 'package:tracker_app/data/fake_data.dart';
@@ -27,7 +27,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
     final double screenHeight = MediaQuery.of(context).size.height - 100;
     final double screenWidth = MediaQuery.of(context).size.width;
     final User userActive = user[0];
-    final List<Message> messages = ref.watch(messageProvider).messages;
+    final List<Probleme> messages = ref.watch(problemeProvider).problemesList;
     final int notification = Generator().countNotification(messages);
     final Color whiteColor = Theme.of(context).colorScheme.onPrimary;
 

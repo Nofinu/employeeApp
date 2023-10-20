@@ -5,7 +5,7 @@ import 'package:tracker_app/Screen/messageBox/report_problem.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/problem.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
-import 'package:tracker_app/provider/messages_provider.dart';
+import 'package:tracker_app/provider/probleme_provider.dart';
 
 class ProbelemMessageItem extends ConsumerWidget {
   const ProbelemMessageItem({super.key, required this.probleme});
@@ -20,7 +20,7 @@ class ProbelemMessageItem extends ConsumerWidget {
       onTap: () {
         final User user = ref.read<User>(authProvider);
         if(!probleme.isView && user.isAdmin){
-           ref.read(messageProvider.notifier).setViewMessage(probleme);
+           ref.read(problemeProvider.notifier).setViewMessage(probleme);
         }
         Navigator.of(context).push(
           MaterialPageRoute(

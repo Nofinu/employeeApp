@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
-import 'package:tracker_app/provider/messages_provider.dart';
+import 'package:tracker_app/provider/request_provider.dart';
 
 final formater = DateFormat.yMd();
 
@@ -67,7 +67,7 @@ class _ExceptionalRequestState extends ConsumerState<ExceptionalRequest> {
           dateWritting: DateTime.now(),
           requestDate: _selectedDate!);
 
-          ref.read(messageProvider.notifier).addMessage(request);
+          ref.read(requestProvider.notifier).addMessage(request);
           Navigator.of(context).pop();
     }
   }

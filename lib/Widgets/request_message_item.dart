@@ -4,7 +4,7 @@ import 'package:tracker_app/Screen/messageBox/request_detail.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
-import 'package:tracker_app/provider/messages_provider.dart';
+import 'package:tracker_app/provider/request_provider.dart';
 
 class RequestMessageItem extends ConsumerStatefulWidget {
   const RequestMessageItem(
@@ -76,7 +76,7 @@ class _RequestMessageItemState extends ConsumerState<RequestMessageItem> {
             onPressed: () {
               final User user = ref.read<User>(authProvider);
               if (!widget.request.isView && user.isAdmin) {
-                ref.read(messageProvider.notifier).setViewMessage(widget.request);
+                ref.read(requestProvider.notifier).setViewMessage(widget.request);
               }
               Navigator.of(context).push(
                 MaterialPageRoute(
