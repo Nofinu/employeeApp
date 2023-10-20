@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/Screen/messageBox/report_problem.dart';
 import 'package:tracker_app/Screen/pointage/pointage.dart';
 import 'package:tracker_app/Screen/presenceManagement/presence_management.dart';
+import 'package:tracker_app/Screen/probleme/form_problem.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
+import 'package:tracker_app/Screen/request/request_page.dart';
 import 'package:tracker_app/model/messageModel/problem.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
@@ -215,7 +216,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                           text: "Aménagement horaires",
                           icon: Icons.notifications,
                           colorBg: whiteColor,
-                          route: const PointageScreen(),
+                          route: RequestScreen(user: userActive,),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
                           height: 110,

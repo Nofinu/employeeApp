@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/Screen/messageBox/request_detail.dart';
+import 'package:tracker_app/Screen/request/request_detail.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
@@ -39,41 +39,12 @@ class _RequestMessageItemState extends ConsumerState<RequestMessageItem> {
     requestShow = widget.request;
 
     return Container(
-      width: screenWidth * 0.8,
-      height: 80,
-      margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.1, vertical: 10),
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 240, 239, 239),
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: Colors.black, width: 1.5),
-      ),
+      margin: const  EdgeInsets.symmetric(vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                widget.request.title,
-                style:
-                    const TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
-                widget.request.getDate(),
-              ),
-            ],
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              elevation: 7,
-              backgroundColor: const Color.fromRGBO(96, 185, 205, 1),
-            ),
-            onPressed: () {
+        children: [
+          InkWell(
+            onTap: () {
               final User user = ref.read<User>(authProvider);
               if (!widget.request.isView && user.isAdmin) {
                 ref.read(requestProvider.notifier).setViewMessage(widget.request);
@@ -87,26 +58,64 @@ class _RequestMessageItemState extends ConsumerState<RequestMessageItem> {
                 ),
               );
             },
-            child: Text(
-              "Detail",
-              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+            child: Container(
+              width: screenWidth * 0.55,
+              height: 80,
+              padding: const EdgeInsets.all(8),
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 240, 239, 239),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(8),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        widget.request.title,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        widget.request.getDate(),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           Container(
-            width: 30,
-            height: 30,
+            width: screenWidth * 0.18,
+            height: 80,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: const Color.fromRGBO(126, 126, 126, 1)),
-            child: Icon(
-              widget.request.isCheked
-                  ? widget.request.isvalidated
-                      ? Icons.check
-                      : Icons.cancel_outlined
-                  : Icons.question_mark,
-              color: Theme.of(context).colorScheme.onPrimary,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              color: requestShow.isCheked
+                  ? requestShow.isvalidated
+                      ? const Color.fromRGBO(0, 194, 8, 1)
+                      : const Color.fromRGBO(205, 0, 0, 1)
+                  : const Color.fromRGBO(126, 126, 126, 1),
             ),
-          ),
+            child: Icon(
+              requestShow.isCheked
+                  ? requestShow.isvalidated
+                      ? Icons.check
+                      : Icons.close_sharp
+                  : null,
+              size: screenWidth * 0.1,
+              color: Theme.of(context).colorScheme.onPrimary,
+              
+            ),
+          )
         ],
       ),
     );

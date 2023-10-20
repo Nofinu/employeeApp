@@ -7,8 +7,6 @@ import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/probleme_provider.dart';
 import 'package:tracker_app/widgets/appbar_perso.dart';
 
-enum Priority { low, medium, high }
-
 class ReportProblemeScreen extends ConsumerStatefulWidget {
   const ReportProblemeScreen({super.key});
 
@@ -22,6 +20,7 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
   Priority? _priority = Priority.low;
   String? _enteredTitle;
   String? _enteredDetails;
+  Privacy _privacy = Privacy.public;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   void onClickSend() {
@@ -33,7 +32,8 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
           detail: _enteredDetails == null ? "" : _enteredDetails!,
           dateWritting: DateTime.now(),
           writter: ref.watch<User>(authProvider),
-          priority: _priority!);
+          priority: _priority!,
+          privacy: _privacy);
 
       ref.read(problemeProvider.notifier).addMessage(probleme);
       Navigator.of(context).pop();
@@ -97,7 +97,8 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
                     style: const TextStyle(fontSize: 21),
                     decoration: InputDecoration(
                         labelText: "intitulé :",
-                        labelStyle: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                        labelStyle: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                         filled: true,
                         fillColor: Theme.of(context).colorScheme.onPrimary,
                         border: InputBorder.none),
@@ -113,7 +114,7 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 35,
+                  height: 18,
                 ),
                 const Align(
                   alignment: Alignment.centerLeft,
@@ -123,7 +124,9 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
                     textAlign: TextAlign.start,
                   ),
                 ),
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -136,10 +139,10 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
                   ],
                 ),
                 const SizedBox(
-                  height: 35,
+                  height: 18,
                 ),
                 Container(
-                  height: 220,
+                  height: 180,
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(10)),
                   clipBehavior: Clip.antiAlias,
@@ -153,7 +156,8 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
                     decoration: InputDecoration(
                       alignLabelWithHint: true,
                       labelText: "Détails",
-                      labelStyle: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                      labelStyle: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                       filled: true,
                       fillColor: Theme.of(context).colorScheme.onPrimary,
                       border: InputBorder.none,
@@ -164,13 +168,56 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 35,
+                  height: 25,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_privacy == Privacy.public) {
+                      setState(() {
+                        _privacy = Privacy.private;
+                      });
+                    } else {
+                      setState(() {
+                        _privacy = Privacy.public;
+                      });
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    elevation: 3,
+                    minimumSize: Size(screenWidth * 0.9, 60),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        _privacy == Privacy.public
+                            ? Icons.lock_open
+                            : Icons.lock_outline,
+                        size: 40,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                      Text(
+                        _privacy == Privacy.public ? "Publique" : "Privé",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          fontSize: 32,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
                 ),
                 ElevatedButton(
                   onPressed: onClickSend,
                   style: ElevatedButton.styleFrom(
                     elevation: 3,
-                    minimumSize: Size(screenWidth * 0.9, 60),
+                    minimumSize: Size(screenWidth * 0.9, 80),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),

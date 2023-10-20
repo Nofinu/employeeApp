@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:tracker_app/Screen/messageBox/report_problem.dart';
+import 'package:tracker_app/Screen/probleme/form_problem.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/fake_day.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
@@ -110,6 +110,7 @@ final List<Probleme> problemeList= [
     dateWritting: DateTime.now(),
     writter: user[0],
     priority: Priority.low,
+    privacy: Privacy.public
   ),
   Probleme(
     title: "probleme2",
@@ -117,6 +118,7 @@ final List<Probleme> problemeList= [
     dateWritting: DateTime(2022, 10, 2, 15, 30, 0),
     writter: user[3],
     priority: Priority.medium,
+    privacy: Privacy.private
   ),
   Probleme(
     title: "probleme3",
@@ -124,6 +126,7 @@ final List<Probleme> problemeList= [
     dateWritting: DateTime(2023, 10, 2, 16, 30, 0),
     writter: user[2],
     priority: Priority.high,
+    privacy: Privacy.public
   ),
 ];
 
@@ -147,7 +150,7 @@ List<Request> requestList = [
       writter: user[5],
       requestDate: DateTime(2024, 10, 2, 11, 30, 0),
       isCheked: true,
-      isvalidated: true),
+      isvalidated: false),
 ];
 
 List<Request> getRequest (){

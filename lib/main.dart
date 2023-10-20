@@ -34,3 +34,6 @@ void main() {
 //changer le pointing creee une liste d'objet contenant la date et le type de pointing et en faire une liste
 //pour la page on work recuperer la liste de tout les utilisateur et recuperer le dernier item de la liste du jour pour s'avoir qui travail actuelement
 // recherche des messages par persone / afficher le nom  du writter sur le msg
+
+
+// heure supintitulé + date + motif + nb heure 

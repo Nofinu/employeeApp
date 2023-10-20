@@ -1,6 +1,7 @@
-import 'package:tracker_app/Screen/messageBox/report_problem.dart';
 import 'package:tracker_app/model/messageModel/message.dart';
 
+enum Priority { low, medium, high }
+enum Privacy { public, private}
 
 class Probleme extends Message {
   Probleme(
@@ -8,8 +9,10 @@ class Probleme extends Message {
       required super.detail,
       required super.dateWritting,
       required super.writter,
-      required this.priority});
+      required this.priority,
+      required this.privacy});
 
   final Priority priority;
+  final Privacy privacy;
 
 }
