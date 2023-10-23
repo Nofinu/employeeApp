@@ -131,11 +131,11 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     customRadioButton(
-                        "Basse", Priority.low, Colors.green, screenWidth),
+                        "Basse", Priority.low, const Color.fromRGBO(0, 194, 8, 1), screenWidth),
                     customRadioButton(
-                        "Moyenne", Priority.medium, Colors.orange, screenWidth),
+                        "Moyenne", Priority.medium, const Color.fromRGBO(237, 121, 14, 1), screenWidth),
                     customRadioButton(
-                        "Haute", Priority.high, Colors.red, screenWidth),
+                        "Haute", Priority.high, const Color.fromRGBO(214, 38, 38, 1), screenWidth),
                   ],
                 ),
                 const SizedBox(

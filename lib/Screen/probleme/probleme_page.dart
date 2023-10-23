@@ -1,55 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/Screen/request/form_request.dart';
+import 'package:tracker_app/Screen/probleme/form_problem.dart';
+import 'package:tracker_app/model/messageModel/problem.dart';
 import 'package:tracker_app/model/user.dart';
-import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
-import 'package:tracker_app/provider/request_provider.dart';
+import 'package:tracker_app/provider/probleme_provider.dart';
 import 'package:tracker_app/widgets/appbar_perso.dart';
-import 'package:tracker_app/widgets/request_message_item.dart';
+import 'package:tracker_app/widgets/probelem_message_item.dart';
 
-class RequestScreen extends ConsumerStatefulWidget {
-  const RequestScreen({super.key, required this.user});
+class ProblemeScreen extends ConsumerStatefulWidget {
+  const ProblemeScreen({super.key, required this.user});
 
   final User user;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
-    return _RequestScreenState();
+    return _ProblemeScreenState();
   }
 }
 
-class _RequestScreenState extends ConsumerState<RequestScreen> {
-  void onClickValidationButton(bool validation, Request request) {
+class _ProblemeScreenState extends ConsumerState<ProblemeScreen> {
+  void onClickValidationButton(bool validation, Probleme probleme) {
     ref
-        .read(requestProvider.notifier)
-        .setValidationOnRequest(request, validation);
+        .read(problemeProvider.notifier)
+        .setValidationOnRequest(probleme, validation);
   }
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    List<Request> messagesTabs = ref.watch(requestProvider);
+    List<Probleme> messagesTabs = ref.watch(problemeProvider);
 
-    if (!widget.user.isAdmin) {
-      messagesTabs = messagesTabs
-          .where(
-            (message) => message.writter == widget.user,
-          )
-          .toList();
-    }
+      if (!widget.user.isAdmin) {
+        messagesTabs = messagesTabs
+            .where(
+              (message) => message.writter == widget.user,
+            )
+            .toList();
+      }
+    
 
     return Scaffold(
       appBar:
           AppBarPerso(ref.watch(authProvider), "Aménagement horaire", context),
-      floatingActionButton: Visibility(
+                floatingActionButton: Visibility(
         visible: !widget.user.isAdmin,
         child: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (ctx) => const FormRequestScreen(),
+                builder: (ctx) => const ReportProblemeScreen(),
               ),
             );
           },
@@ -81,9 +82,9 @@ class _RequestScreenState extends ConsumerState<RequestScreen> {
                 height: 8,
               ),
               for (int i = 0; i < messagesTabs.length; i++)
-                RequestMessageItem(
-                    request: messagesTabs[i],
-                    onClickValidationButton: onClickValidationButton),
+                ProblemeMessageItem(probleme: messagesTabs[i],
+                    onClickValidationButton: onClickValidationButton
+                    ),
               const SizedBox(
                 height: 30,
               ),

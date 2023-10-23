@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
+import 'package:tracker_app/widgets/appbar_perso.dart';
 
 class RequestDetailScreen extends ConsumerWidget {
   const RequestDetailScreen(
@@ -30,11 +31,11 @@ class RequestDetailScreen extends ConsumerWidget {
           style: ElevatedButton.styleFrom(
               elevation: 5,
               backgroundColor: const Color.fromRGBO(205, 0, 0, 1),
-              minimumSize: Size(screenWidth * 0.4, 80)),
+              minimumSize: Size(screenWidth * 0.4, 75)),
           child: Icon(
             Icons.cancel_outlined,
             color: Theme.of(context).colorScheme.onPrimary,
-            size: screenWidth * 0.3,
+            size: 60,
           ),
         ),
       );
@@ -52,11 +53,11 @@ class RequestDetailScreen extends ConsumerWidget {
           style: ElevatedButton.styleFrom(
               elevation: 5,
               backgroundColor: const Color.fromRGBO(0, 194, 8, 1),
-              minimumSize: Size(screenWidth * 0.4, 80)),
+              minimumSize: Size(screenWidth * 0.4, 75)),
           child: Icon(
             Icons.check,
             color: Theme.of(context).colorScheme.onPrimary,
-            size: screenWidth * 0.3,
+            size: 60,
           ),
         ),
       );
@@ -64,7 +65,7 @@ class RequestDetailScreen extends ConsumerWidget {
       buttonCheck.add(
         Container(
           width: screenWidth * 0.8,
-          height: 80,
+          height: 75,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: request.isCheked
@@ -86,16 +87,7 @@ class RequestDetailScreen extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "${request.writter.firstname} ${request.writter.lastname}",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-        ),
-        centerTitle: true,
-      ),
+      appBar: AppBarPerso(user,request.title,context),
       body: Column(
         children: <Widget>[
           Text(

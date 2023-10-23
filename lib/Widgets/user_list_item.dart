@@ -19,7 +19,7 @@ class UserListItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    List<Message> messagesTabs = ref.watch(problemeProvider.notifier).problemesList;
+    List<Message> messagesTabs = ref.watch(problemeProvider);
     if (user != null) {
       messagesTabs = messagesTabs
           .where(

@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:tracker_app/Screen/probleme/form_problem.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/fake_day.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
@@ -96,11 +95,12 @@ List<FakeDay> semaine = [
       type: TypeOfWork.formation,
       repos: false,
       formation: "M2i",
-      users: getListUsers(3)),
-  FakeDay(type: TypeOfWork.cours, repos: false, users: getListUsers(2)),
-  FakeDay(type: TypeOfWork.none, repos: true, users: getListUsers(4)),
-  FakeDay(type: TypeOfWork.dev, repos: false, users: getListUsers(1)),
-  FakeDay(type: TypeOfWork.preparation, repos: false, users: getListUsers(6)),
+      users: getListUsers(3),
+      date: DateTime.utc(2023,10,16),),
+  FakeDay(type: TypeOfWork.cours, repos: false, users: getListUsers(2),date: DateTime.utc(2023,10,17),),
+  FakeDay(type: TypeOfWork.none, repos: true, users: getListUsers(4),date: DateTime.utc(2023,10,18),),
+  FakeDay(type: TypeOfWork.dev, repos: false, users: getListUsers(1),date: DateTime.utc(2023,10,19),),
+  FakeDay(type: TypeOfWork.preparation, repos: false, users: getListUsers(6),date: DateTime.utc(2023,10,20),),
 ];
 
 final List<Probleme> problemeList= [
@@ -136,7 +136,7 @@ List<Probleme> getProblemes (){
   return problemeListcopy;
 }
 
-List<Request> requestList = [
+List<Request> _requestList = [
     Request(
       title: "Request 1",
       detail: "ceci est une request",
@@ -154,7 +154,7 @@ List<Request> requestList = [
 ];
 
 List<Request> getRequest (){
-  List<Request> requestListcopy = requestList;
+  List<Request> requestListcopy = _requestList;
   requestListcopy.sort((a, b) => -1 * (a.dateWritting.compareTo(b.dateWritting)));
   return requestListcopy;
 }

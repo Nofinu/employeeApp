@@ -5,27 +5,44 @@ import 'package:tracker_app/model/messageModel/request.dart';
 
 final DateFormat formater = DateFormat.yMMMMd().add_Hm();
 
- abstract class Message {
-  Message ({required this.title, required this.detail, required this.dateWritting, required this.writter});
+abstract class Message {
+  Message(
+      {required this.title,
+      required this.detail,
+      required this.dateWritting,
+      required this.writter,
+      this.isCheked = false,
+      this.isvalidated = false});
+
   final String title;
   final String detail;
   final DateTime dateWritting;
   final User writter;
   bool isView = false;
-  
-  void onClickValidationButton (bool validation,Request request){
+  bool isCheked;
+  bool isvalidated;
 
-  }
+  void onClickValidationButton(bool validation, Request request) {}
 
-  void setIsView (){
+  void setIsView() {
     isView = true;
   }
 
-  Widget showWidget (void Function(bool validation,Request request) onClickValidationButton,){
+  Widget showWidget(
+    void Function(bool validation, Request request) onClickValidationButton,
+  ) {
     return const Text("message Not found");
   }
 
-  String getDate (){
+  String getDate() {
     return formater.format(dateWritting);
+  }
+
+  void setIsValidated(bool validation) {
+    isvalidated = validation;
+  }
+
+  void setIsChecked() {
+    isCheked = true;
   }
 }

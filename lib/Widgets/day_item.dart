@@ -63,7 +63,7 @@ class DayItem extends StatelessWidget {
                 ),
                 Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                      const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
                   decoration: BoxDecoration(
                     color: fakeday.repos
                         ? Colors.grey
@@ -75,10 +75,13 @@ class DayItem extends StatelessWidget {
                   ),
                   child: Text(
                     fakeday.repos ? "Repos" : toUpperCase(fakeday.type.name),
-                    style: const TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 8,
             ),
             ...Generator()
                 .buildIconRow(fakeday.users.length, fakeday.users, 30),

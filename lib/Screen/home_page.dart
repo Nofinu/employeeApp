@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/Screen/pointage/pointage.dart';
 import 'package:tracker_app/Screen/presenceManagement/presence_management.dart';
 import 'package:tracker_app/Screen/probleme/form_problem.dart';
+import 'package:tracker_app/Screen/probleme/probleme_page.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
 import 'package:tracker_app/Screen/request/request_page.dart';
 import 'package:tracker_app/model/messageModel/problem.dart';
@@ -28,7 +29,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
     final double screenHeight = MediaQuery.of(context).size.height - 100;
     final double screenWidth = MediaQuery.of(context).size.width;
     final User userActive = user[0];
-    final List<Probleme> messages = ref.watch(problemeProvider).problemesList;
+    final List<Probleme> messages = ref.watch(problemeProvider);
     final int notification = Generator().countNotification(messages);
     final Color whiteColor = Theme.of(context).colorScheme.onPrimary;
 
@@ -185,7 +186,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                           text: "Probleme signalés",
                           icon: Icons.notifications,
                           colorBg: whiteColor,
-                          route: const PointageScreen(),
+                          route: ProblemeScreen(user: userActive,),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
                           height: 110,
@@ -195,7 +196,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                           text: "Signaler un probleme",
                           icon: Icons.notifications,
                           colorBg: whiteColor,
-                          route: const ReportProblemeScreen(),
+                          route: ProblemeScreen(user: userActive,),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
                           height: 110,
@@ -206,7 +207,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                           text: "Aménagement horaires",
                           icon: Icons.description_outlined,
                           colorBg: whiteColor,
-                          route: const PointageScreen(),
+                          route: RequestScreen(user: userActive,),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
                           height: 110,
