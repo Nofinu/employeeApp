@@ -23,17 +23,6 @@ class RequestNotifier extends StateNotifier<List<Request>> {
     state = requestList;
   }
 
-  int getNotification() {
-    List<Request> requestList = [...state];
-    int cpt = 0;
-    for (int i = 0; i < requestList.length; i++) {
-      if (!requestList[i].isView) {
-        cpt++;
-      }
-    }
-    return cpt;
-  }
-
   void setViewMessage(Request request) {
     List<Request> requestList = [...state];
     if (requestList.contains(request)) {

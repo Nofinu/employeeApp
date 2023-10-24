@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 
 class ButtonHommePage extends StatelessWidget {
-  const ButtonHommePage(
-      {super.key,
-      required this.text,
-      required this.icon,
-      required this.colorBg,
-      required this.colorIcon,
-      required this.route,
-      this.badgeValue,
-      required this.height,
-      required this.width,
-      this.wrap = false,
-      this.textSize,
-      this.biggerSize = false,
-      this.row = false});
+  const ButtonHommePage({
+    super.key,
+    required this.text,
+    required this.icon,
+    required this.colorBg,
+    required this.colorIcon,
+    required this.route,
+    this.badgeValue,
+    required this.height,
+    required this.width,
+    this.wrap = false,
+    this.textSize,
+    this.biggerSize = false,
+    this.row = false,
+  });
 
   final String text;
   final IconData icon;
@@ -42,7 +43,7 @@ class ButtonHommePage extends StatelessWidget {
       String textSecond = text.substring(indexSpace + 1);
 
       textContainer = Align(
-        alignment: row? Alignment.centerLeft : Alignment.center,
+        alignment: row ? Alignment.centerLeft : Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment:
@@ -73,49 +74,54 @@ class ButtonHommePage extends StatelessWidget {
       );
     } else {
       textContainer = Align(
-        alignment: row? Alignment.centerLeft : Alignment.center,
-          child: Text(
-            text,
-            textAlign: row ? TextAlign.start : TextAlign.center,
-            style: TextStyle(
-              color: colorIcon,
-              fontWeight: FontWeight.w800,
-              fontSize: textSize ?? textSize,
-              letterSpacing: letterSpacing,
-            ),
+        alignment: row ? Alignment.centerLeft : Alignment.center,
+        child: Text(
+          text,
+          textAlign: row ? TextAlign.start : TextAlign.center,
+          style: TextStyle(
+            color: colorIcon,
+            fontWeight: FontWeight.w800,
+            fontSize: textSize ?? textSize,
+            letterSpacing: letterSpacing,
           ),
+        ),
       );
     }
 
     if (badgeValue != null && badgeValue! > 0) {
       iconButton = badges.Badge(
+        badgeStyle:
+            const badges.BadgeStyle(padding: EdgeInsets.fromLTRB(8, 5, 8, 8),
+            borderSide: BorderSide(width: 5,color: Colors.red)),
         position: badges.BadgePosition.custom(
-            top: badgeValue! < 10 ? 0 : 4, start: 35),
+             start: 45,top: badgeValue!> 9 ? -10: -5 ),
         badgeContent: Text(
-          badgeValue! < 100 ? badgeValue.toString() : "!!",
+          badgeValue! < 9 ? badgeValue.toString() : "!",
           textAlign: TextAlign.start,
           style: TextStyle(
-              color: colorIcon,
+              color: Theme.of(context).colorScheme.onPrimary,
               fontWeight: FontWeight.bold,
-              fontSize: badgeValue! < 10 ? 24 : 18),
+              fontSize: badgeValue!> 9 ? 24: 19),
         ),
         child: Icon(
-          icon,
-          size: row? height*0.8: height*0.45,
-          color: colorIcon,
-        ),
+              icon,
+              size: row ? height * 0.8 : height * 0.45,
+              color: colorIcon,
+            ),
       );
     } else {
       iconButton = Icon(
-        icon,
-        size: row? height*0.8: height*0.45,
-        color: colorIcon,
-      );
+              icon,
+              size: row ? height * 0.8 : height * 0.45,
+              color: colorIcon,
+            );
     }
 
     final List<Widget> content = <Widget>[
       iconButton,
-      SizedBox(width: row? 15 : 0,), 
+      SizedBox(
+        width: row ? 15 : 0,
+      ),
       textContainer,
     ];
 

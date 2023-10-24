@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/Screen/pointage/pointage.dart';
 import 'package:tracker_app/Screen/presenceManagement/presence_management.dart';
-import 'package:tracker_app/Screen/probleme/form_problem.dart';
 import 'package:tracker_app/Screen/probleme/probleme_page.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
 import 'package:tracker_app/Screen/request/request_page.dart';
 import 'package:tracker_app/model/messageModel/problem.dart';
+import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/probleme_provider.dart';
+import 'package:tracker_app/provider/request_provider.dart';
 import 'package:tracker_app/util/generator.dart';
 import 'package:tracker_app/widgets/button_home_page.dart';
 import 'package:tracker_app/data/fake_data.dart';
@@ -28,9 +29,12 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height - 100;
     final double screenWidth = MediaQuery.of(context).size.width;
-    final User userActive = user[0];
-    final List<Probleme> messages = ref.watch(problemeProvider);
-    final int notification = Generator().countNotification(messages);
+    final User userActive = user[1];
+    final List<Probleme> problemesList = ref.watch(problemeProvider);
+    final int notificationProbleme =
+        Generator().countNotification(problemesList);
+    final List<Request> requestList = ref.watch(requestProvider);
+    final int notificationRequest = Generator().countNotification(requestList);
     final Color whiteColor = Theme.of(context).colorScheme.onPrimary;
 
     Future(() {
@@ -72,14 +76,10 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
               children: [
                 Text(
                   "Bienvenue",
-                  style: TextStyle(
-                      color: whiteColor,
-                      fontSize: 18),
+                  style: TextStyle(color: whiteColor, fontSize: 18),
                 ),
                 Text("${userActive.firstname} ${userActive.lastname}",
-                    style: TextStyle(
-                        color: whiteColor,
-                        fontSize: 22)),
+                    style: TextStyle(color: whiteColor, fontSize: 22)),
               ]),
         ),
       ),
@@ -184,19 +184,24 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                   userActive.isAdmin
                       ? ButtonHommePage(
                           text: "Probleme signalés",
-                          icon: Icons.notifications,
+                          icon: Icons.announcement_outlined,
                           colorBg: whiteColor,
-                          route: ProblemeScreen(user: userActive,),
+                          route: ProblemeScreen(
+                            user: userActive,
+                          ),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
                           height: 110,
                           wrap: true,
+                          badgeValue: notificationProbleme,
                         )
                       : ButtonHommePage(
                           text: "Signaler un probleme",
                           icon: Icons.notifications,
                           colorBg: whiteColor,
-                          route: ProblemeScreen(user: userActive,),
+                          route: ProblemeScreen(
+                            user: userActive,
+                          ),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
                           height: 110,
@@ -205,19 +210,24 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                   userActive.isAdmin
                       ? ButtonHommePage(
                           text: "Aménagement horaires",
-                          icon: Icons.description_outlined,
+                          icon: Icons.forum_outlined,
                           colorBg: whiteColor,
-                          route: RequestScreen(user: userActive,),
+                          route: RequestScreen(
+                            user: userActive,
+                          ),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
                           height: 110,
                           wrap: true,
+                          badgeValue: notificationRequest,
                         )
                       : ButtonHommePage(
                           text: "Aménagement horaires",
                           icon: Icons.notifications,
                           colorBg: whiteColor,
-                          route: RequestScreen(user: userActive,),
+                          route: RequestScreen(
+                            user: userActive,
+                          ),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                           width: screenWidth * 0.42,
                           height: 110,
@@ -241,6 +251,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                     wrap: true,
                     biggerSize: true,
                     row: true,
+                    badgeValue: 12,
                   )
                 : ButtonHommePage(
                     text: "Signaler des heures supplémentaires",

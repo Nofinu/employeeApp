@@ -24,17 +24,6 @@ class ProblemeNotifier extends StateNotifier<List<Probleme>> {
     state = problemesList;
   }
 
-  int getNotification() {
-    List<Probleme> problemesList = [...state];
-    int cpt = 0;
-    for (int i = 0; i < problemesList.length; i++) {
-      if (!problemesList[i].isView) {
-        cpt++;
-      }
-    }
-    return cpt;
-  }
-
   void setViewMessage(Probleme probleme) {
     List<Probleme> problemesList = [...state];
     if (problemesList.contains(probleme)) {
