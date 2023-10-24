@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:tracker_app/model/messageModel/overtime.dart';
 import 'package:tracker_app/model/user.dart';
-import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
-import 'package:tracker_app/provider/request_provider.dart';
+import 'package:tracker_app/provider/overtime_provider.dart';
 import 'package:tracker_app/widgets/appbar_perso.dart';
 
 final formater = DateFormat.yMd();
 
-class FormRequestScreen extends ConsumerStatefulWidget {
-  const FormRequestScreen({super.key});
+class OvertimeFormScreen extends ConsumerStatefulWidget {
+  const OvertimeFormScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
-    return _FormRequestScreenState();
+    return _OvertimeFormScreenState();
   }
 }
 
-class _FormRequestScreenState extends ConsumerState<FormRequestScreen> {
+class _OvertimeFormScreenState extends ConsumerState<OvertimeFormScreen> {
   DateTime? _selectedDate;
   String? _enteredTitle;
   String? _enteredDetail;
+  int? _enteredHours;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   void _presentDatePicker() async {
@@ -61,14 +63,15 @@ class _FormRequestScreenState extends ConsumerState<FormRequestScreen> {
     if (_formKey.currentState!.validate() && _selectedDate != null) {
       _formKey.currentState!.save();
 
-      Request request = Request(
+      Overtime overtime = Overtime(
           title: _enteredTitle!,
           detail: _enteredDetail!,
           writter: ref.watch<User>(authProvider),
           dateWritting: DateTime.now(),
-          requestDate: _selectedDate!);
+          nbrHours: _enteredHours!,
+          dateOvertime: _selectedDate!);
 
-      ref.read(requestProvider.notifier).addMessage(request);
+      ref.read(overtimeProvider.notifier).addMessage(overtime);
       Navigator.of(context).pop();
     }
   }
@@ -78,8 +81,8 @@ class _FormRequestScreenState extends ConsumerState<FormRequestScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBarPerso(
-          ref.watch(authProvider), "Demander un aménagement", context),
+      appBar: AppBarPerso(ref.watch(authProvider),
+          "Demander des heures supplémentaire", context),
       body: SingleChildScrollView(
         child: Padding(
           padding:
@@ -89,8 +92,9 @@ class _FormRequestScreenState extends ConsumerState<FormRequestScreen> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                     clipBehavior: Clip.antiAlias,
                     child: TextFormField(
                       style: const TextStyle(fontSize: 21),
@@ -146,7 +150,7 @@ class _FormRequestScreenState extends ConsumerState<FormRequestScreen> {
                     height: 35,
                   ),
                   Container(
-                    height: 220,
+                    height: 140,
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(10)),
                     clipBehavior: Clip.antiAlias,
@@ -174,11 +178,44 @@ class _FormRequestScreenState extends ConsumerState<FormRequestScreen> {
                   const SizedBox(
                     height: 35,
                   ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: TextFormField(
+                      initialValue: "0",
+                      style: const TextStyle(fontSize: 21),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      decoration: InputDecoration(
+                          labelText: "Nombre d'heures :",
+                          labelStyle: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                          filled: true,
+                          fillColor: Theme.of(context).colorScheme.onPrimary,
+                          border: InputBorder.none),
+                      validator: (value) {
+                        if (value == null || int.parse(value) <= 0) {
+                          return "Saisissez un nombre d'heures correcte";
+                        }
+                        return null;
+                      },
+                      onSaved: (newValue) {
+                        _enteredHours = int.parse(newValue!);
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 35,
+                  ),
                   ElevatedButton(
                     onPressed: onPressSend,
                     style: ElevatedButton.styleFrom(
                       elevation: 3,
-                      fixedSize: Size(screenWidth * 0.8, 80),
+                      fixedSize: Size(screenWidth * 0.8, 60),
                       backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
                     child: Text(

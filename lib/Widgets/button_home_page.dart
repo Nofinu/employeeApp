@@ -16,6 +16,7 @@ class ButtonHommePage extends StatelessWidget {
     this.textSize,
     this.biggerSize = false,
     this.row = false,
+    this.notImplemented = false,
   });
 
   final String text;
@@ -30,6 +31,7 @@ class ButtonHommePage extends StatelessWidget {
   final double? textSize;
   final bool biggerSize;
   final bool row;
+  final bool notImplemented;
 
   @override
   Widget build(BuildContext context) {
@@ -90,31 +92,31 @@ class ButtonHommePage extends StatelessWidget {
 
     if (badgeValue != null && badgeValue! > 0) {
       iconButton = badges.Badge(
-        badgeStyle:
-            const badges.BadgeStyle(padding: EdgeInsets.fromLTRB(8, 5, 8, 8),
-            borderSide: BorderSide(width: 5,color: Colors.red)),
+        badgeStyle: const badges.BadgeStyle(
+            padding: EdgeInsets.fromLTRB(8, 5, 8, 8),
+            borderSide: BorderSide(width: 5, color: Colors.red)),
         position: badges.BadgePosition.custom(
-             start: 45,top: badgeValue!> 9 ? -10: -5 ),
+            start: 45, top: badgeValue! > 9 ? -10 : -5),
         badgeContent: Text(
           badgeValue! < 9 ? badgeValue.toString() : "!",
           textAlign: TextAlign.start,
           style: TextStyle(
               color: Theme.of(context).colorScheme.onPrimary,
               fontWeight: FontWeight.bold,
-              fontSize: badgeValue!> 9 ? 24: 19),
+              fontSize: badgeValue! > 9 ? 24 : 19),
         ),
         child: Icon(
-              icon,
-              size: row ? height * 0.8 : height * 0.45,
-              color: colorIcon,
-            ),
+          icon,
+          size: row ? height * 0.8 : height * 0.45,
+          color: colorIcon,
+        ),
       );
     } else {
       iconButton = Icon(
-              icon,
-              size: row ? height * 0.8 : height * 0.45,
-              color: colorIcon,
-            );
+        icon,
+        size: row ? height * 0.8 : height * 0.45,
+        color: colorIcon,
+      );
     }
 
     final List<Widget> content = <Widget>[
@@ -127,6 +129,15 @@ class ButtonHommePage extends StatelessWidget {
 
     return ElevatedButton(
       onPressed: () {
+        if (notImplemented) {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Not Implemented"),
+            ),
+          );
+          return;
+        }
         Navigator.of(context).push(
           MaterialPageRoute(builder: (ctx) => route),
         );
