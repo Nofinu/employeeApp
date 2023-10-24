@@ -43,7 +43,7 @@ class _ProblemeScreenState extends ConsumerState<ProblemeScreen> {
 
     return Scaffold(
       appBar:
-          AppBarPerso(ref.watch(authProvider), "Aménagement horaire", context),
+          AppBarPerso(ref.watch(authProvider), "Signaler un problème", context),
                 floatingActionButton: Visibility(
         visible: !widget.user.isAdmin,
         child: FloatingActionButton(
@@ -73,7 +73,7 @@ class _ProblemeScreenState extends ConsumerState<ProblemeScreen> {
               SizedBox(
                 width: screenWidth * 0.8,
                 child: const Text(
-                  "Liste des demandes",
+                  "Liste des problemes",
                   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 28),
                   textAlign: TextAlign.start,
                 ),

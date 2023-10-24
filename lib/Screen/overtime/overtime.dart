@@ -37,7 +37,7 @@ class _OvertimeScreenState extends ConsumerState<OvertimeScreen>{
     return Scaffold(
       appBar: AppBarPerso(ref.watch(authProvider),"Heure supplémentaire",context),
         floatingActionButton: Visibility(
-        visible: user.isAdmin,
+        visible: !user.isAdmin,
         child: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(

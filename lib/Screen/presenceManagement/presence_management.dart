@@ -15,8 +15,31 @@ class PresenceManagementScreen extends ConsumerWidget {
     List<FakeDay> semaineList = semaine;
 
     return Scaffold(
-      appBar:
-          AppBarPerso(ref.watch(authProvider), "Team Tracker", context),
+      appBar: AppBarPerso(ref.watch(authProvider), "Team Tracker", context),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                style: IconButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  fixedSize: const Size(100, 50),
+                ),
+                color: Theme.of(context).colorScheme.onPrimary,
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {},
+              ),
+              IconButton(
+                 style: IconButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  fixedSize: const Size(100, 50),
+                ),
+                color: Theme.of(context).colorScheme.onPrimary,
+                icon: const Icon(Icons.arrow_forward_outlined),
+                onPressed: () {},
+              )
+            ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

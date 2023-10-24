@@ -32,7 +32,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height - 100;
     final double screenWidth = MediaQuery.of(context).size.width;
-    final User userActive = user[1];
+    final User userActive = user[0];
     final List<Probleme> problemesList = ref.watch(problemeProvider);
     final int notificationProbleme =
         Generator().countNotification(problemesList);
@@ -178,6 +178,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                     width: screenWidth * 0.9,
                     height: 80,
                     row: true,
+                    notImplemented: true,
                   ),
             const SizedBox(
               height: 20,
