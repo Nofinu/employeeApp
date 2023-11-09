@@ -1,4 +1,7 @@
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
+
+final DateFormat formater = DateFormat.Hm();
 
 enum PointingType {
   inPointing,
@@ -12,4 +15,8 @@ class PointingHour {
   final DateTime hour = DateTime.now();
   final String idPointing;
   final PointingType typeOfPointing;
+
+String getHours (){
+  return formater.format(hour);
+}
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/Screen/overtime/overtime.dart';
-import 'package:tracker_app/Screen/pointage/pointage.dart';
+import 'package:tracker_app/Screen/pointage/global_pointing_page.dart';
+import 'package:tracker_app/Screen/pointage/pointing_page.dart';
 import 'package:tracker_app/Screen/presenceManagement/presence_management.dart';
 import 'package:tracker_app/Screen/probleme/probleme_page.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
@@ -32,7 +33,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height - 100;
     final double screenWidth = MediaQuery.of(context).size.width;
-    final User userActive = user[0];
+    final User userActive = user[1];
     final List<Probleme> problemesList = ref.watch(problemeProvider);
     final int notificationProbleme =
         Generator().countNotification(problemesList);
@@ -162,23 +163,21 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                     text: "Détails des pointages",
                     icon: Icons.punch_clock_rounded,
                     colorBg: const Color.fromRGBO(96, 197, 249, 1),
-                    route: const PointageScreen(),
+                    route: const GlobalPointingScreen(),
                     colorIcon: whiteColor,
                     width: screenWidth * 0.9,
                     height: 80,
                     row: true,
-                    notImplemented: true,
                   )
                 : ButtonHommePage(
                     text: "Mes Pointages",
                     icon: Icons.punch_clock_rounded,
                     colorBg: const Color.fromRGBO(96, 197, 249, 1),
-                    route: const PointageScreen(),
+                    route: const GlobalPointingScreen(),
                     colorIcon: whiteColor,
                     width: screenWidth * 0.9,
                     height: 80,
                     row: true,
-                    notImplemented: true,
                   ),
             const SizedBox(
               height: 20,

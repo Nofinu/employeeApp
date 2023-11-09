@@ -8,8 +8,8 @@ class Probleme extends Message {
   Probleme(
       {required super.title,
       required super.detail,
-      required super.dateWritting,
-      required super.writter,
+      required super.dateWriting,
+      required super.writer,
       super.isCheked,
       super.isvalidated,
       required this.priority,

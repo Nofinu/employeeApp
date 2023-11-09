@@ -7,10 +7,10 @@ class Request extends Message {
   Request(
       {required super.title,
       required super.detail,
-      required super.writter,
+      required super.writer,
       super.isCheked,
       super.isvalidated,
-      required super.dateWritting,
+      required super.dateWriting,
       required this.requestDate});
 
   final DateTime requestDate;

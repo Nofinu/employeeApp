@@ -19,7 +19,7 @@ class RequestNotifier extends StateNotifier<List<Request>> {
   void addMessage(Request request) {
     List<Request> requestList = [...state];
     requestList.add(request);
-    requestList.sort((a, b) => -1 * (a.dateWritting.compareTo(b.dateWritting)));
+    requestList.sort((a, b) => -1 * (a.dateWriting.compareTo(b.dateWriting)));
     state = requestList;
   }
 

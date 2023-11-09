@@ -7,8 +7,8 @@ final DateFormat formater = DateFormat.Md();
 class Overtime extends Message{
   Overtime({required super.title,
       required super.detail,
-      required super.dateWritting,
-      required super.writter,
+      required super.dateWriting,
+      required super.writer,
       required this.nbrHours,
       required this.dateOvertime});
 

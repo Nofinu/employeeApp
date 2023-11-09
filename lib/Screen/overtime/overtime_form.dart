@@ -66,8 +66,8 @@ class _OvertimeFormScreenState extends ConsumerState<OvertimeFormScreen> {
       Overtime overtime = Overtime(
           title: _enteredTitle!,
           detail: _enteredDetail!,
-          writter: ref.watch<User>(authProvider),
-          dateWritting: DateTime.now(),
+          writer: ref.watch<User>(authProvider),
+          dateWriting: DateTime.now(),
           nbrHours: _enteredHours!,
           dateOvertime: _selectedDate!);
 

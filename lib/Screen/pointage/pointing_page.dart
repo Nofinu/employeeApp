@@ -54,6 +54,12 @@ class _PointageScreenState extends ConsumerState<PointageScreen> {
     final Pointing pointing =
         ref.watch(pointingProvider.notifier).getPointingToday();
 
+    if(pointing.pointingList.length % 2 == 1){
+      setState(() {
+        checked = true;
+      });
+    }
+
     final double screenWidth = MediaQuery.of(context).size.width;
     final User user = ref.watch(authProvider);
 
@@ -146,9 +152,6 @@ class _PointageScreenState extends ConsumerState<PointageScreen> {
                         width: screenWidth * 0.9,
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
-                          // borderRadius: const BorderRadius.only(
-                          //     topLeft: Radius.circular(14),
-                          //     topRight: Radius.circular(14),),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 9),

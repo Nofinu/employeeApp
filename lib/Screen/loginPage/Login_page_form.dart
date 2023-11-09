@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:tracker_app/Screen/home_page.dart';
 import 'package:tracker_app/data/fake_data.dart';
 
-class LoginPageItem extends StatelessWidget{
-  const LoginPageItem({super.key});
+class LoginPageFrom extends StatelessWidget{
+  const LoginPageFrom({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class LoginPageItem extends StatelessWidget{
                       style: TextStyle(fontSize: 22),
                     ),
                     filled: true,
-                    fillColor: Theme.of(context).colorScheme.onBackground,
+                    fillColor: Theme.of(context).colorScheme.onPrimary,
                   ),
                   validator: (value) {
                     if (value == null || !value.contains("@")) {
@@ -97,7 +97,7 @@ class LoginPageItem extends StatelessWidget{
                       style: TextStyle(fontSize: 22),
                     ),
                     filled: true,
-                    fillColor: Theme.of(context).colorScheme.onBackground,
+                    fillColor: Theme.of(context).colorScheme.onPrimary,
                   ),
                   validator: (value) {
                     if (value == null || value == "") {
@@ -119,17 +119,16 @@ class LoginPageItem extends StatelessWidget{
                 margin: const EdgeInsets.symmetric(horizontal: 30),
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    // padding: EdgeInsets.symmetric(
-                    //     horizontal: 5 + screenWidth / 5, vertical: 25),
-                    minimumSize: const Size.fromHeight(50),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(8)),
+                    minimumSize: const Size.fromHeight(80),
                   ),
                   onPressed: onLogin,
                   child: Text(
                     "Connection",
                     style: TextStyle(
                         fontSize: 25,
-                        color: Theme.of(context).colorScheme.onBackground),
+                        color: Theme.of(context).colorScheme.onPrimary),
                   ),
                 ),
               ),

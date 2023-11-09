@@ -30,8 +30,8 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
       Probleme probleme = Probleme(
           title: _enteredTitle!,
           detail: _enteredDetails == null ? "" : _enteredDetails!,
-          dateWritting: DateTime.now(),
-          writter: ref.watch<User>(authProvider),
+          dateWriting: DateTime.now(),
+          writer: ref.watch<User>(authProvider),
           priority: _priority!,
           privacy: _privacy);
 

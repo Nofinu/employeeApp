@@ -1,6 +1,9 @@
+import 'package:intl/intl.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/pointing/pointing_hour.dart';
 import 'package:uuid/uuid.dart';
+
+final DateFormat formater = DateFormat.MMMMd();
 
 class Pointing {
   Pointing({required this.user, required this.date});
@@ -16,5 +19,10 @@ class Pointing {
         PointingHour(idPointing: id, typeOfPointing: pointingType),
       );
     }
+  }
+
+  
+  String getDate (){
+    return formater.format(date);
   }
 }

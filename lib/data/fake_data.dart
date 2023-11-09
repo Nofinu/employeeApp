@@ -107,24 +107,24 @@ final List<Probleme> problemeList= [
   Probleme(
     title: "probleme1",
     detail: "ceci est un premier probleme",
-    dateWritting: DateTime.now(),
-    writter: user[0],
+    dateWriting: DateTime.now(),
+    writer: user[0],
     priority: Priority.low,
     privacy: Privacy.public
   ),
   Probleme(
     title: "probleme2",
     detail: "ceci est un premier probleme",
-    dateWritting: DateTime(2022, 10, 2, 15, 30, 0),
-    writter: user[3],
+    dateWriting: DateTime(2022, 10, 2, 15, 30, 0),
+    writer: user[3],
     priority: Priority.medium,
     privacy: Privacy.private
   ),
   Probleme(
     title: "probleme3",
     detail: "ceci est un premier probleme",
-    dateWritting: DateTime(2023, 10, 2, 16, 30, 0),
-    writter: user[2],
+    dateWriting: DateTime(2023, 10, 2, 16, 30, 0),
+    writer: user[2],
     priority: Priority.high,
     privacy: Privacy.public
   ),
@@ -132,7 +132,7 @@ final List<Probleme> problemeList= [
 
 List<Probleme> getProblemes (){
   List<Probleme> problemeListcopy = problemeList;
-  problemeListcopy.sort((a, b) => -1 * (a.dateWritting.compareTo(b.dateWritting)));
+  problemeListcopy.sort((a, b) => -1 * (a.dateWriting.compareTo(b.dateWriting)));
   return problemeListcopy;
 }
 
@@ -140,14 +140,14 @@ List<Request> _requestList = [
     Request(
       title: "Request 1",
       detail: "ceci est une request",
-      dateWritting: DateTime(2023, 10, 2, 11, 30, 0),
-      writter: user[0],
+      dateWriting: DateTime(2023, 10, 2, 11, 30, 0),
+      writer: user[0],
       requestDate: DateTime(2024, 10, 2, 11, 30, 0)),
     Request(
       title: "Request 2",
       detail: "ceci est une request",
-      dateWritting: DateTime(2023, 11, 2, 11, 30, 0),
-      writter: user[5],
+      dateWriting: DateTime(2023, 11, 2, 11, 30, 0),
+      writer: user[5],
       requestDate: DateTime(2024, 10, 2, 11, 30, 0),
       isCheked: true,
       isvalidated: false),
@@ -155,7 +155,7 @@ List<Request> _requestList = [
 
 List<Request> getRequest (){
   List<Request> requestListcopy = _requestList;
-  requestListcopy.sort((a, b) => -1 * (a.dateWritting.compareTo(b.dateWritting)));
+  requestListcopy.sort((a, b) => -1 * (a.dateWriting.compareTo(b.dateWriting)));
   return requestListcopy;
 }
 

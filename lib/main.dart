@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tracker_app/Screen/home_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tracker_app/Screen/loginPage/login_screen.dart';
 // import 'package:tracker_app/Screen/loginPage/login_screen.dart';
 
 void main() {
@@ -34,6 +35,3 @@ void main() {
 //changer le pointing creee une liste d'objet contenant la date et le type de pointing et en faire une liste
 //pour la page on work recuperer la liste de tout les utilisateur et recuperer le dernier item de la liste du jour pour s'avoir qui travail actuelement
 // recherche des messages par persone / afficher le nom  du writter sur le msg
-
-
-// heure sup intitulé + date + motif + nb heure 

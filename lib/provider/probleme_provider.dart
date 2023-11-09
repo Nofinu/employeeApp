@@ -20,7 +20,7 @@ class ProblemeNotifier extends StateNotifier<List<Probleme>> {
     List<Probleme> problemesList = [...state];
     problemesList.add(probleme);
     problemesList
-        .sort((a, b) => -1 * (a.dateWritting.compareTo(b.dateWritting)));
+        .sort((a, b) => -1 * (a.dateWriting.compareTo(b.dateWriting)));
     state = problemesList;
   }
 

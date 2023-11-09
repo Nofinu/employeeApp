@@ -35,7 +35,7 @@ class _RequestScreenState extends ConsumerState<RequestScreen> {
     if (!widget.user.isAdmin) {
       messagesTabs = messagesTabs
           .where(
-            (message) => message.writter == widget.user,
+            (message) => message.writer == widget.user,
           )
           .toList();
     }

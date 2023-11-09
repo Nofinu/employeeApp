@@ -9,15 +9,15 @@ abstract class Message {
   Message(
       {required this.title,
       required this.detail,
-      required this.dateWritting,
-      required this.writter,
+      required this.dateWriting,
+      required this.writer,
       this.isCheked = false,
       this.isvalidated = false});
 
   final String title;
   final String detail;
-  final DateTime dateWritting;
-  final User writter;
+  final DateTime dateWriting;
+  final User writer;
   bool isView = false;
   bool isCheked;
   bool isvalidated;
@@ -35,7 +35,7 @@ abstract class Message {
   }
 
   String getDate() {
-    return formater.format(dateWritting);
+    return formater.format(dateWriting);
   }
 
   void setIsValidated(bool validation) {

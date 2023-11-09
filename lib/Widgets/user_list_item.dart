@@ -23,7 +23,7 @@ class UserListItem extends ConsumerWidget {
     if (user != null) {
       messagesTabs = messagesTabs
           .where(
-            (message) => message.writter == user,
+            (message) => message.writer == user,
           )
           .toList();
     }
