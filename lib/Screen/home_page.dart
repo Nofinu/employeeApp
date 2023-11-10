@@ -17,7 +17,6 @@ import 'package:tracker_app/provider/probleme_provider.dart';
 import 'package:tracker_app/provider/request_provider.dart';
 import 'package:tracker_app/util/generator.dart';
 import 'package:tracker_app/widgets/button_home_page.dart';
-import 'package:tracker_app/data/fake_data.dart';
 
 class HomePageScreen extends ConsumerStatefulWidget {
   const HomePageScreen({super.key});
@@ -33,7 +32,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height - 100;
     final double screenWidth = MediaQuery.of(context).size.width;
-    final User userActive = user[1];
+    final User userActive = ref.watch(authProvider);
     final List<Probleme> problemesList = ref.watch(problemeProvider);
     final int notificationProbleme =
         Generator().countNotification(problemesList);

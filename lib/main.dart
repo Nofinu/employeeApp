@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tracker_app/Screen/home_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/Screen/loginPage/login_screen.dart';
 // import 'package:tracker_app/Screen/loginPage/login_screen.dart';
@@ -24,7 +23,7 @@ void main() {
             ),
           ),
         ),
-        home: const HomePageScreen(),
+        home: const LoginScreen(),
       ),
     ),
   );
