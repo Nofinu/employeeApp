@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/Screen/overtime/overtime.dart';
-import 'package:tracker_app/Screen/pointage/global_pointing_page.dart';
-import 'package:tracker_app/Screen/pointage/pointing_page.dart';
+import 'package:tracker_app/Screen/pointage/global_clockin_page.dart';
+import 'package:tracker_app/Screen/pointage/clockin_page.dart';
 import 'package:tracker_app/Screen/presenceManagement/presence_management.dart';
-import 'package:tracker_app/Screen/probleme/probleme_page.dart';
+import 'package:tracker_app/Screen/probleme/issue_page.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
 import 'package:tracker_app/Screen/request/request_page.dart';
 import 'package:tracker_app/model/messageModel/overtime.dart';
-import 'package:tracker_app/model/messageModel/problem.dart';
+import 'package:tracker_app/model/messageModel/issue.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/overtime_provider.dart';
-import 'package:tracker_app/provider/probleme_provider.dart';
+import 'package:tracker_app/provider/issue_provider.dart';
 import 'package:tracker_app/provider/request_provider.dart';
 import 'package:tracker_app/util/generator.dart';
 import 'package:tracker_app/widgets/button_home_page.dart';
@@ -33,7 +33,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
     final double screenHeight = MediaQuery.of(context).size.height - 100;
     final double screenWidth = MediaQuery.of(context).size.width;
     final User userActive = ref.watch(authProvider);
-    final List<Probleme> problemesList = ref.watch(problemeProvider);
+    final List<Issue> problemesList = ref.watch(issueProvider);
     final int notificationProbleme =
         Generator().countNotification(problemesList);
     final List<Request> requestList = ref.watch(requestProvider);
@@ -111,7 +111,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                             text: "visualisation Pointage",
                             icon: Icons.punch_clock_rounded,
                             colorBg: whiteColor,
-                            route: const PointageScreen(),
+                            route: const ClockinScreen(),
                             colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                             width: screenWidth * 0.42,
                             height: 130,
@@ -121,7 +121,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                             text: "Pointage",
                             icon: Icons.punch_clock_rounded,
                             colorBg: whiteColor,
-                            route: const PointageScreen(),
+                            route: const ClockinScreen(),
                             colorIcon: const Color.fromRGBO(12, 67, 147, 1),
                             width: screenWidth * 0.42,
                             height: 130,
@@ -162,7 +162,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                     text: "Détails des pointages",
                     icon: Icons.punch_clock_rounded,
                     colorBg: const Color.fromRGBO(96, 197, 249, 1),
-                    route: const GlobalPointingScreen(),
+                    route: const GlobalClockinScreen(),
                     colorIcon: whiteColor,
                     width: screenWidth * 0.9,
                     height: 80,
@@ -172,7 +172,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                     text: "Mes Pointages",
                     icon: Icons.punch_clock_rounded,
                     colorBg: const Color.fromRGBO(96, 197, 249, 1),
-                    route: const GlobalPointingScreen(),
+                    route: const GlobalClockinScreen(),
                     colorIcon: whiteColor,
                     width: screenWidth * 0.9,
                     height: 80,
@@ -191,7 +191,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                           text: "Probleme signalés",
                           icon: Icons.announcement_outlined,
                           colorBg: whiteColor,
-                          route: ProblemeScreen(
+                          route: IssueScreen(
                             user: userActive,
                           ),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),
@@ -204,7 +204,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                           text: "Signaler un probleme",
                           icon: Icons.notifications,
                           colorBg: whiteColor,
-                          route: ProblemeScreen(
+                          route: IssueScreen(
                             user: userActive,
                           ),
                           colorIcon: const Color.fromRGBO(12, 67, 147, 1),

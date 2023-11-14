@@ -1,36 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/Screen/probleme/form_problem.dart';
-import 'package:tracker_app/model/messageModel/problem.dart';
+import 'package:tracker_app/Screen/probleme/form_issue.dart';
+import 'package:tracker_app/model/messageModel/issue.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
-import 'package:tracker_app/provider/probleme_provider.dart';
+import 'package:tracker_app/provider/issue_provider.dart';
 import 'package:tracker_app/widgets/appbar_perso.dart';
-import 'package:tracker_app/widgets/probelem_message_item.dart';
+import 'package:tracker_app/widgets/issue_message_item.dart';
 
-class ProblemeScreen extends ConsumerStatefulWidget {
-  const ProblemeScreen({super.key, required this.user});
+class IssueScreen extends ConsumerStatefulWidget {
+  const IssueScreen({super.key, required this.user});
 
   final User user;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
-    return _ProblemeScreenState();
+    return _IssueScreenState();
   }
 }
 
-class _ProblemeScreenState extends ConsumerState<ProblemeScreen> {
-  void onClickValidationButton(bool validation, Probleme probleme) {
+class _IssueScreenState extends ConsumerState<IssueScreen> {
+  void onClickValidationButton(bool validation, Issue issue) {
     ref
-        .read(problemeProvider.notifier)
-        .setValidationOnRequest(probleme, validation);
+        .read(issueProvider.notifier)
+        .setValidationOnRequest(issue, validation);
   }
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    List<Probleme> messagesTabs = ref.watch(problemeProvider);
+    List<Issue> messagesTabs = ref.watch(issueProvider);
 
       if (!widget.user.isAdmin) {
         messagesTabs = messagesTabs
@@ -50,7 +50,7 @@ class _ProblemeScreenState extends ConsumerState<ProblemeScreen> {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (ctx) => const ReportProblemeScreen(),
+                builder: (ctx) => const ReportIssueScreen(),
               ),
             );
           },
@@ -82,7 +82,7 @@ class _ProblemeScreenState extends ConsumerState<ProblemeScreen> {
                 height: 8,
               ),
               for (int i = 0; i < messagesTabs.length; i++)
-                ProblemeMessageItem(probleme: messagesTabs[i],
+                IssueMessageItem(issue: messagesTabs[i],
                     onClickValidationButton: onClickValidationButton
                     ),
               const SizedBox(

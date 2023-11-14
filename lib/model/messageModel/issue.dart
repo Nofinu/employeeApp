@@ -4,8 +4,8 @@ enum Priority { low, medium, high }
 
 enum Privacy { public, private }
 
-class Probleme extends Message {
-  Probleme(
+class Issue extends Message {
+  Issue(
       {required super.title,
       required super.detail,
       required super.dateWriting,

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/Screen/probleme/probleme_detail.dart';
-import 'package:tracker_app/model/messageModel/problem.dart';
+import 'package:tracker_app/Screen/probleme/issue_detail.dart';
+import 'package:tracker_app/model/messageModel/issue.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
-import 'package:tracker_app/provider/probleme_provider.dart';
+import 'package:tracker_app/provider/issue_provider.dart';
 
-class ProblemeMessageItem extends ConsumerStatefulWidget {
-  const ProblemeMessageItem({super.key, required this.probleme,required this.onClickValidationButton});
+class IssueMessageItem extends ConsumerStatefulWidget {
+  const IssueMessageItem({super.key, required this.issue,required this.onClickValidationButton});
 
-  final Probleme probleme;
-  final void Function(bool validation, Probleme request) onClickValidationButton;
+  final Issue issue;
+  final void Function(bool validation, Issue request) onClickValidationButton;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
@@ -18,22 +18,22 @@ class ProblemeMessageItem extends ConsumerStatefulWidget {
   }
 }
 
-class _ProblemeMessageItemState extends ConsumerState<ProblemeMessageItem> {
-  late Probleme problemeShow;
+class _ProblemeMessageItemState extends ConsumerState<IssueMessageItem> {
+  late Issue problemeShow;
 
-  void onclickRefresh(bool validation, Probleme probleme) {
-    widget.onClickValidationButton(validation, probleme);
-    probleme.setIsValidated(validation);
-    probleme.setIsChecked();
+  void onclickRefresh(bool validation, Issue issue) {
+    widget.onClickValidationButton(validation, issue);
+    issue.setIsValidated(validation);
+    issue.setIsChecked();
     setState(() {
-      problemeShow = probleme;
+      problemeShow = issue;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    problemeShow = widget.probleme;
+    problemeShow = widget.issue;
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -43,15 +43,15 @@ class _ProblemeMessageItemState extends ConsumerState<ProblemeMessageItem> {
           InkWell(
             onTap: () {
               final User user = ref.read<User>(authProvider);
-              if (!widget.probleme.isView && user.isAdmin) {
+              if (!widget.issue.isView && user.isAdmin) {
                 ref
-                    .read(problemeProvider.notifier)
-                    .setViewMessage(widget.probleme);
+                    .read(issueProvider.notifier)
+                    .setViewMessage(widget.issue);
               }
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (ctx) => ProblemeDetailScreen(
-                    probleme: widget.probleme,
+                  builder: (ctx) => IssueDetailScreen(
+                    issue: widget.issue,
                     onClickValidationButton: onclickRefresh,
                   ),
                 ),
@@ -75,7 +75,7 @@ class _ProblemeMessageItemState extends ConsumerState<ProblemeMessageItem> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        widget.probleme.title,
+                        widget.issue.title,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
@@ -85,7 +85,7 @@ class _ProblemeMessageItemState extends ConsumerState<ProblemeMessageItem> {
                         height: 8,
                       ),
                       Text(
-                        widget.probleme.getDate(),
+                        widget.issue.getDate(),
                       ),
                     ],
                   ),

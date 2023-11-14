@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/model/messageModel/problem.dart';
+import 'package:tracker_app/model/messageModel/issue.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 
-class ProblemeDetailScreen extends ConsumerWidget {
-  const ProblemeDetailScreen({super.key, required this.probleme,required this.onClickValidationButton});
+class IssueDetailScreen extends ConsumerWidget {
+  const IssueDetailScreen({super.key, required this.issue,required this.onClickValidationButton});
 
-  final Probleme probleme;
+  final Issue issue;
 
-    final void Function(bool validation, Probleme request) onClickValidationButton;
+    final void Function(bool validation, Issue issue) onClickValidationButton;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,15 +33,15 @@ class ProblemeDetailScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                probleme.title,
+                issue.title,
                 style:
                     const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
               Icon(
                 Icons.priority_high_rounded,
-                color: probleme.priority == Priority.low
+                color: issue.priority == Priority.low
                     ? const Color.fromRGBO(0, 194, 8, 1)
-                    : probleme.priority == Priority.medium
+                    : issue.priority == Priority.medium
                         ? const Color.fromRGBO(237, 121, 14, 1)
                         : const Color.fromRGBO(214, 38, 38, 1),
                 size: 28,
@@ -52,21 +52,21 @@ class ProblemeDetailScreen extends ConsumerWidget {
             height: 35,
           ),
           Text(
-            probleme.getDate(),
+            issue.getDate(),
             style: const TextStyle(fontSize: 26),
           ),
           const SizedBox(
             height: 25,
           ),
           Text(
-            probleme.detail,
+            issue.detail,
             style: const TextStyle(fontSize: 22),
           ),
           Visibility(
-            visible: user.isAdmin && !probleme.isCheked,
+            visible: user.isAdmin && !issue.isCheked,
             child: ElevatedButton(
               onPressed: () {
-                onClickValidationButton(true, probleme);
+                onClickValidationButton(true, issue);
                 Navigator.of(context).pop();
               },
               style: ElevatedButton.styleFrom(

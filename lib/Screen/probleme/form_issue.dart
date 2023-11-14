@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/model/user.dart';
-import 'package:tracker_app/model/messageModel/problem.dart';
+import 'package:tracker_app/model/messageModel/issue.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
-import 'package:tracker_app/provider/probleme_provider.dart';
+import 'package:tracker_app/provider/issue_provider.dart';
 import 'package:tracker_app/widgets/appbar_perso.dart';
 
-class ReportProblemeScreen extends ConsumerStatefulWidget {
-  const ReportProblemeScreen({super.key});
+class ReportIssueScreen extends ConsumerStatefulWidget {
+  const ReportIssueScreen({super.key});
 
   @override
-  ConsumerState<ReportProblemeScreen> createState() {
-    return _SignalerProblemeScreenState();
+  ConsumerState<ReportIssueScreen> createState() {
+    return _ReportIssueScreenState();
   }
 }
 
-class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
+class _ReportIssueScreenState extends ConsumerState<ReportIssueScreen> {
   Priority? _priority = Priority.low;
   String? _enteredTitle;
   String? _enteredDetails;
@@ -27,7 +26,7 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
     if (_formKey.currentState!.validate() && _priority != null) {
       _formKey.currentState!.save();
 
-      Probleme probleme = Probleme(
+      Issue probleme = Issue(
           title: _enteredTitle!,
           detail: _enteredDetails == null ? "" : _enteredDetails!,
           dateWriting: DateTime.now(),
@@ -35,7 +34,7 @@ class _SignalerProblemeScreenState extends ConsumerState<ReportProblemeScreen> {
           priority: _priority!,
           privacy: _privacy);
 
-      ref.read(problemeProvider.notifier).addMessage(probleme);
+      ref.read(issueProvider.notifier).addMessage(probleme);
       Navigator.of(context).pop();
     }
   }

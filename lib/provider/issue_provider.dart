@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/data/fake_data.dart';
-import 'package:tracker_app/model/messageModel/problem.dart';
+import 'package:tracker_app/model/messageModel/issue.dart';
 
-class ProblemeNotifier extends StateNotifier<List<Probleme>> {
-  ProblemeNotifier() : super(getProblemes());
+class IssueNotifier extends StateNotifier<List<Issue>> {
+  IssueNotifier() : super(getProblemes());
 
-  void setValidationOnRequest(Probleme message, bool validation) {
-    List<Probleme> problemesList = [...state];
+  void setValidationOnRequest(Issue message, bool validation) {
+    List<Issue> problemesList = [...state];
     if (problemesList.contains(message)) {
       int id = problemesList.indexOf(message);
       message.setIsChecked();
@@ -16,16 +16,16 @@ class ProblemeNotifier extends StateNotifier<List<Probleme>> {
     state = problemesList;
   }
 
-  void addMessage(Probleme probleme) {
-    List<Probleme> problemesList = [...state];
+  void addMessage(Issue probleme) {
+    List<Issue> problemesList = [...state];
     problemesList.add(probleme);
     problemesList
         .sort((a, b) => -1 * (a.dateWriting.compareTo(b.dateWriting)));
     state = problemesList;
   }
 
-  void setViewMessage(Probleme probleme) {
-    List<Probleme> problemesList = [...state];
+  void setViewMessage(Issue probleme) {
+    List<Issue> problemesList = [...state];
     if (problemesList.contains(probleme)) {
       int index = problemesList.indexOf(probleme);
       problemesList[index].setIsView();
@@ -34,6 +34,6 @@ class ProblemeNotifier extends StateNotifier<List<Probleme>> {
   }
 }
 
-final problemeProvider =
-    StateNotifierProvider<ProblemeNotifier, List<Probleme>>(
-        (ref) => ProblemeNotifier());
+final issueProvider =
+    StateNotifierProvider<IssueNotifier, List<Issue>>(
+        (ref) => IssueNotifier());

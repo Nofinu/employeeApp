@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/messageModel/message.dart';
-import 'package:tracker_app/provider/probleme_provider.dart';
+import 'package:tracker_app/provider/issue_provider.dart';
 import 'package:tracker_app/util/generator.dart';
 import 'package:tracker_app/widgets/avatar.dart';
 import 'package:badges/badges.dart' as badges;
@@ -19,7 +19,7 @@ class UserListItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    List<Message> messagesTabs = ref.watch(problemeProvider);
+    List<Message> messagesTabs = ref.watch(issueProvider);
     if (user != null) {
       messagesTabs = messagesTabs
           .where(

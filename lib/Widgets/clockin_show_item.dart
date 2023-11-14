@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tracker_app/model/pointing/pointing.dart';
-import 'package:tracker_app/model/pointing/pointing_hour.dart';
-import 'package:tracker_app/widgets/pointing_hour.dart';
+import 'package:tracker_app/model/clockin/clockin.dart';
+import 'package:tracker_app/model/clockin/clockin_hour.dart';
+import 'package:tracker_app/widgets/clockin_hour.dart';
 
-class PointingShowItem extends StatelessWidget {
-  const PointingShowItem({super.key, required this.pointing});
-  final Pointing pointing;
+class ClockinShowItem extends StatelessWidget {
+  const ClockinShowItem({super.key, required this.clockin});
+  final Clockin clockin;
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +19,14 @@ class PointingShowItem extends StatelessWidget {
           Column(
             children: [
               Text(
-                pointing.getDate(),
+                clockin.getDate(),
                 style:
                     TextStyle(color: Theme.of(context).colorScheme.onPrimary),
               ),
               Row(
                 children: [
-                  for (PointingHour hours in pointing.pointingList)
-                    PointingHourWidget(
+                  for (ClockinHour hours in clockin.clockinList)
+                    ClockinHourWidget(
                       width: 80,
                       content: hours.getHours(),
                     ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PointingHourWidget extends StatefulWidget {
-  const PointingHourWidget(
+class ClockinHourWidget extends StatefulWidget {
+  const ClockinHourWidget(
       {super.key,
       required this.width,
       this.marginRight = 0,
@@ -12,11 +12,11 @@ class PointingHourWidget extends StatefulWidget {
   final String content;
   @override
   State<StatefulWidget> createState() {
-    return _PointingHourWidgetState();
+    return _ClockinHourWidgetState();
   }
 }
 
-class _PointingHourWidgetState extends State<PointingHourWidget> {
+class _ClockinHourWidgetState extends State<ClockinHourWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(

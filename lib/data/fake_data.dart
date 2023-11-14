@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/fake_day.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
-import 'package:tracker_app/model/messageModel/problem.dart';
-import 'package:tracker_app/model/pointing/pointing.dart';
-import 'package:tracker_app/model/pointing/pointing_hour.dart';
+import 'package:tracker_app/model/messageModel/issue.dart';
+import 'package:tracker_app/model/clockin/clockin.dart';
+import 'package:tracker_app/model/clockin/clockin_hour.dart';
 
 const loginData = {"email": "toto@gmail.com", "password": "toto"};
 
@@ -126,22 +126,22 @@ List<FakeDay> semaine = [
   ),
 ];
 
-final List<Probleme> problemeList = [
-  Probleme(
+final List<Issue> problemeList = [
+  Issue(
       title: "probleme1",
       detail: "ceci est un premier probleme",
       dateWriting: DateTime.now(),
       writer: user[0],
       priority: Priority.low,
       privacy: Privacy.public),
-  Probleme(
+  Issue(
       title: "probleme2",
       detail: "ceci est un premier probleme",
       dateWriting: DateTime(2022, 10, 2, 15, 30, 0),
       writer: user[3],
       priority: Priority.medium,
       privacy: Privacy.private),
-  Probleme(
+  Issue(
       title: "probleme3",
       detail: "ceci est un premier probleme",
       dateWriting: DateTime(2023, 10, 2, 16, 30, 0),
@@ -150,8 +150,8 @@ final List<Probleme> problemeList = [
       privacy: Privacy.public),
 ];
 
-List<Probleme> getProblemes() {
-  List<Probleme> problemeListcopy = problemeList;
+List<Issue> getProblemes() {
+  List<Issue> problemeListcopy = problemeList;
   problemeListcopy
       .sort((a, b) => -1 * (a.dateWriting.compareTo(b.dateWriting)));
   return problemeListcopy;
@@ -181,15 +181,15 @@ List<Request> getRequest() {
 }
 
 final pointingList = [
-  Pointing(user: user[6], date: DateTime.now()),
-  Pointing(user: user[4], date: DateTime.now()),
-  Pointing(user: user[2], date: DateTime.now()),
-  Pointing(user: user[3], date: DateTime.now()),
+  Clockin(user: user[6], date: DateTime.now()),
+  Clockin(user: user[4], date: DateTime.now()),
+  Clockin(user: user[2], date: DateTime.now()),
+  Clockin(user: user[3], date: DateTime.now()),
 ];
 
-List<Pointing> getPointing() {
+List<Clockin> getPointing() {
   pointingList.forEach((element) {
-    element.addPointingHour(PointingType.inPointing);
+    element.addClockinHour(ClockinType.clockIn);
   });
   return pointingList;
 }
