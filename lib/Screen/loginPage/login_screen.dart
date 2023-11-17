@@ -12,6 +12,7 @@ class LoginScreen extends StatelessWidget {
       body: SingleChildScrollView(
           child: Column(
         children: [
+          const SizedBox(height: 18,),
           Image.asset(
             'assets/images/utopiosLogo.png',
             height: screenHeight * 0.15,
@@ -34,7 +35,7 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(height: 8,),
           Image.asset(
             'assets/images/teamTrackerLogo.png',
-            height: screenHeight * 0.25,
+            height: screenHeight * 0.22,
           ),
           const LoginPageFrom(),
         ],

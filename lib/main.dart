@@ -23,7 +23,7 @@ void main() {
             ),
           ),
         ),
-        home: const HomePageScreen(),
+        home: const LoginScreen(),
       ),
     ),
   );

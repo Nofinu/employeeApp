@@ -56,7 +56,6 @@ class LoginPageFrom extends ConsumerWidget {
     return Form(
       key: formKey,
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
             height: screenHeightBody > 400
@@ -91,8 +90,8 @@ class LoginPageFrom extends ConsumerWidget {
           ),
           SizedBox(
             height: screenHeightBody > 400
-                ? 10 + (screenHeightBody / 10)
-                : 10 + (screenHeightBody / 15),
+                ? 10 + (screenHeightBody / 15)
+                : 10 + (screenHeightBody / 20),
           ),
           Container(
             margin: const EdgeInsets.symmetric(
@@ -122,8 +121,8 @@ class LoginPageFrom extends ConsumerWidget {
           ),
           SizedBox(
             height: screenHeightBody > 400
-                ? 10 + (screenHeightBody / 10)
-                : 10 + (screenHeightBody / 15),
+                ? 10 + (screenHeightBody / 15)
+                : 10 + (screenHeightBody / 20),
           ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 30),
