@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tracker_app/Widgets/avatar.dart';
+import 'package:tracker_app/data/fake_data.dart';
 import 'package:tracker_app/model/clockin/clockin.dart';
-import 'package:tracker_app/model/clockin/clockin_hour.dart';
+import 'package:tracker_app/model/clockin/clockin.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/clockin_provider.dart';
@@ -19,20 +21,35 @@ class ClockinScreen extends ConsumerStatefulWidget {
 
 class _ClockinScreenState extends ConsumerState<ClockinScreen> {
   bool checked = false;
+  List<Avatar> avatars = [];
+
+  
 
   List<ClockinHourWidget> getClockinHourWidget(
-      Clockin clockin, double screenWidth) {
+      List<Clockin> clockins, double screenWidth) {
     List<ClockinHourWidget> clockinHoursWidgets = [];
     int cpt = 0;
-    if (clockin.clockinList.isNotEmpty) {
-      for (ClockinHour clockinHour in clockin.clockinList) {
+    if (clockins.isNotEmpty) {
+      for (Clockin clockin in clockins) {
         clockinHoursWidgets.add(
           ClockinHourWidget(
             width: screenWidth * 0.15,
             marginRight: 15,
-            content: "${clockinHour.hour.hour}h${clockinHour.hour.minute}",
+            content:
+                "${clockin.clockInHour.hour}h${clockin.clockInHour.minute}",
           ),
         );
+        if (clockin.clockOutHour != null) {
+          clockinHoursWidgets.add(
+            ClockinHourWidget(
+              width: screenWidth * 0.15,
+              marginRight: 15,
+              content:
+                  "${clockin.clockOutHour!.hour}h${clockin.clockOutHour!.minute}",
+            ),
+          );
+          cpt++;
+        }
         cpt++;
       }
     }
@@ -48,23 +65,44 @@ class _ClockinScreenState extends ConsumerState<ClockinScreen> {
     return clockinHoursWidgets;
   }
 
+  void setUserActive(double screenWidth) {
+    ref
+        .watch(clockinProvider.notifier)
+        .getUserActive()
+        .then((value) => setListOfAvatar(value, screenWidth));
+  }
+
+  void setListOfAvatar(List<Clockin> clockins, double screenWidth) {
+    List<Avatar> avatarsList = [];
+    for (Clockin clockin in clockins) {
+      avatarsList.add(
+        Avatar(
+          radius: screenWidth * 0.1,
+          user: user[clockin.userId],
+        ),
+      );
+    }
+    setState(() {
+      avatars = avatarsList;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-//Color.fromRGBO(0, 194, 8, 1)
-    final Clockin clockin =
-        ref.watch(clockinProvider.notifier).getClockinToday();
-
-    if(clockin.clockinList.length % 2 == 1){
-      setState(() {
-        checked = true;
-      });
-    }
+    // ref.watch(clockinProvider.notifier).setClockIn();
+    checked = ref.watch(clockinProvider.notifier).isClockin();
+    
 
     final double screenWidth = MediaQuery.of(context).size.width;
     final User user = ref.watch(authProvider);
 
+  if(avatars.isEmpty){
+    setUserActive(screenWidth);
+  }
+    
+
     return Scaffold(
-      appBar: AppBarPerso(user,"Pointage",context),
+      appBar: AppBarPerso(user, "Pointage", context),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -77,9 +115,9 @@ class _ClockinScreenState extends ConsumerState<ClockinScreen> {
               ElevatedButton(
                 onPressed: () {
                   if (!checked) {
-                    ref.watch(clockinProvider.notifier).addClockin("in");
+                    ref.watch(clockinProvider.notifier).createClockin();
                   } else {
-                    ref.watch(clockinProvider.notifier).addClockin("out");
+                    ref.watch(clockinProvider.notifier).setClockOut();
                   }
                   setState(() {
                     checked = !checked;
@@ -108,7 +146,8 @@ class _ClockinScreenState extends ConsumerState<ClockinScreen> {
                 height: 35,
               ),
               Text(
-                "Heures travaillées : ${ref.watch(clockinProvider.notifier).getTotalWorkHours(clockin)}",
+                "Heures travaillées : 5",
+                // ${ref.watch(clockinProvider.notifier).getTotalWorkHours(clockin)}
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontSize: 16,
@@ -119,8 +158,10 @@ class _ClockinScreenState extends ConsumerState<ClockinScreen> {
                 height: 15,
               ),
               Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: getClockinHourWidget(clockin, screenWidth)),
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: getClockinHourWidget(
+                    ref.watch(clockinProvider), screenWidth),
+              ),
               const SizedBox(
                 height: 15,
               ),
@@ -172,9 +213,7 @@ class _ClockinScreenState extends ConsumerState<ClockinScreen> {
                           alignment: WrapAlignment.center,
                           spacing: 15,
                           runSpacing: 15,
-                          children: ref
-                              .watch(clockinProvider.notifier)
-                              .getAvatarFromList(screenWidth * 0.16),
+                          children: avatars,
                         ),
                       ),
                     ],

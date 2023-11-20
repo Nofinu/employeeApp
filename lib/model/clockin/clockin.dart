@@ -1,28 +1,36 @@
+
 import 'package:intl/intl.dart';
-import 'package:tracker_app/model/user.dart';
-import 'package:tracker_app/model/clockin/clockin_hour.dart';
 import 'package:uuid/uuid.dart';
 
-final DateFormat formater = DateFormat.MMMMd();
+final DateFormat formater = DateFormat.Hm();
 
 class Clockin {
-  Clockin({required this.user, required this.date});
+  Clockin({required this.id, required this.userId, required this.clockInHour , this.clockOutHour});
 
-  final String id = const Uuid().v4();
-  final User user;
-  final DateTime date;
-  final List<ClockinHour> clockinList = <ClockinHour>[];
-
-  void addClockinHour(ClockinType pointingType) {
-    if(clockinList.length<4){
-      clockinList.add(
-        ClockinHour(idPointing: id, typeOfPointing: pointingType),
-      );
-    }
-  }
-
+  final String id ;
+  final int userId;
+  final DateTime clockInHour;
+  final DateTime? clockOutHour;
   
-  String getDate (){
-    return formater.format(date);
+
+
+String getClockInHour(){
+  return formater.format(clockInHour);
+}
+String getClockOutHour(){
+  if(clockOutHour != null){
+      return formater.format(clockOutHour!);
   }
+  return "";
+}
+
+  factory Clockin.fromJson(Map<String, dynamic> json) {
+    return Clockin(
+        id: json['id'] as String,
+        userId: json['userId'] as int,
+        clockInHour: DateTime.fromMillisecondsSinceEpoch(json['clockInHour'] as int),
+        clockOutHour: json['clockOutHour'] != null ? DateTime.fromMillisecondsSinceEpoch(json['clockOutHour'] as int) : null,
+        );
+  }
+
 }

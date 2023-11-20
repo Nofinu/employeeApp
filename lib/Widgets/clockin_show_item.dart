@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tracker_app/model/clockin/clockin.dart';
-import 'package:tracker_app/model/clockin/clockin_hour.dart';
 import 'package:tracker_app/widgets/clockin_hour.dart';
 
 class ClockinShowItem extends StatelessWidget {
@@ -19,17 +18,17 @@ class ClockinShowItem extends StatelessWidget {
           Column(
             children: [
               Text(
-                clockin.getDate(),
+                clockin.getClockInHour(),
                 style:
                     TextStyle(color: Theme.of(context).colorScheme.onPrimary),
               ),
               Row(
                 children: [
-                  for (ClockinHour hours in clockin.clockinList)
-                    ClockinHourWidget(
-                      width: 80,
-                      content: hours.getHours(),
-                    ),
+                  // for (ClockinHour hours in clockin.clockinList)
+                  //   ClockinHourWidget(
+                  //     width: 80,
+                  //     content: hours.getHours(),
+                  //   ),
                 ],
               )
             ],

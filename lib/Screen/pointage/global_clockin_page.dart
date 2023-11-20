@@ -25,7 +25,7 @@ class _GlobalClockinScreenState extends ConsumerState<GlobalClockinScreen> {
 
     User user = ref.watch(authProvider); 
     List<Clockin> clockinList = ref.watch(clockinProvider);
-    clockinList = clockinList.where((pointing)=> pointing.user == user).toList();
+    // clockinList = clockinList.where((pointing)=> pointing.user == user).toList();
     return Scaffold(
       appBar: AppBarPerso(user, "Pointage", context),
       body: SingleChildScrollView(

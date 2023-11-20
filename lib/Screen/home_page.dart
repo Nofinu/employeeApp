@@ -13,6 +13,7 @@ import 'package:tracker_app/model/messageModel/issue.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
+import 'package:tracker_app/provider/clockin_provider.dart';
 import 'package:tracker_app/provider/overtime_provider.dart';
 import 'package:tracker_app/provider/issue_provider.dart';
 import 'package:tracker_app/provider/request_provider.dart';
@@ -31,10 +32,11 @@ class HomePageScreen extends ConsumerStatefulWidget {
 class _HomePageScreenState extends ConsumerState<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
+    ref.watch(clockinProvider.notifier).setClockIn();
     final double screenHeight = MediaQuery.of(context).size.height - 100;
     final double screenWidth = MediaQuery.of(context).size.width;
     // final User userActive = ref.watch(authProvider);
-    final User userActive = user[1];
+    final User userActive = user[0];
     final List<Issue> problemesList = ref.watch(issueProvider);
     final int notificationProbleme =
         Generator().countNotification(problemesList);

@@ -5,41 +5,40 @@ import 'package:tracker_app/model/fake_day.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/model/messageModel/issue.dart';
 import 'package:tracker_app/model/clockin/clockin.dart';
-import 'package:tracker_app/model/clockin/clockin_hour.dart';
 
 const loginData = {"email": "toto@gmail.com", "password": "toto"};
 
 final user = [
   User(
-      1,
+      0,
       "Mohamed",
       "AIJJOU",
       "https://utopios.solutions/wp-content/uploads/2023/09/Mohamed_AIJJOU.webp",
       false,
       "mohamed"),
   User(
-      2,
+      1,
       "Marine ",
       "ABADI",
       "https://utopios.solutions/wp-content/uploads/2023/09/Marine_ABADI.webp",
       true,
       "marine"),
   User(
-      3,
+      2,
       "Ihab",
       "ABADI",
       "https://utopios.solutions/wp-content/uploads/2023/09/Ihab_ABADI-1.webp",
       false,
       "ihab"),
   User(
-      4,
+      3,
       "Antoine ",
       "DIEUDONNE",
       "https://utopios.solutions/wp-content/uploads/2023/09/Antoine_DIEUDONNE.webp",
       false,
       "antoine"),
   User(
-    5,
+    4,
     "Guillaume ",
     "MAIRESSE",
     "https://utopios.solutions/wp-content/uploads/2023/09/Guillaume_MAIRESSE.webp",
@@ -47,28 +46,28 @@ final user = [
     "guillaume",
   ),
   User(
-      6,
+      5,
       "Christophe ",
       "DELORY",
       "https://utopios.solutions/wp-content/uploads/2023/09/Christophe_DELORY.webp",
       false,
       "christopheD"),
   User(
-      7,
+      6,
       "Arthur ",
       "DENNETIERE",
       "https://utopios.solutions/wp-content/uploads/2023/09/Arthur_DENNETIERE.webp",
       false,
       "arthur"),
   User(
-      8,
+      7,
       "Christophe ",
       "RINGOT",
       "https://utopios.solutions/wp-content/uploads/2023/09/Christophe_RINGOT.webp",
       false,
       "christopheR"),
   User(
-    9,
+    8,
     "Margot ",
     "LAIGNEZ",
     "https://utopios.solutions/wp-content/uploads/2023/09/Margot.webp",
@@ -76,7 +75,7 @@ final user = [
     "margot",
   ),
   User(
-      10,
+      9,
       "Benoit ",
       "LECOEUVRE",
       "https://utopios.solutions/wp-content/uploads/2023/09/Benoit_LECOEUVRE.webp",
@@ -180,16 +179,16 @@ List<Request> getRequest() {
   return requestListcopy;
 }
 
-final pointingList = [
-  Clockin(user: user[6], date: DateTime.now()),
-  Clockin(user: user[4], date: DateTime.now()),
-  Clockin(user: user[2], date: DateTime.now()),
-  Clockin(user: user[3], date: DateTime.now()),
-];
+// final pointingList = [
+//   Clockin(user: user[6], date: DateTime.now()),
+//   Clockin(user: user[4], date: DateTime.now()),
+//   Clockin(user: user[2], date: DateTime.now()),
+//   Clockin(user: user[3], date: DateTime.now()),
+// ];
 
-List<Clockin> getPointing() {
-  pointingList.forEach((element) {
-    element.addClockinHour(ClockinType.clockIn);
-  });
-  return pointingList;
-}
+// List<Clockin> getPointing() {
+//   pointingList.forEach((element) {
+//     element.addClockinHour(ClockinType.clockIn);
+//   });
+//   return pointingList;
+// }
