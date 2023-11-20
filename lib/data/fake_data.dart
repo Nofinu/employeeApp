@@ -7,7 +7,7 @@ import 'package:tracker_app/model/messageModel/issue.dart';
 import 'package:tracker_app/model/clockin/clockin.dart';
 import 'package:tracker_app/model/clockin/clockin_hour.dart';
 
-const loginData = {"email": "toto@gmail.com", "password": "toto"};
+const loginData = {"email1": "toto@gmail.com", "password": "toto"};
 
 final user = [
   User(
