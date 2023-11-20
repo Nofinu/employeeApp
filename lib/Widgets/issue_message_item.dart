@@ -58,7 +58,7 @@ class _ProblemeMessageItemState extends ConsumerState<IssueMessageItem> {
               );
             },
             child: Container(
-              width: screenWidth * 0.55,
+              width: screenWidth * 0.58,
               height: 80,
               padding: const EdgeInsets.all(8),
               decoration: const BoxDecoration(

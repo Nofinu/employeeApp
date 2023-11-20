@@ -7,6 +7,7 @@ import 'package:tracker_app/Screen/presenceManagement/presence_management.dart';
 import 'package:tracker_app/Screen/probleme/issue_page.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
 import 'package:tracker_app/Screen/request/request_page.dart';
+import 'package:tracker_app/data/fake_data.dart';
 import 'package:tracker_app/model/messageModel/overtime.dart';
 import 'package:tracker_app/model/messageModel/issue.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
@@ -32,7 +33,8 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height - 100;
     final double screenWidth = MediaQuery.of(context).size.width;
-    final User userActive = ref.watch(authProvider);
+    // final User userActive = ref.watch(authProvider);
+    final User userActive = user[1];
     final List<Issue> problemesList = ref.watch(issueProvider);
     final int notificationProbleme =
         Generator().countNotification(problemesList);

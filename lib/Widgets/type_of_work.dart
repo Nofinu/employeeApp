@@ -26,7 +26,7 @@ class TypeOfWorkPanel extends StatelessWidget {
       ),
       child: Text(
         fakeDay.repos ? "Repos" : _toUpperCase(fakeDay.type.name),
-        style: const TextStyle(fontSize: 20),
+        style: const TextStyle(fontSize: 16),
       ),
     );
   }

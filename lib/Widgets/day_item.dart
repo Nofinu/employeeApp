@@ -69,8 +69,8 @@ class DayItem extends StatelessWidget {
                         ? Colors.grey
                         : ((fakeday.type == TypeOfWork.dev ||
                                 fakeday.type == TypeOfWork.preparation)
-                            ? Colors.green
-                            : Colors.red),
+                            ? const Color.fromRGBO(0, 194, 8, 1)
+                            : const Color.fromRGBO(214, 38, 38, 1)),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(

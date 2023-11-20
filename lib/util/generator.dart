@@ -12,6 +12,7 @@ class Generator {
     if (nbrPerson == 1) {
       lines.add(
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [Avatar(index:0,users: users,radius: radius)],
         ),
       );
@@ -23,6 +24,7 @@ class Generator {
         if (i != 0) {
           lines.add(
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: iconForLine,
             ),
           );
@@ -45,6 +47,7 @@ class Generator {
     }
     lines.add(
       Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: iconForLine,
       ),
     );

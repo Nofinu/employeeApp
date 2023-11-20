@@ -39,7 +39,7 @@ class PresenceManagementDetailScreen extends ConsumerWidget {
             children: [
               Text(
                 textPanel,
-                style: const TextStyle(fontSize: 32),
+                style: const TextStyle(fontSize: 28),
               ),
               TypeOfWorkPanel(fakeDay: planing),
             ],
@@ -48,9 +48,10 @@ class PresenceManagementDetailScreen extends ConsumerWidget {
             height: 5,
           ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ...Generator().buildIconRow(
-                  planing.users.length, planing.users, screenWidth * 0.085),
+                  planing.users.length, planing.users, screenWidth * 0.080),
             ],
           ),
         ],
@@ -59,7 +60,7 @@ class PresenceManagementDetailScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
