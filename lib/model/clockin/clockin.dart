@@ -1,8 +1,7 @@
-
 import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
 
 final DateFormat formater = DateFormat.Hm();
+final DateFormat formaterDate = DateFormat.yMMMd();
 
 class Clockin {
   Clockin({required this.id, required this.userId, required this.clockInHour , this.clockOutHour});
@@ -22,6 +21,9 @@ String getClockOutHour(){
       return formater.format(clockOutHour!);
   }
   return "";
+}
+String getDateClockin (){
+  return formaterDate.format(clockInHour);
 }
 
   factory Clockin.fromJson(Map<String, dynamic> json) {

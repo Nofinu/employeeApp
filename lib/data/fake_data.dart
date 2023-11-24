@@ -4,9 +4,6 @@ import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/fake_day.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/model/messageModel/issue.dart';
-import 'package:tracker_app/model/clockin/clockin.dart';
-
-const loginData = {"email": "toto@gmail.com", "password": "toto"};
 
 final user = [
   User(
@@ -178,17 +175,3 @@ List<Request> getRequest() {
   requestListcopy.sort((a, b) => -1 * (a.dateWriting.compareTo(b.dateWriting)));
   return requestListcopy;
 }
-
-// final pointingList = [
-//   Clockin(user: user[6], date: DateTime.now()),
-//   Clockin(user: user[4], date: DateTime.now()),
-//   Clockin(user: user[2], date: DateTime.now()),
-//   Clockin(user: user[3], date: DateTime.now()),
-// ];
-
-// List<Clockin> getPointing() {
-//   pointingList.forEach((element) {
-//     element.addClockinHour(ClockinType.clockIn);
-//   });
-//   return pointingList;
-// }

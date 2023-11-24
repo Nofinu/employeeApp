@@ -1,13 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/data/fake_data.dart';
+import 'package:tracker_app/model/exception/time_exception.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/clockin/clockin.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
-import 'package:tracker_app/widgets/avatar.dart';
 import 'package:http/http.dart' as http;
+
+const String url = "http://localhost:8080/api/clockin";
 
 class ClockinNotifier extends StateNotifier<List<Clockin>> {
   ClockinNotifier(this.ref) : super([]);
@@ -16,8 +16,7 @@ class ClockinNotifier extends StateNotifier<List<Clockin>> {
 
   void setClockIn() async {
     User user = ref.watch(authProvider);
-    var response = await http.get(
-        Uri.parse("http://localhost:8080/api/clockin/today_clockin/${user.id}"),
+    var response = await http.get(Uri.parse("$url/today_clockin/${user.id}"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
@@ -42,11 +41,10 @@ class ClockinNotifier extends StateNotifier<List<Clockin>> {
 
   void createClockin() async {
     User user = ref.watch(authProvider);
-    var response = await http.get(
-        Uri.parse("http://localhost:8080/api/clockin/${user.id}"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        });
+    var response =
+        await http.get(Uri.parse("$url/${user.id}"), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
 
     if (response.statusCode == 200) {
       Clockin clockin = Clockin.fromJson(jsonDecode(response.body));
@@ -54,11 +52,11 @@ class ClockinNotifier extends StateNotifier<List<Clockin>> {
     }
   }
 
-  void setClockOut() async {
+  Future setClockOut() async {
+    User user = ref.watch(authProvider);
     Clockin clockinFind = state[state.length - 1];
     var response = await http.get(
-        Uri.parse(
-            "http://localhost:8080/api/clockin/clockout/${clockinFind.id}"),
+        Uri.parse("$url/clockout/${user.id}/${clockinFind.id}"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
@@ -70,90 +68,98 @@ class ClockinNotifier extends StateNotifier<List<Clockin>> {
       clockins.add(clockin);
       state = clockins;
     }
+    if (response.statusCode == 401) {
+      throw TimeException(response.body);
+    }
   }
 
-      Future<List<Clockin>> getUserActive() async {
-      var response = await http.get(
-          Uri.parse("http://localhost:8080/api/clockin/notclosed"),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          });
+  void test(String response) {
+    Clockin clockin = Clockin.fromJson(jsonDecode(response));
+    List<Clockin> clockins = [...state];
+    clockins.removeLast();
+    clockins.add(clockin);
+    state = clockins;
+  }
 
-      List<Clockin> clockins = [];
-      if (response.statusCode == 200) {
-        clockins = List<Clockin>.from(
-            (jsonDecode(response.body) as List<dynamic>)
-                .map<Clockin>((value) => Clockin.fromJson(value))
-                .toList());
-                print(clockins.length);
-      }
-      return clockins;
+  Future<List<Clockin>> getUserActive() async {
+    User user = ref.watch(authProvider);
+    var response = await http
+        .get(Uri.parse("$url/notclosed/${user.id}"), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    List<Clockin> clockins = [];
+    if (response.statusCode == 200) {
+      clockins = List<Clockin>.from((jsonDecode(response.body) as List<dynamic>)
+          .map<Clockin>((value) => Clockin.fromJson(value))
+          .toList());
     }
+    return clockins;
+  }
 
-  // List<Avatar> getAvatarFromList(double width) {
-  //   User user = ref.watch<User>(authProvider);
-  //   List<Avatar> avatars = [];
-  //   for (Clockin clockin in state) {
-  //     if (user != clockin.user &&
-  //         DateUtils.isSameDay(DateTime.now(), clockin.date) &&
-  //         clockin.clockinList[clockin.clockinList.length - 1]
-  //                 .typeOfPointing ==
-  //             ClockinType.clockIn) {
-  //       avatars.add(
-  //         Avatar(
-  //           user: clockin.user,
-  //           radius: width,
-  //           isCircle: false,
-  //         ),
-  //       );
-  //     }
-  //   }
-  //   return avatars;
-  // }
+  Future<int> getTodayWorkinHours() async {
+    User user = ref.watch(authProvider);
+    DateTime date = DateTime.now();
+    var response = await http.get(
+        Uri.parse(
+            "$url/hours_worked_day/${user.id}/${date.day}-${date.month}-${date.year}"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+    int value = 0;
+    if (response.statusCode == 200) {
+      value = jsonDecode(response.body) as int;
+    }
+    return value;
+  }
 
-  // String getTotalWorkHours(Clockin clockin) {
-  //   String content = "00h00";
-  //   if (clockin.clockinList.length >= 2) {
-  //     final differenceAm = clockin.clockinList[1].hour
-  //         .difference(clockin.clockinList[0].hour);
-  //     if (clockin.clockinList.length == 4) {
-  //       final differencePm = clockin.clockinList[3].hour
-  //           .difference(clockin.clockinList[2].hour);
-  //       final totalDiff = differenceAm + differencePm;
-  //       int hours = totalDiff.inHours;
-  //       int minutes = totalDiff.inMinutes%60;
+  Future<int> getWeekWorkinHours() async {
+    DateTime getDate(DateTime d) => DateTime(d.year, d.month, d.day);
 
-  //       List<String> hoursAndMinutes = _getHoursAndMinInStr(hours, minutes);
-  //       content = "${hoursAndMinutes[0]}h${hoursAndMinutes[1]}";
-  //     } else {
-  //       List<String> hoursAndMinutes = _getHoursAndMinInStr(
-  //           differenceAm.inHours, (differenceAm.inMinutes % 60));
-  //       content = "${hoursAndMinutes[0]}h${hoursAndMinutes[1]}";
-  //     }
-  //   }
+    final date = DateTime.now();
+    DateTime dateStart =
+        getDate(date.subtract(Duration(days: date.weekday - 1)));
+    DateTime dateEnd =
+        getDate(date.add(Duration(days: DateTime.daysPerWeek - date.weekday)));
+    User user = ref.watch(authProvider);
 
-  //   return content;
-  // }
+    var response = await http.get(
+        Uri.parse(
+            "$url/hours_worked_week/${user.id}/${dateStart.day}-${dateStart.month}-${dateStart.year}/${dateEnd.day}-${dateEnd.month}-${dateEnd.year}"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+    int value = 0;
+    if (response.statusCode == 200) {
+      value = jsonDecode(response.body) as int;
+    }
+    return value;
+  }
 
-  // List<String> _getHoursAndMinInStr(int hours, int minutes) {
-  //   List<String> hoursAndMinutes = [];
-  //   String hoursStr;
-  //   String minutesStr;
-  //   if (hours < 10) {
-  //     hoursStr = "0$hours";
-  //   } else {
-  //     hoursStr = hours.toString();
-  //   }
+  Future<List<Clockin>> getClockinByWeek() async {
+    DateTime getDate(DateTime d) => DateTime(d.year, d.month, d.day);
 
-  //   if (minutes < 10) {
-  //     minutesStr = "0$minutes";
-  //   } else {
-  //     minutesStr = minutes.toString();
-  //   }
-  //   hoursAndMinutes.add(hoursStr);
-  //   hoursAndMinutes.add(minutesStr);
-  //   return hoursAndMinutes;
-  // }
+    final date = DateTime.now();
+    DateTime dateStart =
+        getDate(date.subtract(Duration(days: date.weekday - 1)));
+    DateTime dateEnd =
+        getDate(date.add(Duration(days: DateTime.daysPerWeek - date.weekday)));
+    User user = ref.watch(authProvider);
+
+    var response = await http.get(
+        Uri.parse(
+            "$url/clockin_by_week/${user.id}/${dateStart.day}-${dateStart.month}-${dateStart.year}/${dateEnd.day}-${dateEnd.month}-${dateEnd.year}"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+    List<Clockin> clockins = [];
+    if (response.statusCode == 200) {
+      clockins = List<Clockin>.from((jsonDecode(response.body) as List<dynamic>)
+          .map<Clockin>((value) => Clockin.fromJson(value))
+          .toList());
+    }
+    return clockins;
+  }
 }
 
 final clockinProvider = StateNotifierProvider<ClockinNotifier, List<Clockin>>(

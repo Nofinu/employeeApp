@@ -1,9 +1,11 @@
+import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tracker_app/Widgets/avatar.dart';
 import 'package:tracker_app/data/fake_data.dart';
 import 'package:tracker_app/model/clockin/clockin.dart';
-import 'package:tracker_app/model/clockin/clockin.dart';
+import 'package:tracker_app/model/exception/time_exception.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/clockin_provider.dart';
@@ -22,8 +24,11 @@ class ClockinScreen extends ConsumerStatefulWidget {
 class _ClockinScreenState extends ConsumerState<ClockinScreen> {
   bool checked = false;
   List<Avatar> avatars = [];
-
-  
+  int workingTimeDay = 0;
+  int workingTimeWeek = 0;
+  late Timer _timer;
+  late Timer _workHourTimer;
+  final view = PlatformDispatcher.instance.views.first;
 
   List<ClockinHourWidget> getClockinHourWidget(
       List<Clockin> clockins, double screenWidth) {
@@ -87,19 +92,76 @@ class _ClockinScreenState extends ConsumerState<ClockinScreen> {
     });
   }
 
+  String getWorkingHours(int workTime) {
+    int totalWorkHours = workTime;
+    int workHours = (workTime / 3600).floor();
+    totalWorkHours = workTime - workHours * 3600;
+    int workMinutes = (totalWorkHours / 60).floor();
+    totalWorkHours = totalWorkHours - workMinutes * 60;
+    return "$workHours h ${workMinutes < 10 ? "0$workMinutes" : workMinutes} : ${totalWorkHours < 10 ? "0$totalWorkHours" : totalWorkHours}";
+  }
+
+  void showMessage (TimeException exception){
+    ScaffoldMessenger.of(context).clearSnackBars();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(exception.message)
+                        ),
+                      );
+  }
+
+  @override
+  void initState() {
+    Timer.run(() {
+      setUserActive(view.physicalSize.width / view.devicePixelRatio);
+      checked = ref.watch(clockinProvider.notifier).isClockin();
+      ref
+          .watch(clockinProvider.notifier)
+          .getTodayWorkinHours()
+          .then((value) => {
+                setState(() {
+                  workingTimeDay = value;
+                }),
+              });
+      ref.watch(clockinProvider.notifier).getWeekWorkinHours().then((value) => {
+            setState(() {
+              workingTimeWeek = value;
+            }),
+          });
+    });
+    _timer = Timer.periodic(const Duration(minutes: 5), (arg) {
+      setUserActive(view.physicalSize.width / view.devicePixelRatio);
+    });
+
+    _workHourTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (checked) {
+        setState(() {
+          workingTimeDay += 1;
+          workingTimeWeek += 1;
+        });
+      }
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (_timer.isActive) {
+      _timer.cancel();
+    }
+    if (_workHourTimer.isActive) {
+      _workHourTimer.cancel();
+    }
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // ref.watch(clockinProvider.notifier).setClockIn();
     checked = ref.watch(clockinProvider.notifier).isClockin();
-    
 
     final double screenWidth = MediaQuery.of(context).size.width;
     final User user = ref.watch(authProvider);
-
-  if(avatars.isEmpty){
-    setUserActive(screenWidth);
-  }
-    
 
     return Scaffold(
       appBar: AppBarPerso(user, "Pointage", context),
@@ -116,8 +178,24 @@ class _ClockinScreenState extends ConsumerState<ClockinScreen> {
                 onPressed: () {
                   if (!checked) {
                     ref.watch(clockinProvider.notifier).createClockin();
+                    _workHourTimer =
+                        Timer.periodic(const Duration(seconds: 1), (timer) {
+                      setState(() {
+                        workingTimeDay += 1;
+                        workingTimeWeek += 1;
+                      });
+                    });
                   } else {
-                    ref.watch(clockinProvider.notifier).setClockOut();
+                    try {
+                      ref
+                          .watch(clockinProvider.notifier)
+                          .setClockOut()
+                          .then((value) => _workHourTimer.cancel()).catchError((error) =>{
+                          showMessage(error)
+                          });
+                    } on Exception catch (exception) {
+                      
+                    }
                   }
                   setState(() {
                     checked = !checked;
@@ -146,8 +224,7 @@ class _ClockinScreenState extends ConsumerState<ClockinScreen> {
                 height: 35,
               ),
               Text(
-                "Heures travaillées : 5",
-                // ${ref.watch(clockinProvider.notifier).getTotalWorkHours(clockin)}
+                "Heures travaillées : ${getWorkingHours(workingTimeDay)}",
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontSize: 16,
@@ -166,7 +243,7 @@ class _ClockinScreenState extends ConsumerState<ClockinScreen> {
                 height: 15,
               ),
               Text(
-                "Total des heures semaine : 34:30:00",
+                "Total des heures semaine : ${getWorkingHours(workingTimeWeek)}",
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontSize: 16,
