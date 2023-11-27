@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/Screen/probleme/form_issue.dart';
+import 'package:tracker_app/Screen/Issue/form_issue.dart';
 import 'package:tracker_app/model/messageModel/issue.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
@@ -29,17 +29,7 @@ class _IssueScreenState extends ConsumerState<IssueScreen> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-
     List<Issue> messagesTabs = ref.watch(issueProvider);
-
-      if (!widget.user.isAdmin) {
-        messagesTabs = messagesTabs
-            .where(
-              (message) => message.writer == widget.user,
-            )
-            .toList();
-      }
-    
 
     return Scaffold(
       appBar:

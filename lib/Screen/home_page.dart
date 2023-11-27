@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tracker_app/Screen/Issue/issue_page.dart';
 import 'package:tracker_app/Screen/overtime/overtime.dart';
 import 'package:tracker_app/Screen/pointage/global_clockin_page.dart';
 import 'package:tracker_app/Screen/pointage/clockin_page.dart';
 import 'package:tracker_app/Screen/presenceManagement/presence_management.dart';
-import 'package:tracker_app/Screen/probleme/issue_page.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
 import 'package:tracker_app/Screen/request/request_page.dart';
 import 'package:tracker_app/data/fake_data.dart';
@@ -30,28 +32,52 @@ class HomePageScreen extends ConsumerStatefulWidget {
 }
 
 class _HomePageScreenState extends ConsumerState<HomePageScreen> {
+  late Timer _timer;
+  int minutes = 0;
+  int seconde = 5 ;
+
+  @override
+  void initState() {
+    _timer = Timer.periodic(const Duration( seconds: 1), (arg) {
+      ref.read(issueProvider.notifier).getIssueFromUser();
+      ref.read(clockinProvider.notifier).setClockIn();
+      _timer.cancel();
+
+      _timer = Timer.periodic(const Duration( minutes: 10), (arg) {
+      ref.read(issueProvider.notifier).getIssueFromUser();
+      ref.read(clockinProvider.notifier).setClockIn();});
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+  if(_timer.isActive){
+    _timer.cancel();
+  }
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    
     final double screenHeight = MediaQuery.of(context).size.height - 100;
     final double screenWidth = MediaQuery.of(context).size.width;
     // final User userActive = ref.watch(authProvider);
     final User userActive = user[0];
-    final List<Issue> problemesList = ref.watch(issueProvider);
-    
-    final int notificationProbleme =
-        Generator().countNotification(problemesList);
+    int notificationIssue = 0;
+    if(userActive.isAdmin){
+     notificationIssue = Generator().countNotification(ref.watch(issueProvider));
+    }
     final List<Request> requestList = ref.watch(requestProvider);
     final int notificationRequest = Generator().countNotification(requestList);
     final List<Overtime> overtimeList = ref.watch(overtimeProvider);
     final int notificationOvertime =
         Generator().countNotification(overtimeList);
     final Color whiteColor = Theme.of(context).colorScheme.onPrimary;
-    
 
     Future(() {
       ref.read(authProvider.notifier).setUser(userActive);
-      ref.watch(clockinProvider.notifier).setClockIn();
     });
 
     return Scaffold(
@@ -205,7 +231,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
                           width: screenWidth * 0.42,
                           height: 110,
                           wrap: true,
-                          badgeValue: notificationProbleme,
+                          badgeValue: notificationIssue,
                         )
                       : ButtonHommePage(
                           text: "Signaler un probleme",

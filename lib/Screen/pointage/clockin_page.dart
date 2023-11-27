@@ -101,13 +101,11 @@ class _ClockinScreenState extends ConsumerState<ClockinScreen> {
     return "$workHours h ${workMinutes < 10 ? "0$workMinutes" : workMinutes} : ${totalWorkHours < 10 ? "0$totalWorkHours" : totalWorkHours}";
   }
 
-  void showMessage (TimeException exception){
+  void showMessage(TimeException exception) {
     ScaffoldMessenger.of(context).clearSnackBars();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(exception.message)
-                        ),
-                      );
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(exception.message)),
+    );
   }
 
   @override
@@ -178,24 +176,21 @@ class _ClockinScreenState extends ConsumerState<ClockinScreen> {
                 onPressed: () {
                   if (!checked) {
                     ref.watch(clockinProvider.notifier).createClockin();
-                    _workHourTimer =
-                        Timer.periodic(const Duration(seconds: 1), (timer) {
-                      setState(() {
-                        workingTimeDay += 1;
-                        workingTimeWeek += 1;
+                    if (!_workHourTimer.isActive) {
+                      _workHourTimer =
+                          Timer.periodic(const Duration(seconds: 1), (timer) {
+                        setState(() {
+                          workingTimeDay += 1;
+                          workingTimeWeek += 1;
+                        });
                       });
-                    });
-                  } else {
-                    try {
-                      ref
-                          .watch(clockinProvider.notifier)
-                          .setClockOut()
-                          .then((value) => _workHourTimer.cancel()).catchError((error) =>{
-                          showMessage(error)
-                          });
-                    } on Exception catch (exception) {
-                      
                     }
+                  } else {
+                    ref
+                        .watch(clockinProvider.notifier)
+                        .setClockOut()
+                        .then((value) => _workHourTimer.cancel())
+                        .catchError((error) => {showMessage(error)});
                   }
                   setState(() {
                     checked = !checked;

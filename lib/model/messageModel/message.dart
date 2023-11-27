@@ -7,18 +7,21 @@ final DateFormat formater = DateFormat.yMMMMd().add_Hm();
 
 abstract class Message {
   Message(
-      {required this.title,
+      {this.id = "",
+        required this.title,
       required this.detail,
       required this.dateWriting,
       required this.writer,
       this.isCheked = false,
-      this.isvalidated = false});
+      this.isvalidated = false,
+      this.isView = false});
 
+  final String id;
   final String title;
   final String detail;
   final DateTime dateWriting;
   final User writer;
-  bool isView = false;
+  bool isView;
   bool isCheked;
   bool isvalidated;
 

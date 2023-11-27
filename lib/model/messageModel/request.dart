@@ -5,7 +5,8 @@ final DateFormat formater = DateFormat.yMMMMd();
 
 class Request extends Message {
   Request(
-      {required super.title,
+      {super.id,
+        required super.title,
       required super.detail,
       required super.writer,
       super.isCheked,

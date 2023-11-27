@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/Screen/probleme/issue_detail.dart';
+import 'package:tracker_app/Screen/Issue/issue_detail.dart';
 import 'package:tracker_app/model/messageModel/issue.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
@@ -109,11 +109,10 @@ class _ProblemeMessageItemState extends ConsumerState<IssueMessageItem> {
             height: 80,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
-              color: problemeShow.isCheked
-                  ? problemeShow.isvalidated
+              color:
+                   problemeShow.isvalidated
                       ? const Color.fromRGBO(0, 194, 8, 1)
                       : const Color.fromRGBO(126, 126, 126, 1)
-                  : const Color.fromRGBO(126, 126, 126, 1),
             ),
             child: Icon(
               problemeShow.isCheked

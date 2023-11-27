@@ -5,7 +5,8 @@ import 'package:tracker_app/model/messageModel/message.dart';
 final DateFormat formater = DateFormat.Md();
 
 class Overtime extends Message{
-  Overtime({required super.title,
+  Overtime({super.id,
+    required super.title,
       required super.detail,
       required super.dateWriting,
       required super.writer,
