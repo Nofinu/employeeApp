@@ -7,7 +7,8 @@ import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/issue_provider.dart';
 
 class IssueMessageItem extends ConsumerStatefulWidget {
-  const IssueMessageItem({super.key, required this.issue,required this.onClickValidationButton});
+  const IssueMessageItem(
+      {super.key, required this.issue, required this.onClickValidationButton});
 
   final Issue issue;
   final void Function(bool validation, Issue request) onClickValidationButton;
@@ -44,9 +45,7 @@ class _ProblemeMessageItemState extends ConsumerState<IssueMessageItem> {
             onTap: () {
               final User user = ref.read<User>(authProvider);
               if (!widget.issue.isView && user.isAdmin) {
-                ref
-                    .read(issueProvider.notifier)
-                    .setViewMessage(widget.issue);
+                ref.read(issueProvider.notifier).setViewMessage(widget.issue);
               }
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -71,29 +70,34 @@ class _ProblemeMessageItemState extends ConsumerState<IssueMessageItem> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        widget.issue.title,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          widget.issue.title,
+                          maxLines: 1,
+                          softWrap: false,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        widget.issue.getDate(),
-                      ),
-                    ],
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          widget.issue.getDate(),
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
-                    width: 30,
-                    height: 30,
+                    width: 15,
+                    height: 15,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8),
                         color: problemeShow.priority == Priority.low
                             ? const Color.fromRGBO(0, 194, 8, 1)
                             : problemeShow.priority == Priority.medium
@@ -108,12 +112,10 @@ class _ProblemeMessageItemState extends ConsumerState<IssueMessageItem> {
             width: screenWidth * 0.18,
             height: 80,
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              color:
-                   problemeShow.isvalidated
-                      ? const Color.fromRGBO(0, 194, 8, 1)
-                      : const Color.fromRGBO(126, 126, 126, 1)
-            ),
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                color: problemeShow.isvalidated
+                    ? const Color.fromRGBO(0, 194, 8, 1)
+                    : const Color.fromRGBO(126, 126, 126, 1)),
             child: Icon(
               problemeShow.isCheked
                   ? problemeShow.isvalidated

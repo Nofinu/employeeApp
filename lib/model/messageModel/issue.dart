@@ -29,7 +29,7 @@ class Issue extends Message {
         privacy : json['privacy'] as String == "private" ? Privacy.private : Privacy.public,
         id : json['id'] as String ,
         isView: json['view'] as bool,
-        isvalidated: json['isvalidated'] as bool,
+        isvalidated: json['validated'] as bool,
         dateWriting: DateTime.fromMillisecondsSinceEpoch(json['dateWriting'] as int)
 
      );

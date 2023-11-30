@@ -39,7 +39,7 @@ class _RequestMessageItemState extends ConsumerState<RequestMessageItem> {
     requestShow = widget.request;
 
     return Container(
-      margin: const  EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -47,7 +47,9 @@ class _RequestMessageItemState extends ConsumerState<RequestMessageItem> {
             onTap: () {
               final User user = ref.read<User>(authProvider);
               if (!widget.request.isView && user.isAdmin) {
-                ref.read(requestProvider.notifier).setViewMessage(widget.request);
+                ref
+                    .read(requestProvider.notifier)
+                    .setViewMessage(widget.request);
               }
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -72,23 +74,30 @@ class _RequestMessageItemState extends ConsumerState<RequestMessageItem> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        widget.request.title,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            widget.request.title,
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        widget.request.getDate(),
-                      ),
-                    ],
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          widget.request.getDate(),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -113,7 +122,6 @@ class _RequestMessageItemState extends ConsumerState<RequestMessageItem> {
                   : null,
               size: screenWidth * 0.1,
               color: Theme.of(context).colorScheme.onPrimary,
-              
             ),
           )
         ],

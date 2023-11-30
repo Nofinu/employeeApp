@@ -2,8 +2,6 @@ import 'dart:math';
 
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/model/fake_day.dart';
-import 'package:tracker_app/model/messageModel/request.dart';
-import 'package:tracker_app/model/messageModel/issue.dart';
 
 final user = [
   User(
@@ -15,7 +13,7 @@ final user = [
       "mohamed"),
   User(
       1,
-      "Marine ",
+      "Marine",
       "ABADI",
       "https://utopios.solutions/wp-content/uploads/2023/09/Marine_ABADI.webp",
       true,
@@ -121,62 +119,3 @@ List<FakeDay> semaine = [
     date: DateTime.utc(2023, 10, 20),
   ),
 ];
-
-final List<Issue> problemeList = [
-  Issue(
-    id:"id1",
-      title: "probleme1",
-      detail: "ceci est un premier probleme",
-      dateWriting: DateTime.now(),
-      writer: user[0],
-      priority: Priority.low,
-      privacy: Privacy.public),
-  Issue(
-    id:"id2",
-      title: "probleme2",
-      detail: "ceci est un premier probleme",
-      dateWriting: DateTime(2022, 10, 2, 15, 30, 0),
-      writer: user[3],
-      priority: Priority.medium,
-      privacy: Privacy.private),
-  Issue(
-    id:"id3",
-      title: "probleme3",
-      detail: "ceci est un premier probleme",
-      dateWriting: DateTime(2023, 10, 2, 16, 30, 0),
-      writer: user[2],
-      priority: Priority.high,
-      privacy: Privacy.public),
-];
-
-List<Issue> getProblemes() {
-  List<Issue> problemeListcopy = problemeList;
-  problemeListcopy
-      .sort((a, b) => -1 * (a.dateWriting.compareTo(b.dateWriting)));
-  return problemeListcopy;
-}
-
-List<Request> _requestList = [
-  Request(
-    id:"id4",
-      title: "Request 1",
-      detail: "ceci est une request",
-      dateWriting: DateTime(2023, 10, 2, 11, 30, 0),
-      writer: user[0],
-      requestDate: DateTime(2024, 10, 2, 11, 30, 0)),
-  Request(
-    id:"id5",
-      title: "Request 2",
-      detail: "ceci est une request",
-      dateWriting: DateTime(2023, 11, 2, 11, 30, 0),
-      writer: user[5],
-      requestDate: DateTime(2024, 10, 2, 11, 30, 0),
-      isCheked: true,
-      isvalidated: false),
-];
-
-List<Request> getRequest() {
-  List<Request> requestListcopy = _requestList;
-  requestListcopy.sort((a, b) => -1 * (a.dateWriting.compareTo(b.dateWriting)));
-  return requestListcopy;
-}

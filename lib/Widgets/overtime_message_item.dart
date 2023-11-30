@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,20 +7,23 @@ import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/overtime_provider.dart';
 
-class OvertimeMessageItem extends ConsumerStatefulWidget{
-  const OvertimeMessageItem({super.key,required this.overtime,required this.onClickValidationButton});
+class OvertimeMessageItem extends ConsumerStatefulWidget {
+  const OvertimeMessageItem(
+      {super.key,
+      required this.overtime,
+      required this.onClickValidationButton});
 
   final Overtime overtime;
-  final void Function(bool validation, Overtime request) onClickValidationButton;
+  final void Function(bool validation, Overtime request)
+      onClickValidationButton;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
-    
     return _OvertimeMessageItemState();
   }
 }
 
-class _OvertimeMessageItemState extends ConsumerState<OvertimeMessageItem>{
+class _OvertimeMessageItemState extends ConsumerState<OvertimeMessageItem> {
   late Overtime overtimeShow;
 
   void onclickRefresh(bool validation, Overtime request) {
@@ -33,14 +35,13 @@ class _OvertimeMessageItemState extends ConsumerState<OvertimeMessageItem>{
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     overtimeShow = widget.overtime;
 
     return Container(
-      margin: const  EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -48,7 +49,9 @@ class _OvertimeMessageItemState extends ConsumerState<OvertimeMessageItem>{
             onTap: () {
               final User user = ref.read<User>(authProvider);
               if (!widget.overtime.isView && user.isAdmin) {
-                ref.read(overtimeProvider.notifier).setViewMessage(widget.overtime);
+                ref
+                    .read(overtimeProvider.notifier)
+                    .setViewMessage(widget.overtime);
               }
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -73,23 +76,30 @@ class _OvertimeMessageItemState extends ConsumerState<OvertimeMessageItem>{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        overtimeShow.title,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            overtimeShow.title,
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        overtimeShow.getDate(),
-                      ),
-                    ],
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          overtimeShow.getDate(),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -114,7 +124,6 @@ class _OvertimeMessageItemState extends ConsumerState<OvertimeMessageItem>{
                   : null,
               size: screenWidth * 0.1,
               color: Theme.of(context).colorScheme.onPrimary,
-              
             ),
           )
         ],

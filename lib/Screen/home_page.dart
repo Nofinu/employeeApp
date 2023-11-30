@@ -10,8 +10,6 @@ import 'package:tracker_app/Screen/presenceManagement/presence_management.dart';
 import 'package:tracker_app/Screen/profil_screen.dart';
 import 'package:tracker_app/Screen/request/request_page.dart';
 import 'package:tracker_app/data/fake_data.dart';
-import 'package:tracker_app/model/messageModel/overtime.dart';
-import 'package:tracker_app/model/messageModel/issue.dart';
 import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
@@ -41,11 +39,16 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
     _timer = Timer.periodic(const Duration( seconds: 1), (arg) {
       ref.read(issueProvider.notifier).getIssueFromUser();
       ref.read(clockinProvider.notifier).setClockIn();
+      ref.read(overtimeProvider.notifier).getOvertimeFromUser();
+      ref.read(requestProvider.notifier).getRequestFromUser();
       _timer.cancel();
 
       _timer = Timer.periodic(const Duration( minutes: 10), (arg) {
       ref.read(issueProvider.notifier).getIssueFromUser();
-      ref.read(clockinProvider.notifier).setClockIn();});
+      ref.read(clockinProvider.notifier).setClockIn();
+      ref.read(overtimeProvider.notifier).getOvertimeFromUser();
+      ref.read(requestProvider.notifier).getRequestFromUser();
+      });
     });
 
     super.initState();
@@ -64,16 +67,15 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
     final double screenHeight = MediaQuery.of(context).size.height - 100;
     final double screenWidth = MediaQuery.of(context).size.width;
     // final User userActive = ref.watch(authProvider);
-    final User userActive = user[0];
+    final User userActive = user[1];
     int notificationIssue = 0;
+    int notificationOvertime = 0;
+    int notificationRequest = 0;
     if(userActive.isAdmin){
      notificationIssue = Generator().countNotification(ref.watch(issueProvider));
+     notificationOvertime = Generator().countNotification(ref.watch(overtimeProvider));
+     notificationRequest = Generator().countNotification(ref.watch(requestProvider));
     }
-    final List<Request> requestList = ref.watch(requestProvider);
-    final int notificationRequest = Generator().countNotification(requestList);
-    final List<Overtime> overtimeList = ref.watch(overtimeProvider);
-    final int notificationOvertime =
-        Generator().countNotification(overtimeList);
     final Color whiteColor = Theme.of(context).colorScheme.onPrimary;
 
     Future(() {

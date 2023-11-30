@@ -23,7 +23,7 @@ class _OvertimeFormScreenState extends ConsumerState<OvertimeFormScreen> {
   DateTime? _selectedDate;
   String? _enteredTitle;
   String? _enteredDetail;
-  int? _enteredHours;
+  double? _enteredHours;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   void _presentDatePicker() async {
@@ -204,7 +204,7 @@ class _OvertimeFormScreenState extends ConsumerState<OvertimeFormScreen> {
                         return null;
                       },
                       onSaved: (newValue) {
-                        _enteredHours = int.parse(newValue!);
+                        _enteredHours = double.parse(newValue!);
                       },
                     ),
                   ),

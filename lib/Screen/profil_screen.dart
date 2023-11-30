@@ -10,7 +10,6 @@ class ProfilPageScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     final User user = ref.read<User>(authProvider);
 
     return Scaffold(
@@ -41,82 +40,7 @@ class ProfilPageScreen extends ConsumerWidget {
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: screenWidth * 0.1, vertical: 20),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  children: <Widget>[
-                    TextFormField(
-                      style: const TextStyle(fontSize: 21),
-                      decoration: InputDecoration(
-                        labelText: "Nom complet :",
-                        filled: true,
-                        fillColor: Theme.of(context).colorScheme.onBackground,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                      validator: (value) {
-                        return null;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 35,
-                    ),
-                    TextFormField(
-                      style: const TextStyle(fontSize: 21),
-                      decoration: InputDecoration(
-                        labelText: "Email :",
-                        filled: true,
-                        fillColor: Theme.of(context).colorScheme.onBackground,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                      validator: (value) {
-                        return null;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 35,
-                    ),
-                    TextFormField(
-                      style: const TextStyle(fontSize: 21),
-                      decoration: InputDecoration(
-                        labelText: "Telephone :",
-                        filled: true,
-                        fillColor: Theme.of(context).colorScheme.onBackground,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                      validator: (value) {
-                        return null;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 35,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          elevation: 8,
-                          backgroundColor: const Color.fromRGBO(0, 194, 8, 1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          maximumSize: Size(screenWidth * 0.8, 80),
-                          minimumSize: Size(screenWidth * 0.8, 80)),
-                      child: Text(
-                        "Modifier",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onBackground,
-                          fontSize: 32,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    ElevatedButton(
+              child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                           elevation: 8,
@@ -133,9 +57,6 @@ class ProfilPageScreen extends ConsumerWidget {
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
             ),
           ],
         ),

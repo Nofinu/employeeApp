@@ -21,7 +21,6 @@ class ClockinNotifier extends StateNotifier<List<Clockin>> {
           'Content-Type': 'application/json; charset=UTF-8',
         });
 
-print("test clockin");
     if (response.statusCode == 200) {
       List<Clockin> clockins = [];
       clockins = List<Clockin>.from((jsonDecode(response.body) as List<dynamic>)
