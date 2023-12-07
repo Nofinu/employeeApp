@@ -5,7 +5,7 @@ import 'package:tracker_app/model/user.dart';
 import 'package:http/http.dart' as http;
 
 class AuthNotifier extends StateNotifier<User> {
-  AuthNotifier() : super( User(0, "", "", "", false, ""));
+  AuthNotifier() : super(User(0, "", "", "", false, ""));
 
   Future<bool> connection(String email, String password) async {
     var response = await http.post(
@@ -18,8 +18,9 @@ class AuthNotifier extends StateNotifier<User> {
 
     if (response.statusCode == 200) {
       var responseDeco = jsonDecode(response.body);
-      if(responseDeco["isAuthSuccessful"] as bool){
-        User user = User.fromJson(responseDeco['userDTO'] as Map<String, dynamic>);
+      if (responseDeco["isAuthSuccessful"] as bool) {
+        User user =
+            User.fromJson(responseDeco['userDTO'] as Map<String, dynamic>);
         user.token = responseDeco['token'];
         state = user;
         return true;
@@ -33,6 +34,7 @@ class AuthNotifier extends StateNotifier<User> {
   void setUser(User user) {
     state = user;
   }
+
 }
 
 final authProvider =

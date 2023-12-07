@@ -14,6 +14,7 @@ import 'package:tracker_app/model/messageModel/request.dart';
 import 'package:tracker_app/model/user.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
 import 'package:tracker_app/provider/clockin_provider.dart';
+import 'package:tracker_app/provider/day_provider.dart';
 import 'package:tracker_app/provider/overtime_provider.dart';
 import 'package:tracker_app/provider/issue_provider.dart';
 import 'package:tracker_app/provider/request_provider.dart';
@@ -41,6 +42,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
       ref.read(clockinProvider.notifier).setClockIn();
       ref.read(overtimeProvider.notifier).getOvertimeFromUser();
       ref.read(requestProvider.notifier).getRequestFromUser();
+      ref.read(dayProvider.notifier).getfakeDay();
       _timer.cancel();
 
       _timer = Timer.periodic(const Duration( minutes: 10), (arg) {
@@ -48,6 +50,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
       ref.read(clockinProvider.notifier).setClockIn();
       ref.read(overtimeProvider.notifier).getOvertimeFromUser();
       ref.read(requestProvider.notifier).getRequestFromUser();
+      ref.read(dayProvider.notifier).getfakeDay();
       });
     });
 
@@ -67,7 +70,7 @@ class _HomePageScreenState extends ConsumerState<HomePageScreen> {
     final double screenHeight = MediaQuery.of(context).size.height - 100;
     final double screenWidth = MediaQuery.of(context).size.width;
     // final User userActive = ref.watch(authProvider);
-    final User userActive = user[1];
+    final User userActive = user[0];
     int notificationIssue = 0;
     int notificationOvertime = 0;
     int notificationRequest = 0;

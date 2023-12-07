@@ -21,8 +21,8 @@ class User {
         json['id'] as int,
         json['firstName'] as String,
         json['lastName'] as String,
-        "https://utopios.solutions/wp-content/uploads/2023/09/Mohamed_AIJJOU.webp",
-        json['isAdmin'] as bool,
+        json["imageUrl"] as String,
+        json['admin'] as bool,
         json['email'] as String);
   }
 }

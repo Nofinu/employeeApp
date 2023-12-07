@@ -8,7 +8,7 @@ enum TypeOfWork {
   preparation,
   cours,
   formation,
-  none,
+  repos,
 }
 
 class FakeDay {
@@ -26,5 +26,17 @@ class FakeDay {
 
   String getDate() {
     return formater.format(date);
+  }
+
+    factory FakeDay.fromJson(Map<String, dynamic> json) {
+    return FakeDay(
+        date : DateTime.fromMillisecondsSinceEpoch(json['date'] as int),
+        type : json['type'] as String == "formation"? TypeOfWork.formation : json['type'] as String == "dev"? TypeOfWork.dev : json['type'] as String == "cours" ? TypeOfWork.cours : json['type'] as String == "preparation"? TypeOfWork.preparation : TypeOfWork.repos,
+        repos: json['repos'] as bool,
+        formation: json['formation'] as String,
+        users: List<User>.from((json['users'] as List<dynamic>)
+          .map<User>((value) => User.fromJson(value))
+          .toList())
+          );
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tracker_app/data/fake_data.dart';
 import 'package:tracker_app/model/fake_day.dart';
 import 'package:tracker_app/provider/auth_provider.dart';
+import 'package:tracker_app/provider/day_provider.dart';
 import 'package:tracker_app/widgets/appbar_perso.dart';
 import 'package:tracker_app/widgets/day_item.dart';
 
@@ -12,7 +12,9 @@ class PresenceManagementScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final listeDay = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
-    List<FakeDay> semaineList = semaine;
+    List<FakeDay> semaineList = ref.watch(dayProvider);
+    print(semaineList.length);
+  
 
     return Scaffold(
       appBar: AppBarPerso(ref.watch(authProvider), "Team Tracker", context),
@@ -66,7 +68,7 @@ class PresenceManagementScreen extends ConsumerWidget {
                       ),
                     ),
                     Text(
-                      "${semaine[0].getDate()} au ${semaine[semaine.length - 1].getDate()}",
+                      "${semaineList[0].getDate()} au ${semaineList[semaineList.length - 1].getDate()}",
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontSize: 20,
